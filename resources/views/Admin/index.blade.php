@@ -12,13 +12,13 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta name="apple-mobile-web-app-title" content="九州" />
-    <link rel="icon" type="image/png" href="./Admin/assets/i/favicon.png">
+    <link rel="icon" type="image/png" href="/Admin/assets/i/favicon.png">
     
     <!-- 继承重写 -->
-    <link rel="apple-touch-icon-precomposed" href="./Admin/assets/i/app-icon72x72@2x.png">
-    <link rel="stylesheet" href="./Admin/assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="./Admin/assets/css/amazeui.datatables.min.css" />
-    <link rel="stylesheet" href="./Admin/assets/css/app.css">
+    <link rel="apple-touch-icon-precomposed" href="/Admin/assets/i/app-icon72x72@2x.png">
+    <link rel="stylesheet" href="/Admin/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="/Admin/assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="/Admin/assets/css/app.css">
     <script src="http://cdn.bootcss.com/echarts/3.3.2/echarts.min.js"></script>
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
     @yield('css')
@@ -28,13 +28,13 @@
 </head>
 
 <body data-type="index">
-    <script src="./Admin/assets/js/theme.js"></script>
+    <script src="/Admin/assets/js/theme.js"></script>
     <div class="am-g tpl-g">
         <!-- 头部 -->
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="javascript:;"><img src="./Admin/assets/img/logo.png" alt=""></a>
+                <a href="javascript:;"><img src="/Admin/assets/img/logo.png" alt=""></a>
             </div>
             <!-- 右侧内容 -->
             <div class="tpl-header-fluid">
@@ -70,7 +70,7 @@
                                 <li class="tpl-dropdown-menu-messages">
                                     <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
                                         <div class="menu-messages-ico">
-                                            <img src="./Admin/assets/img/user04.png" alt="">
+                                            <img src="/Admin/assets/img/user04.png" alt="">
                                         </div>
                                         <div class="menu-messages-time">
                                             3小时前
@@ -89,7 +89,7 @@
                                 <li class="tpl-dropdown-menu-messages">
                                     <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
                                         <div class="menu-messages-ico">
-                                            <img src="./Admin/assets/img/user02.png" alt="">
+                                            <img src="/Admin/assets/img/user02.png" alt="">
                                         </div>
                                         <div class="menu-messages-time">
                                             5天前
@@ -195,7 +195,7 @@
             <div class="tpl-sidebar-user-panel">
                 <div class="tpl-user-panel-slide-toggleable">
                     <div class="tpl-user-panel-profile-picture">
-                        <img src="./Admin/assets/img/user04.png" alt="">
+                        <img src="/Admin/assets/img/user04.png" alt="">
                     </div>
                     <span class="user-panel-logged-in-text">
               <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
@@ -461,9 +461,9 @@
     </div>
 
     <script src="http://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
-    <script src="./Admin/assets/js/amazeui.datatables.min.js"></script>
-    <script src="./Admin/assets/js/dataTables.responsive.min.js"></script>
-    <script src="./Admin/assets/js/app.js"></script>
+    <script src="/Admin/assets/js/amazeui.datatables.min.js"></script>
+    <script src="/Admin/assets/js/dataTables.responsive.min.js"></script>
+    <script src="/Admin/assets/js/app.js"></script>
     @yield('js')
 </body>
 </html>
