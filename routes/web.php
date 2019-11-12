@@ -38,9 +38,17 @@ Route::group(['prefix' => 'admin'], function() {
     *   刘贵泽 
     *   +-------------------------------------------------------
     */
+    //显示分类列表
+    Route::get('types', 'Admin\TypesController@index'); //显示分类列表
 
+    //添加顶级分类
+    Route::get('types/add', 'Admin\TypesController@add'); //显示添加顶级分类页面
+    Route::post('types/store', 'Admin\TypesController@store'); //传递顶级分类
+    
+    Route::post('types/del', 'Admin\TypesController@del');
+ 
 
-
+ 
 
     /** 结束
     *   +-------------------------------------------------------
