@@ -19,10 +19,9 @@
     <link rel="stylesheet" href="/Admin/assets/css/amazeui.min.css" />
     <link rel="stylesheet" href="/Admin/assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="/Admin/assets/css/app.css">
-    <script src="http://cdn.bootcss.com/echarts/3.3.2/echarts.min.js"></script>
-    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="/plug/echarts.min.js"></script>
+    <script src="/plug/jquery.min.js"></script>
     @yield('css')
-
 
 
 </head>
@@ -56,7 +55,7 @@
                     <ul>
                         <!-- 欢迎语 -->
                         <li class="am-text-sm tpl-header-navbar-welcome">
-                            <a href="javascript:;">欢迎你, <span>Amaze UI</span> </a>
+                            <a href="javascript:;">欢迎您, <span style='font-size:20px'>{{ session("adminInfo.name") }}</span> </a>
                         </li>
 
                         <!-- 新邮件 -->
@@ -166,7 +165,7 @@
 
                         <!-- 退出 -->
                         <li class="am-text-sm">
-                            <a href="javascript:;">
+                            <a href="/admin/logout/?id={{ session('adminInfo.id') }}">
                                 <span class="am-icon-sign-out"></span> 退出
                             </a>
                         </li>
@@ -199,7 +198,7 @@
                     </div>
                     <span class="user-panel-logged-in-text">
               <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
-              禁言小张
+              {{session('adminInfo.name')}}
           </span>
                     <a href="javascript:;" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
                 </div>
@@ -209,7 +208,7 @@
             <ul class="sidebar-nav">
 
                 <li class="sidebar-nav-link">
-                    <a href="index.html" class="active">
+                    <a href="/admin" class="active">
                         <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
                     </a>
                 </li>
@@ -222,20 +221,19 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="table-list.html">
+                            <a href="/admin/adminlist">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 管理员列表
                             </a>
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="table-list-img.html">
+                            <a href="/admin/addAdmin">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加管理员
                             </a>
                         </li>
                     </ul>
                 </li>
                 <!-- 结束 -->
-
 
 
                 <!-- 前台会员模块 -->
@@ -273,10 +271,10 @@
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 角色列表
                             </a>
                         </li>
-
+                        
                         <li class="sidebar-nav-link">
-                            <a href="table-list-img.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
+                            <a href="/admin/addroles">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加角色
                             </a>
                         </li>
                     </ul>
@@ -460,7 +458,7 @@
     </div>
     </div>
 
-    <script src="http://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="/plug/amazeui.min.js"></script>
     <script src="/Admin/assets/js/amazeui.datatables.min.js"></script>
     <script src="/Admin/assets/js/dataTables.responsive.min.js"></script>
     <script src="/Admin/assets/js/app.js"></script>
