@@ -24,7 +24,6 @@
     @yield('css')
 
 
-
 </head>
 
 <body data-type="index">
@@ -413,13 +412,13 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="table-list.html">
+                            <a href="/admin/lunbo">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 轮播图列表
                             </a>
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="table-list-img.html">
+                            <a href="/admin/doadd">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加轮播图
                             </a>
                         </li>
@@ -435,14 +434,14 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="table-list.html">
+                            <a href="/admin/friend">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 友链列表
                             </a>
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="table-list-img.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加轮播图
+                            <a href="/admin/add">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加友链
                             </a>
                         </li>
                     </ul>
