@@ -30,7 +30,7 @@
             <div class="pull-right">
                 <a href="login.html"><span class="cr">登录</span></a>
                 <a href="login.html?p=register">注册</a>
-                <a href="udai_welcome.html">我的U袋</a>
+                <a href="udai_welcome.html">我的九州</a>
                 <a href="udai_order.html">我的订单</a>
                 <a href="udai_integral.html">积分平台</a>
             </div>
@@ -39,10 +39,10 @@
     <!-- 搜索栏 -->
     <div class="top-search">
         <div class="inner">
-            <a class="logo" href="index.html"><img src="/Home/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+            <a class="logo" href="index.html"><img src="/Home/images/icons/logo.jpg" alt="九州网" class="cover"></a>
             <div class="search-box">
                 <form class="input-group">
-                    <input placeholder="Ta们都在搜U袋网" type="text">
+                    <input placeholder="Ta们都在搜九州网" type="text">
                     <span class="input-group-btn">
                         <button type="button">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -58,11 +58,6 @@
                     <a href="">家居服</a>
                     <a href="">2017新款</a>
                 </p>
-            </div>
-            <div class="cart-box">
-                <a href="udai_shopcart.html" class="cart-but">
-                    <i class="iconfont icon-shopcart cr fz16"></i> 购物车 0 件
-                </a>
             </div>
         </div>
     </div>
@@ -305,7 +300,7 @@
                 <a href="index.html"><li class="active">首页</li></a>
                 <a href="temp_article/udai_article10.html"><li>企业简介</li></a>
                 <a href="temp_article/udai_article5.html"><li>新手上路</li></a>
-                <a href="class_room.html"><li>U袋学堂</li></a>
+                <a href="class_room.html"><li>九州学堂</li></a>
                 <a href="enterprise_id.html"><li>企业账号</li></a>
                 <a href="udai_contract.html"><li>诚信合约</li></a>
                 <a href="item_remove.html"><li>实时下架</li></a>
@@ -316,11 +311,9 @@
     <!-- 顶部轮播 -->
     <div class="swiper-container banner-box">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><a href="item_show.html"><img src="/Home/images/temp/banner_1.jpg" class="cover"></a></div>
-            <div class="swiper-slide"><a href="item_show.html"><img src="/Home/images/temp/banner_2.jpg" class="cover"></a></div>
-            <div class="swiper-slide"><a href="item_category.html"><img src="/Home/images/temp/banner_3.jpg" class="cover"></a></div>
-            <div class="swiper-slide"><a href="item_show.html"><img src="/Home/images/temp/banner_4.jpg" class="cover"></a></div>
-            <div class="swiper-slide"><a href="item_sale_page.html"><img src="/Home/images/temp/banner_5.jpg" class="cover"></a></div>
+            @foreach($res as $v)
+            <div class="swiper-slide"><a href="item_show.html"><img src="/storage/{{ $v['pic'] }}" class="cover"></a></div>
+            @endforeach
         </div>
         <div class="swiper-pagination"></div>
     </div>
@@ -418,7 +411,7 @@
                     <div class="notice-box bgf5">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                <a class="swiper-slide ep" href="udai_notice.html">【公告】U袋网平台已上线，您还在等什么呢？是吧~</a>
+                                <a class="swiper-slide ep" href="udai_notice.html">【公告】九州网平台已上线，您还在等什么呢？是吧~</a>
                                 <a class="swiper-slide ep" href="udai_notice.html">【资讯】P站服务器爆炸啦。国内86%地区IP被限制~</a>
                                 <a class="swiper-slide ep" href="udai_notice.html">【公告】六趣公司9月底将彻底关闭66RPG论坛~</a>
                                 <a class="swiper-slide ep" href="udai_notice.html">【资讯】Project1站将接盘66RPG，新域名rpg.blue</a>
@@ -434,32 +427,6 @@
                                 <a class="swiper-slide ep" href="udai_notice.html">【新闻】他卖了1.5万双假货，现在面临10年牢狱！</a>
                                 <a class="swiper-slide ep" href="udai_notice.html">【新闻】10月1日起国家再次提高部分优抚对象抚恤补助标准 烈属抚恤每年23130元</a>
                             </div>
-                        </div>
-                    </div>
-                    <div class="buts-box bgf5">
-                        <div class="but-div">
-                            <a href="">
-                                <i class="but-icon"></i>
-                                <p>物流查询</p>
-                            </a>
-                        </div>
-                        <div class="but-div">
-                            <a href="item_sale_page.html">
-                                <i class="but-icon"></i>
-                                <p>热卖专区</p>
-                            </a>
-                        </div>
-                        <div class="but-div">
-                            <a href="item_sale_page.html">
-                                <i class="but-icon"></i>
-                                <p>满减专区</p>
-                            </a>
-                        </div>
-                        <div class="but-div">
-                            <a href="item_sale_page.html">
-                                <i class="but-icon"></i>
-                                <p>折扣专区</p>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -1051,9 +1018,9 @@
         </div>
         <div class="footer-links inner">
             <dl>
-                <dt>U袋网</dt>
+                <dt>九州网</dt>
                 <a href="temp_article/udai_article10.html"><dd>企业简介</dd></a>
-                <a href="temp_article/udai_article11.html"><dd>加入U袋</dd></a>
+                <a href="temp_article/udai_article11.html"><dd>加入九州</dd></a>
                 <a href="temp_article/udai_article12.html"><dd>隐私说明</dd></a>
             </dl>
             <dl>
@@ -1074,15 +1041,15 @@
         <div class="copy-box clearfix">
             <ul class="copy-links">
                 <a href="agent_level.html"><li>网店代销</li></a>
-                <a href="class_room.html"><li>U袋学堂</li></a>
+                <a href="class_room.html"><li>九州商城</li></a>
                 <a href="udai_about.html"><li>联系我们</li></a>
                 <a href="temp_article/udai_article10.html"><li>企业简介</li></a>
                 <a href="temp_article/udai_article5.html"><li>新手上路</li></a>
             </ul>
             <!-- 版权 -->
             <p class="copyright">
-                © 2005-2017 U袋网 版权所有，并保留所有权利<br>
-                ICP备案证书号：闽ICP备16015525号-2&nbsp;&nbsp;&nbsp;&nbsp;福建省宁德市福鼎市南下村小区（锦昌阁）1栋1梯602室&nbsp;&nbsp;&nbsp;&nbsp;Tel: 18650406668&nbsp;&nbsp;&nbsp;&nbsp;E-mail: 18650406668@qq.com
+                © 2005-2017 九州网 版权所有，并保留所有权利<br>
+                ICP备案证书号：闽ICP备16015525号-2&nbsp;&nbsp;&nbsp;&nbsp;友情链接：@foreach($arr as $v)<a href="http://{{ $v['url'] }}" target="_blank">{{ $v['name'] }}</a> | @endforeach&nbsp;&nbsp;&nbsp;&nbsp;Tel: 15577178717&nbsp;&nbsp;&nbsp;&nbsp;E-mail: syznb520@163.com
             </p>
         </div>
     </div>
