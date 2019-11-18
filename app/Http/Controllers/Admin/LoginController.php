@@ -56,7 +56,6 @@ class LoginController extends Controller
                     ],
                 ]);
                 // 跳转到后台首页
-                // return redirect('/admin');
                 return [
                     'code' => 1,
                 ];

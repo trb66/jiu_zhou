@@ -25,37 +25,42 @@
 
                         </div>
 
-
                         <div class="am-form-group">
                             <label for="user-name" class="am-u-sm-3 am-form-label">角色名
                                 <span class="tpl-form-line-small-title">role</span></label>
                             <div class="am-u-sm-9">
-                                <input type="text" name='name' class="tpl-form-input" id="user-name" placeholder="请输入角色名字">
+                                <input data-id="{{$roleinfo['id']}}" value="{{$roleinfo['name']}}" type="text" name='name' class="tpl-form-input" id="user-name" placeholder="请输入角色名字">
                                 <small></small></div>
                         </div>
-
 
                         <div class="am-form-group">
                             <label for="user-name" class="am-u-sm-3 am-form-label">角色拥有的权限
                                 <span class="tpl-form-line-small-title">power</span></label>
-
                             <div class="am-u-sm-9">
                                 <div class="col-md-8 checkbox checkbox-primary" id='checks'>
-                                    @foreach($pers as $k => $v)
-                                        <div class='col-md-4' style='margin-top:5px'>
-                                            <input data-id="{{$v['id']}}" class='inps' id="checkbox{{$k}}" class="styled" type="checkbox">
-                                            <label for="checkbox{{$k}}">
-                                                {{$v['name']}}
-                                            </label>
-                                        </div>
-                                    @endforeach
+                                @foreach($pers as $k => $v)
+                                    <div class='col-md-4' style='margin-top:5px'>
+                                        <input
+                                            @php
+                                                foreach($ros as $vv)
+                                                    if ($v['id'] == $vv['permission_id']) {
+                                                        echo 'checked';
+                                                }
+                                            @endphp
+
+                                         class='inps' id="checkbox{{$k}}" value='{{$v['id']}}' class="styled" type="checkbox">
+                                        <label for="checkbox{{$k}}">
+                                            {{$v['name']}} 
+                                        </label>
+                                    </div>
+                                @endforeach
                                 </div>
                             </div>
 
                         <div class="am-form-group">
                             <div class="am-u-sm-9 am-u-sm-push-3">
                                 <button type="submit" onclick='quan(this)' class="btn btn-default">全 选</button>
-                                 <button type="submit" onclick='tijiao()' class="btn btn-primary">添 加</button>
+                                 <button type="submit" onclick='edits()' class="btn btn-primary">修 改</button>
                             </div>
                         </div>
 
@@ -70,52 +75,56 @@
 @section('js')
     <script src="/plug/Vue/axios.min.js"></script>
     <script type="text/javascript">
-        // 全选
-        function quan(mys)
-        {
+        // 全选删除
+        function quan(mys) {
             $('.inps').prop('checked', !$('.inps')[0].checked);        
             $(mys).html() == '全 选' ? $(mys).html('取 消') : $(mys).html('全 选');
+
         }
 
-        function tijiao() // 添加角色
+        // 处理修改
+        function edits()
         {
-            var pres = {}; // 存储选择的权限ID
+            var name = $('input[name=name]').val(); // 获取角色名
 
-            var name = $('input[name=name]').val(); // 存储角色名字
+            var ches = $('#checks :checked'); // 获取所有选中的多选框
 
-            var ces = $('#checks :checked'); // 存储所有选中的多选框
+            var id = $('input[name=name]').data('id'); // 存储自己的id
 
-            for(var i = 0; i < ces.length; i++) {
-                pres[i] = $(ces[i]).data('id');
+            var pres = {}; // 存储权限id
+
+            var tips = $('#tips'); // 提示
+
+            for(var i = 0; i < ches.length; i++) { // 拿出所有选中的权限ID
+                pres[i] = $(ches[i]).val();
             }
-
             var tips = $('#tips'); // 提示
             // 发起axios请求，存储数据
             axios({
                 method: 'post',
-                url: '/admin/addroles',
+                url: '/admin/roleedit',
                 data: {
+                    id: id,
                     name: name,
-                    id: pres,
+                    pres: pres,
                 },
             })
             .then(function (res) {
                 tips.empty(); // 清空提示下的所有内容
-
-                if(res.data.code == 1) { // 插入成功
-                    $('input[name=name]').val('');
-                    alert(res.data.msg);
-                } else {
-                    alert(res.data.msg)
-                }
+                alert(res.data.msg);
             })
             .catch(function (err) {
                 tips.empty(); // 清空提示下的所有内容
-                var msg = err.response.data.errors;
-                for(v in msg) {
-                    for (vv in msg[v]) {
-                        tips.append('<li class="list-group-item list-group-item-danger">'+msg[v][vv]+'</li>');
+                if (err.response.data.code == 0) {
+                    tips.append('<li class="list-group-item list-group-item-danger">'+err.response.data.msg+'</li>');
+                } else {
+                    var msg = err.response.data.errors;
+                    for(v in msg) {
+                        for (vv in msg[v]) {
+                            tips.append('<li class="list-group-item list-group-item-danger">'+msg[v][vv]+'</li>');
+                        }
                     }
+
                 }
             })
         }

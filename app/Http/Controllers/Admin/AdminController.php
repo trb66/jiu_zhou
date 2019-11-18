@@ -14,34 +14,40 @@ class AdminController extends Controller
     // 后台会员列表
     public function index(Request $request)
     {
+        $roles = DB::table('admins')
+            ->join('user_has_roles', 'admins.id', '=', 'user_has_roles.user_id')
+            ->join('roles', 'roles.id', '=', 'user_has_roles.role_id')
+            ->select('admins.*', 'roles.name as rolesname')
+            ->get();
+
         $data = Admin::paginate(4);
-        return view('Admin/houtai.list', ['data' => $data]); // 分配数据
-    }
-      
-    // 搜索
-    public function sel(Request $request)
-    {
-        $status = $request->input('status'); // 状态
-        $name = $request->input('name'); // 搜索值
-        $data = [];
 
-        if ($status != '状态' && $name == null) {
-            $data = Admin::where('status', $status)->paginate(4);
-            $request->session()->flash('status', $status);
+        $sts = $request->input('status'); // 状态
+
+        $str = $request->input('str'); // 模糊搜索
+
+        // 1.只搜索状态
+        if ($sts != null && $str == null) {
+            $data = Admin::where('status', $sts)
+                        ->paginate(4)
+                        ->appends(['status' => $sts]);
+        }
+        // 2.只搜索名字
+        if ($sts == null && $str != null) {
+            $data = Admin::where('name', 'like', '%'.$str.'%')
+                        ->paginate(4)
+                        ->appends(['str' => $str]);
+            // 记住搜索状态
+        }
+        // 3.都搜索
+        if ($sts != null && $str != null) {
+            $data = Admin::where('name', 'like', '%'.$str.'%')
+                        ->where('status', $sts)
+                        ->paginate(4)
+                        ->appends(['str' => $str]);
         }
 
-        if ($status == '状态' && $name != null) {
-            $data = Admin::where('name', 'like', $name)->paginate(4);
-            $request->session()->flash('name', $name);
-        }
-
-        if ($status != '状态' && $name != null) {
-            $data = Admin::where('name', 'like', $name)->where('status', $status)->paginate(4);
-            $request->session()->flash('status', $status);
-            $request->session()->flash('name', $name);
-        }
-
-        return view('Admin/houtai.list', ['data' => $data]); // 分配数据   
+        return view('Admin/houtai.list', ['data' => $data, 'roles' => $roles]); // 分配数据
     }
 
     // 添加后台用户
@@ -202,6 +208,35 @@ class AdminController extends Controller
         }
     }
 
+    // 多选改变状态
+    public function statusall(Request $request)
+    {
+        $id = $request->input('id');
+
+        $status = $request->input('status');
+
+        DB::beginTransaction(); // 开启事务
+
+        foreach($id as $v) {
+            $res = Admin::where('id', $v)
+                ->update(['status'=>$status]);
+
+            if(!$res) {
+                DB::rollback(); // 回滚事务
+                return response()->json([
+                    'code' => 0,
+                    'msg' => '修改失败',
+                ], 500);
+            }
+        }
+        DB::commit(); // 提交事务
+        return [
+            'code' => 1,
+            'msg' => '修改成功',
+        ];
+    }
+
+
     // 修改
     public function edit(Request $request)
     {
@@ -304,6 +339,17 @@ class AdminController extends Controller
             }
 
         }
+    }
+
+    public function test(Request $request)
+    {
+        return view('Admin/test');
+    }
+    public function test2(Request $request)
+    {
+        $fis = $request->file('pic');
+        $res = $fis->store('test', 'public');
+        dump($res);
     }
 }
 

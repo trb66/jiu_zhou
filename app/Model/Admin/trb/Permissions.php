@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Permissions extends Model
 {
-    public function adds($data)
+    // 添加权限
+    public function add($data)
     {
-
+        return Permissions::insert($data);
     }
 }

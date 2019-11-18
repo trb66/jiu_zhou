@@ -92,12 +92,12 @@
                                     @foreach($data as $k => $v)
                                     <div class='col-md-4' style='margin-top:5px'>
                                         <input 
-                                            <?php
+                                            @php
                                                 foreach($ros as $vv)
                                                     if ($v->id == $vv) {
                                                         echo 'checked';
                                                 }
-                                        ?>
+                                            @endphp
                                          class='roles' value='{{$v->id}}' id="checkbox{{$k}}" class="styled" type="checkbox">
                                         <label for="checkbox{{$k}}">
                                             {{$v->name}}
@@ -112,7 +112,7 @@
                             <div class="am-u-sm-9 am-u-sm-push-3">
                                 <button type="button" onclick='quan(this)' class="btn btn-default">全 选</button>
 
-                                <button type="button" onclick='edits()' class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button></div>
+                                <button type="button" onclick='edits()' class="am-btn am-btn-primary tpl-btn-bg-color-success ">修改</button></div>
                         </div>
                     </form>
                 </div>
@@ -165,7 +165,7 @@
                 })
                 .then(function (res) {
                     tips.empty(); // 清空提示下的所有内容
-                    alert(res.data.msg);
+                    alert('修改成功');
                 })
                 .catch(function (err) {
                     tips.empty(); // 清空提示下的所有内容

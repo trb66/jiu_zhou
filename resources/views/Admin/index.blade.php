@@ -200,7 +200,7 @@
               <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
               {{session('adminInfo.name')}}
           </span>
-                    <a href="javascript:;" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
+                    <a href="/admin/adminedit/?id={{session('adminInfo.id')}}" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
                 </div>
             </div>
 
@@ -244,14 +244,8 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="table-list.html">
+                            <a href="/admin/userlist">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 用户列表
-                            </a>
-                        </li>
-
-                        <li class="sidebar-nav-link">
-                            <a href="table-list-img.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
                             </a>
                         </li>
                     </ul>
@@ -267,11 +261,11 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="table-list.html">
+                            <a href="/admin/roleslist">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 角色列表
                             </a>
                         </li>
-                        
+
                         <li class="sidebar-nav-link">
                             <a href="/admin/addroles">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加角色
@@ -290,14 +284,14 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="table-list.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 用户列表
+                            <a href="/admin/power">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 权限列表
                             </a>
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="table-list-img.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
+                            <a href="/admin/addpower">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加权限
                             </a>
                         </li>
                     </ul>
