@@ -17,7 +17,7 @@
                     <div class="am-form-group">
                         <label for="user-weibo" class="am-u-sm-3 am-form-label">添加分类 <span class="tpl-form-line-small-title">Type</span></label>
                         <div class="am-u-sm-9">
-                            <input type="text" id="user-weibo" v-model="message" placeholder="请添加分类用点号隔开">
+                            <input type="text" id="user-weibo" v-model="message" placeholder="请添加顶级">
                             <div>
 
                             </div>

@@ -1,9 +1,11 @@
 @extends('Admin.index')
 @section('title', '分类列表')
 @section('css')
+<link rel="stylesheet" href="{{asset('css/app.css')}}">
+<style>.xs{cursor: pointer;}</style>
 @endsection
 @section('body')
-  
+<div class="row-content am-cf" style="background:white;margin-top:20px;margin-left:15px">
 <div class="widget-body  widget-body-lg am-fr">
     <div class="am-scrollable-horizontal " id="types">
         <table width="100%" class="am-table am-table-compact am-text-nowrap tpl-table-black " id="example-r">
@@ -17,26 +19,38 @@
                     <th>修改时间</th>
                     <th>操作</th>
                 </tr>
-            </thead>
-
-            @foreach($types as $v)
+            </thead>           
             <tbody>
+            @foreach($types as $v)
+            @php
+               $sum = substr_count($v['path'], ',');
+               $str = str_repeat('**', ($sum-1)*2);
+            @endphp
+
                 <tr class="gradeX">
                     <td>{{$v['id']}}</td>
-                    <td>{{$v['name']}}</td>
+                    @if($v['pid'] == 0)
+                   <td style="color:#000;font-weight:800">{{$v['name']}}</td>
+                    @else
+                    <td>┟-{{$str}}{{$v['name']}}</td>
+                    @endif
                     <td>{{$v['pid']}}</td>
                     <td>{{$v['path']}}</td>
                     <td>{{$v['created_at']}}</td>
                     <td>{{$v['updated_at']}}</td>
                     <td>
                         <div class="tpl-table-black-operation">
-                            <a href="" onclick="return del(this)">
+                            <a href="/admin/types/red?id={{$v['id']}}" >
                                 <i class="am-icon-pencil"></i> 编辑
                             </a>
-                            <a data-id="{{$v['id']}}" onclick="return del(this)" class="tpl-table-black-operation-del" >
+                            <a data-id="{{$v['id']}}" data-path="{{$v['path']}}" onclick="return del(this)" class="tpl-table-black-operation-del xs" >
                                 <i class="am-icon-trash"></i> 删除
                             </a>
 
+                            <a style="color:blue" href="/admin/types/addSon?id={{$v['id']}}"  class="tpl-table-black-operation-del xs" >
+                                <i class="am-icon-pencil"></i> 添加子级
+                            </a>
+                      
                         </div>
                     </td>
                 </tr>
@@ -44,8 +58,11 @@
             </tbody>
             @endforeach
 
+         {{ $types->links() }}
+            
         </table>
     </div>
+</div>
 </div>
 
 @endsection
@@ -53,7 +70,7 @@
 <script src="/plug/jQ/jquery-1.12.4.min.js"></script>
 <script>
     function del(zj) {
-        var id = $(zj).data()
+        var path = $(zj).data()
         var zj = $(zj).parent().parent().parent()
 
           $.ajaxSetup({
@@ -62,53 +79,22 @@
         $.ajax({
             type:'post',
             url: '/admin/types/del',
+            dataType:'json',
             data:{
-                id:id,
+                path:path,
             },
             success:function(res){
-               // $(id).parent().
-               zj.remove();
+                // console.dir(res.msg);
+                zj.remove();
                
             },
             error:function(err){
+                alert(err.responseJSON.msg)
                console.dir(err)
             }
         });
         return false;
     }
-  
-
-
-     // var types = new Vue({
-     //         el: '#types',
-     //         data:{
-     //           err:'',
-     //           id:'',
-     //           aa:'123',          
-     //         },
-     //         methods:{
-     //                del:function(ids){
-     //                console.dir(ids)
-     //                let data = new FormData()
-     //                data.append('id', ids)  //传分类ID
-     //                axios({
-     //                    method:'post',  
-     //                    url: '/admin/types/del',  
-     //                    data: data,
-     //                })
-     //                .then((res) => {
-     //                    if(res.status == 200){
-                           
-                            
-     //                    }
-     //                })
-     //                .catch(function(err){
-
-     //                })
-     //            }
-
-     //         }
-
-     // })
+     
 </script>
 @endsection
