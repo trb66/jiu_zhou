@@ -21,7 +21,7 @@ class CommentsController extends Controller
 
      $comments = $res->list($username);
  
-  	return view('Admin.comments',['comments'=>$comments]);
+  	return view('Admin/comment.comments',['comments'=>$comments]);
   }
 
    
@@ -32,7 +32,7 @@ class CommentsController extends Controller
     $res = new Comments();
     $com = $res->reply($id);
 
-    return view('Admin.reply',['comment'=>$com,'id'=>$id]);
+    return view('Admin/comment.reply',['comment'=>$com,'id'=>$id]);
   }
    
   public function addreply(Request $request) 

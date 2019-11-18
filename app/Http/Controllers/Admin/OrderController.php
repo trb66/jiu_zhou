@@ -38,7 +38,7 @@ class OrderController extends Controller
 
         $status = [ 0 => "未支付",1 => "已支付", 2 => '待发货',3 =>'待收货', 4 =>'已完成'];
 
-        return view('Admin.order',['orders' => $order,'status'=>$status]);
+        return view('Admin/order.order',['orders' => $order,'status'=>$status]);
     
    }
 
@@ -104,7 +104,7 @@ class OrderController extends Controller
     
     // dump($order);
     
-    return view('Admin.reorder',['order'=>$order,'status'=>$status]);
+    return view('Admin/order.reorder',['order'=>$order,'status'=>$status]);
 
 
   }
@@ -133,17 +133,6 @@ class OrderController extends Controller
      
     
   }
-   //搜索
-   public function search(Request $request)
-   {    
-
- 
-
-
-
-
-
-   }
 
 
    public function look(Request $request)
@@ -159,7 +148,7 @@ class OrderController extends Controller
     
     // dump($order);
     
-    return view('Admin.lookorder',['order'=>$order,'status'=>$status]);
+    return view('Admin/order.lookorder',['order'=>$order,'status'=>$status]);
    } 
 
    public function print(Request $request)
@@ -174,7 +163,7 @@ class OrderController extends Controller
     $status = [ 0 => "未支付",1 => "已支付", 2 => '待发货',3 =>'待收货', 4 =>'已完成'];
     
     
-    return view('Admin.print',['order'=>$order,'status'=>$status]);
+    return view('Admin/order.print',['order'=>$order,'status'=>$status]);
 
 
 
