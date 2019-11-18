@@ -45,7 +45,7 @@
                                  value='1'>禁用</option>
                                 <option
                                     @php
-                                        if(!empty($_GET['status']) &&  $_GET['status'] == 0)
+                                        if(!empty($_GET['status']) &&  $_GET['status'] == '0')
                                         echo 'selected';
                                     @endphp
                                  value="0">启用</option>

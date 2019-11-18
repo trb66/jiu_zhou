@@ -351,5 +351,9 @@ class AdminController extends Controller
         $res = $fis->store('test', 'public');
         dump($res);
     }
+
+    public function tests(Request $request)
+    {
+    }
 }
 

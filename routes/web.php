@@ -29,6 +29,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login', 'admin.power'
 
     Route::post('/test2', 'Admin\AdminController@test2');
 
+    Route::get('/test3', 'Admin\AdminController@tests');
+
     Route::get('/addAdmin', 'Admin\AdminController@add'); // 添加后台用户
 
     Route::post('/caddAdmin', 'Admin\AdminController@cadd'); // 处理添加用户 
@@ -82,6 +84,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login', 'admin.power'
     Route::get('/userlist', 'Admin\UserController@index'); // 前台会员列表
 
     Route::post('/userstatus', 'Admin\UserController@status'); // 会员修改状态
+
 
 
 
