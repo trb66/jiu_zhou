@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class GoodsPricesController extends Controller
 {
-        public function index()
-        {
-            return '123';
+        public function index(Request $request)
+        { 
+            $good = DB::table('goods')->where($request->all())->first(); 
+            dump($good);
+            return view('/Admin/goodsPrices.goodsPrices',['good' => $good]);
         }
 }

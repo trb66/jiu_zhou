@@ -83,7 +83,7 @@
                             <a style="color:#f26522" href="/admin/imgs?id={{$v->id}}" >
                                 <i class="am-icon-photo"></i> 商品图片
                             </a>
-                             <a style="color:blue" href="/admin/goodsPrices?key_id={{$v->tname->id}}"  class="tpl-table-black-operation-del xs" >
+                             <a style="color:blue" href="/admin/goodsPrices?id={{$v->id}}"  class="tpl-table-black-operation-del xs" >
                                 <i class="am-icon-pencil"></i> 商品规格
                             </a>
                             </div>
