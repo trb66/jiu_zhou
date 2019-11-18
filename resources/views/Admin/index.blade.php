@@ -19,8 +19,13 @@
     <link rel="stylesheet" href="/Admin/assets/css/amazeui.min.css" />
     <link rel="stylesheet" href="/Admin/assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="/Admin/assets/css/app.css">
+
     <script src="/plug/echarts.min.js"></script>
     <script src="/plug/jquery.min.js"></script>
+
+    <script src="http://cdn.bootcss.com/echarts/3.3.2/echarts.min.js"></script>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
     @yield('css')
 
 
@@ -353,19 +358,13 @@
                 <!-- 订单模块 -->
                 <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 订单管理
+                        <i class="am-icon-list-alt sidebar-nav-link-logo"></i> 订单管理
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="table-list.html">
+                            <a href="/admin/order">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 订单列表
-                            </a>
-                        </li>
-
-                        <li class="sidebar-nav-link">
-                            <a href="table-list-img.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加顶级分类
                             </a>
                         </li>
                     </ul>
@@ -376,19 +375,13 @@
                 <!-- 评论模块 -->
                 <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 评论管理
+                        <i class="am-icon-pencil-square-o sidebar-nav-link-logo"></i> 评论管理
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="table-list.html">
+                            <a href="/admin/comments">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 评论列表
-                            </a>
-                        </li>
-
-                        <li class="sidebar-nav-link">
-                            <a href="table-list-img.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加顶级分类
                             </a>
                         </li>
                     </ul>
@@ -452,7 +445,9 @@
     </div>
     </div>
 
+
     <script src="/plug/amazeui.min.js"></script>
+
     <script src="/Admin/assets/js/amazeui.datatables.min.js"></script>
     <script src="/Admin/assets/js/dataTables.responsive.min.js"></script>
     <script src="/Admin/assets/js/app.js"></script>
