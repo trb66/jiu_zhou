@@ -35,13 +35,11 @@
    <div class="am-form-group am-form-success" style="display:inline-block">
     <input style="width:150px;" type="text" id="doc-ipt-success" class="am-form-field">
   </div>
-
 <div class="am-form-group am-form-success clo" style="display:inline-block;margin-left:180px;">
     <input type="text" class="add" name="time[]" style="width:100px;display:inline-block">
 </div>
 <button id="addval" class="am-btn am-btn-primary am-btn-xs">添加</button>
 <div style="margin-left:1000px;margin-top:70px">
-
 <button  type="button" id="add" class="am-btn am-btn-warning am-round">提交</button>
 
 </div>
