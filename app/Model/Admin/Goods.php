@@ -3,6 +3,7 @@
 namespace App\Model\Admin;
 
 use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Support\Facades\DB;
 
 
@@ -49,6 +50,4 @@ class Goods extends Model
         
         return $delUser = $this->where('id', $id)->delete();
     }
-
-    
 }
