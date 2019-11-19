@@ -156,6 +156,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login', 'admin.power'
 
     //商品添加规格
     Route::get('goodsPrices', 'Admin\GoodsPricesController@index'); //显示商品添加页面
+
+    Route::post('goodsPrices/selIte', 'Admin\GoodsPricesController@selIte'); //传spec_id查items数据
+
+    Route::post('goodsPrices/add', 'Admin\GoodsPricesController@add'); //添加prices数据
     /** 结束
     *   +-------------------------------------------------------
     */

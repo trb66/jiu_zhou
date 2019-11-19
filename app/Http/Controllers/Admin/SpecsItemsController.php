@@ -23,9 +23,9 @@ class SpecsItemsController extends Controller
     {
         //查出所有分类
         $types = DB::table('types')->distinct()->get();
-        // dump($types);
-        return view('/Admin/specsItems.add', ['types' => $types]);
-
+        $id = $request->all();
+        return view('/Admin/specsItems.add', ['types' => $types, 'id' => $id]);
+ 
     }
    
    //插入模型数据
@@ -45,7 +45,7 @@ class SpecsItemsController extends Controller
                'name.regex' => '规格名字由中文字母和下划线组成',
          ]); 
          $SpesIte = $request->all();
-         
+          
          //验证属性值
          $preg_name = '/^[\x{4E00}-\x{9FA5}A-Za-z0-9_]+$/u';
          foreach ($SpesIte['time'] as $value) {
@@ -60,16 +60,15 @@ class SpecsItemsController extends Controller
 
          //将属于spec的值用数组保存起来
          $spe = ['type_id' => $SpesIte['type_id'],'name' => $SpesIte['name']];
-
-         //插入属性名
+         // 插入属性名
         $specs = new Specs;
         $res = $specs->addSub($spe);
 
         //属性值数据
         $itmes = $SpesIte['time'];
-        $specs_id = $res['id'];
-
-        //插入属性值
+        $specs = DB::table('specs')->where('name',$SpesIte['name'])->where('type_id', $SpesIte['type_id'])->first();
+        $specs_id = $specs->id;
+        // //插入属性值
         $itme = new Spec_items;
         $valOk = $itme->addSub($specs_id,$itmes);
         if($valOk) {
