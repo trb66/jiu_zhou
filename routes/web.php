@@ -13,6 +13,7 @@
 
 Route::get('/', 'Home\IndexController@index');
 
+
 /**
 * 后台路由组
 */
@@ -265,7 +266,7 @@ Route::group(['prefix' => 'home'], function() {
     *   +-------------------------------------------------------
     */
 
-
+    
 
 
     /**  结束
