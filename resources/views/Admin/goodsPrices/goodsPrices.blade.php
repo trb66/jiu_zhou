@@ -41,7 +41,7 @@
     
 
       </div>
-      <button style="margin-top:100px;margin-left:20px" type="button" class="am-btn am-btn-warning am-round" id="add" onclick="rad()">橙色按钮</button>
+      <button style="margin-top:100px;margin-left:20px" type="button" class="am-btn am-btn-warning am-round" id="add" onclick="return rad()">提交</button>
       
 
 
@@ -53,48 +53,71 @@
 <script>
   
 
-  function rad(obj) {
-  var arr = $('input:radio:checked');
+  function rad() {
 
-  // console.dir(arr);
-  var key_name = []
-    for (var i = 0; i < arr.length; i++) {
-      key_name.push($('.spec_name').eq(i).val() + ':' + $(arr).eq(i).val());
-    }
+      var arr = $('input:radio:checked');
+       //将数据存进key_name数组中
+      // console.dir(arr);
+      var key_name = []
+        for (var i = 0; i < arr.length; i++) {
+          key_name.push($('.spec_name').eq(i).val() + ':' + $(arr).eq(i).val());
+        }
 
-   var price = $('#price').val();
-   var store_count = $('#store_count').val();
+       var price = $('#price').val();
+       var store_count = $('#store_count').val();
+       //字符串拼接
+       var keys = '';
+       // var id = $('.items_id').data('items_id');
+          for(var j = 0; j < arr.length; j++) {
+              keys += $(arr).eq(j).data('items_id')+ '_';
+          }
+       
+        var key_id = keys.slice(0, -1);
+        var goods_id = $('#goods_id').val();
+         
+        var key_names = '';
+        for(k in key_name ) {
+            // console.dir(key_name[k]);
+            key_names +=  key_name[k] + ' ';
+        }
 
-   var keys = '';
-   // var id = $('.items_id').data('items_id');
-      for(var j = 0; j < arr.length; j++) {
-          keys += $(arr).eq(j).data('items_id')+ '_';
-      }
-   
-    var key = keys.slice(0, -1);
-    var goods_id = $('#goods_id').val();
-     
-    var key_names = '';
-    for(k in key_name ) {
-        console.dir(key_name[k]);
-        key_names +=  key_name[k] + ' ';
-    }
+        // console.dir(goods_id);
+        $.ajax({
+            type:'post',
+            url:'/admin/goodsPrices/add',
+            headers:{
+                   'X-CSRF-TOKEN' : '{{csrf_token()}}'
+                },
+            dataType: 'json',   
+            data:{
+               key_id : key_id,
+               goods_id : goods_id,
+               key_name : key_names,
+               price : price,
+               store_count : store_count,
+            },
+            success:function (res) {
+                // console.log(132);
+                // function myFunction() {
+                //           var txt;
+                //           if (confirm("添加成功!立即跳到规格列表页")) {
+                //             txt = "确定";
+                //           } else {
+                //             txt = "no！ 我要继续添加";
+                //           }
+                          
+                //         }
+               alert('添加成功');
+               window.location.href = '/admin/specsItems';
+                console.dir(res.msg);
+            },
+            error:function(err) {
+                // console.log(8789);
+                alert(err.responseJSON.msg);
+            }
 
-    
-    // $.ajax({
-    //     type:'post',
-    //     url:'/admin/goodsPrices/add',
-    //     headers:{
-    //            'X-CSRF-TOKEN' : '{{csrf_token()}}'
-    //         },
-    //     data:{
-    //        key_name = key_name,
-    //        price = price,
-    //        store_count = store_count,
-    //     }
-    // })
+        });
 
-    
   }
 </script>
 @endsection

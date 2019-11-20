@@ -7,15 +7,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Model\Admin\Specs;
 use App\Model\Admin\Spec_items;
+use App\Model\Admin\Spec_goods_prices;
 
 
 class SpecsItemsController extends Controller
 {
     //模型列表页
     public function index(Request $request)
-    {
-        // $types = DB::table('types')->distinct()->get();
-        return view('/Admin/specsItems.SpecsItems');
+    {   
+        //查询Spec_goods_prices表所有的数据
+        $pag = 10;
+        $res = new Spec_goods_prices;
+        $specGoodsPrices = $res->Sgpsel($pag);
+        return view('/Admin/specsItems.SpecsItems', ['specGoodsPrices' => $specGoodsPrices]);
     }
 
     //添加模型页
@@ -80,6 +84,22 @@ class SpecsItemsController extends Controller
                  ], 500);
         }   
         
+
+    }
+
+    //删除spec_goods_pnces里面的数据
+    public function del(Request $request) 
+    {
+       $id = $request->all();
+       $delOK = DB::table('spec_goods_prices')->where($id);
+       if($delOK) {
+         $delOK->delete();
+         return ['删除成功'];
+       }else {
+        return response()->json([
+             'msg' => '删除失败',
+        ], 500);
+       }
 
     }
 

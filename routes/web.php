@@ -160,6 +160,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login', 'admin.power'
     Route::post('goodsPrices/selIte', 'Admin\GoodsPricesController@selIte'); //传spec_id查items数据
 
     Route::post('goodsPrices/add', 'Admin\GoodsPricesController@add'); //添加prices数据
+
+    Route::post('specsItems/del', 'Admin\SpecsItemsController@del'); //s删除spec_goods_prices表数据
     /** 结束
     *   +-------------------------------------------------------
     */
