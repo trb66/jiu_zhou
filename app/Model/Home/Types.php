@@ -5,8 +5,19 @@ namespace App\Model\Home;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Types extends Model
+
+class types extends Model
 {
+   public function item_type($cid)
+   {
+        $type = $this->where('id',$cid)->first();
+
+        $typetow = $this->where('id',$type->pid)->first();
+
+
+        return [$type,$typetow];
+   }
+
     //查分类数据
     public function select()
     {

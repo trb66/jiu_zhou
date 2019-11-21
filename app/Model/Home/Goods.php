@@ -8,6 +8,23 @@ use Illuminate\Support\Facades\DB;
 
 class Goods extends Model
 {
+   public function item_show($id)
+   {
+      return $this->where('id',$id)->first();
+   }
+
+   public function item_baokuan ($typeid,$id) 
+   {
+     return $this->where('cid',$typeid)->where('id','!=',$id)->limit(6,12)->get();
+
+   }
+
+   public function baokuan_img()
+   {
+   	return $this->hasOne('App\Model\Home\Imgs','goods_id','id');
+   }
+
+
     public function sel($id)
     {
         $res = $this->where('cid','=',$id)->where('status','=',0)->paginate(8);

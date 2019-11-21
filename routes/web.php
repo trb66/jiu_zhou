@@ -13,7 +13,6 @@
 
 Route::get('/', 'Home\IndexController@index');
 
-
 /**
 * 后台路由组
 */
@@ -88,11 +87,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login', 'admin.power'
 
 
 
-    
-
-
-
-
 
     /** 结束
     *   +-------------------------------------------------------
@@ -108,6 +102,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login', 'admin.power'
     */
     //显示分类列表
     Route::get('types', 'Admin\TypesController@index'); //显示分类列表
+
 
     //分类
     Route::get('types/add', 'Admin\TypesController@add'); //显示添加顶级分类页面
@@ -263,6 +258,7 @@ Route::get('/admin/send', 'Admin\LoginController@send'); // 发送邮件
 Route::post('/admin/chulilogin', 'Admin\LoginController@chulilog'); // 发送邮件
 
 
+
 /**
 * 前台路由组
 */
@@ -302,6 +298,15 @@ Route::group(['prefix' => 'home'], function() {
     *   周双峰 
     *   +-------------------------------------------------------
     */  
+    Route::get('/item_show', 'Home\Item_showController@show');
+
+
+
+      
+
+
+
+      
 
 
     /** 结束
@@ -321,6 +326,14 @@ Route::group(['prefix' => 'home'], function() {
     Route::get('/goods_list/{id}','Home\GoodsController@index');
     Route::get('/search','Home\IndexController@search');
     Route::get('/goods/search','Home\GoodsController@search');
+
+
+    /**  结束
+    *   +-------------------------------------------------------
+    */
+
+
+
 
 
 });

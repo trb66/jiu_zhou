@@ -8,10 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class Addrs extends Model
 {  
-	public function edit()
-	{
 
-		
-	}
 
 }
