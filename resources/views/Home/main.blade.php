@@ -76,7 +76,7 @@
             <div class="right-box">
         @if(!empty($v['goodtype']))
             @foreach($v['goodtype'] as $vo)
-                <a href="/home/item_show/{{ $vo->id }}" class="floor-item">
+                <a href="/home/item_show/?id={{ $vo->id }}" class="floor-item">
                     <div class="item-img hot-img">
                         <img title="{{ $vo->name }}" src="/storage/{{ $vo->pic }}" alt="纯色圆领短袖T恤活a动衫弹" class="cover">
                     </div>

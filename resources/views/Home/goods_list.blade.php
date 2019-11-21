@@ -29,7 +29,7 @@
             <div class="item-list__area clearfix">
             @foreach($list as $v)
                 <div class="item-card">
-                    <a href="/home/item_show/{{ $v->id }}" class="photo">
+                    <a href="/home/item_show/?id={{ $v->id }}" class="photo">
                         <img src="/storage/{{ $v->pic }}" alt="" class="cover">
                         <div class="name">{{ $v->name }}</div></a>
                     <div class="middle">
