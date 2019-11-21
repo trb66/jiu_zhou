@@ -60,7 +60,7 @@ class Item_showController extends Controller
             }
             $v->time = $spec_item_new;
         }
-        dump($spec);
+        // dump($spec);
         
         //查出爆款的商品
         $baokuan = $res->item_baokuan($typeid,$id);

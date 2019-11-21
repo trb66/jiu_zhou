@@ -3,7 +3,6 @@
 @section('title',$good['name'])
 
 
-
 @section('type')
 
 @endsection
