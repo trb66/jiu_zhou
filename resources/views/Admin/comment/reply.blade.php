@@ -115,29 +115,33 @@
      var text = $('#reply-text').val();
      var uid = $('#uid').val();
      var gid = $('#gid').val();
+    
+    if (!empty(text)) {
 
 
-      $.ajaxSetup({
-            headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
-            });
-        $.ajax({
-            type: 'post',
-            url: '/admin/comments/addreply',
-            data: {
-               id:id,
-               uid:uid,
-               gid:gid,
-               text:text,
-            },
-            success: function(res) {  
-              location.reload();
-                          
-            },
-            error: function (err) {
-               alert(err.responseJSON.msg);
-            }
-        })
+    
 
+          $.ajaxSetup({ 
+                headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+                });
+            $.ajax({
+                type: 'post',
+                url: '/admin/comments/addreply',
+                data: {
+                   id:id,
+                   uid:uid,
+                   gid:gid,
+                   text:text,
+                },
+                success: function(res) {  
+                  location.reload();
+                              
+                },
+                error: function (err) {
+                   alert(err.responseJSON.msg);
+                }
+            })
+      }
    }
 </script>
 @endsection
