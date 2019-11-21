@@ -48,8 +48,11 @@ class Types extends Model
     //首页的搜索
     public function search($name)
     {
-        $res = DB::table('goods')->where('name','like','%'. $name .'%')->paginate(8);
-        if(!empty($res)){
+        $res = DB::table('goods')
+                            ->where('status','=',0)
+                            ->where('name','like','%'. $name .'%')
+                            ->paginate(8);
+        if($res->first()){
             foreach ($res as $k => $v) {
                 $img = DB::table('imgs')->where('goods_id','=',$v->id)->get();
                 
@@ -58,7 +61,18 @@ class Types extends Model
                 }
                 $v->pic = $img_path;
             }
+            return $res;
+        }else{
+            $res = DB::table('goods')->where('status','=',0)->paginate(8);
+            foreach ($res as $k => $v) {
+                $img = DB::table('imgs')->where('goods_id','=',$v->id)->get();
+                
+                foreach ($img as $val) {
+                    $img_path = $val->pic;
+                }
+                $v->pic = $img_path;
+            }
+            return $res;
         }
-        return $res;
     }
 }

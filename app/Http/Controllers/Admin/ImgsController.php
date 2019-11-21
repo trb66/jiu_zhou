@@ -47,10 +47,10 @@ class ImgsController extends Controller
                'pic' => '图片'
         ]);
         $data = [];
-         //getMimeType() 拿出文件类型类型
-        // dd($request->pic[0]->getMimeType());
-        //多文件上传
         $imgRule = ['image/jpeg', 'image/gif', 'image/bmp', 'image/tga', 'image/exif', 'image/JPEG', 'image/tif','image/png'];
+
+        $imgRule = ['image/jpeg', 'image/gif', 'image/bmp', 'image/tga', 'image/exif', 'image/JPEG', 'image/tif', 'image/png'];
+
         foreach($request->pic as $file) {
             // dump($file->getMimeType());
             // 判断上传文件是否属于图片类型

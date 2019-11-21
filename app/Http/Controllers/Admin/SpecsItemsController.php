@@ -7,15 +7,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Model\Admin\Specs;
 use App\Model\Admin\Spec_items;
+use App\Model\Admin\Spec_goods_prices;
 
 
 class SpecsItemsController extends Controller
 {
     //模型列表页
     public function index(Request $request)
-    {
-        // $types = DB::table('types')->distinct()->get();
-        return view('/Admin/specsItems.SpecsItems');
+    {   
+        //查询Spec_goods_prices表所有的数据
+        $pag = 10;
+        $res = new Spec_goods_prices;
+        $specGoodsPrices = $res->Sgpsel($pag);
+        return view('/Admin/specsItems.SpecsItems', ['specGoodsPrices' => $specGoodsPrices]);
     }
 
     //添加模型页
@@ -23,9 +27,9 @@ class SpecsItemsController extends Controller
     {
         //查出所有分类
         $types = DB::table('types')->distinct()->get();
-        // dump($types);
-        return view('/Admin/specsItems.add', ['types' => $types]);
-
+        $id = $request->all();
+        return view('/Admin/specsItems.add', ['types' => $types, 'id' => $id]);
+ 
     }
    
    //插入模型数据
@@ -45,7 +49,7 @@ class SpecsItemsController extends Controller
                'name.regex' => '规格名字由中文字母和下划线组成',
          ]); 
          $SpesIte = $request->all();
-         
+          
          //验证属性值
          $preg_name = '/^[\x{4E00}-\x{9FA5}A-Za-z0-9_]+$/u';
          foreach ($SpesIte['time'] as $value) {
@@ -60,16 +64,15 @@ class SpecsItemsController extends Controller
 
          //将属于spec的值用数组保存起来
          $spe = ['type_id' => $SpesIte['type_id'],'name' => $SpesIte['name']];
-
-         //插入属性名
+         // 插入属性名
         $specs = new Specs;
         $res = $specs->addSub($spe);
 
         //属性值数据
         $itmes = $SpesIte['time'];
-        $specs_id = $res['id'];
-
-        //插入属性值
+        $specs = DB::table('specs')->where('name',$SpesIte['name'])->where('type_id', $SpesIte['type_id'])->first();
+        $specs_id = $specs->id;
+        // //插入属性值
         $itme = new Spec_items;
         $valOk = $itme->addSub($specs_id,$itmes);
         if($valOk) {
@@ -81,6 +84,22 @@ class SpecsItemsController extends Controller
                  ], 500);
         }   
         
+
+    }
+
+    //删除spec_goods_pnces里面的数据
+    public function del(Request $request) 
+    {
+       $id = $request->all();
+       $delOK = DB::table('spec_goods_prices')->where($id);
+       if($delOK) {
+         $delOK->delete();
+         return ['删除成功'];
+       }else {
+        return response()->json([
+             'msg' => '删除失败',
+        ], 500);
+       }
 
     }
 

@@ -155,6 +155,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login', 'admin.power'
 
     //商品添加规格
     Route::get('goodsPrices', 'Admin\GoodsPricesController@index'); //显示商品添加页面
+
+    Route::post('goodsPrices/selIte', 'Admin\GoodsPricesController@selIte'); //传spec_id查items数据
+
+    Route::post('goodsPrices/add', 'Admin\GoodsPricesController@add'); //添加prices数据
+
+    Route::post('specsItems/del', 'Admin\SpecsItemsController@del'); //s删除spec_goods_prices表数据
     /** 结束
     *   +-------------------------------------------------------
     */
@@ -280,7 +286,7 @@ Route::group(['prefix' => 'home'], function() {
     *   刘贵泽 
     *   +-------------------------------------------------------
     */
-
+    Route::get('/udai_shopcart', 'Home\ShopcartController@index'); //显示购物车页面  
 
 
 
@@ -305,6 +311,7 @@ Route::group(['prefix' => 'home'], function() {
 
 
 
+
     /**
     *   +-------------------------------------------------------
     *   宋奕 
@@ -314,12 +321,6 @@ Route::group(['prefix' => 'home'], function() {
     Route::get('/goods_list/{id}','Home\GoodsController@index');
     Route::get('/search','Home\IndexController@search');
     Route::get('/goods/search','Home\GoodsController@search');
-
-
-    /**  结束
-    *   +-------------------------------------------------------
-    */
-
 
 
 });

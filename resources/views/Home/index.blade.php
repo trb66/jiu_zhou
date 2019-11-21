@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>九州商城</title>
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="/Home/favicon.ico">
     <link rel="stylesheet" href="/Home/css/iconfont.css">
     <link rel="stylesheet" href="/Home/css/global.css">
     <link rel="stylesheet" href="/Home/css/bootstrap.min.css">
@@ -39,6 +39,7 @@
     <div class="top-search">
         <div class="inner">
             <a class="logo" href="/"><img src="/Home/images/icons/logo.jpg" alt="九州" class="cover"></a>
+         @section('seek')
             <div class="search-box">
                 @section('ss')
                 <form class="input-group">
@@ -59,9 +60,16 @@
                     <a href="">家居</a>
                 </p>
             </div>
+            <div class="cart-box">
+                <a href="/home/udai_shopcart" class="cart-but">
+                    <i class="iconfont icon-shopcart cr fz16"></i> 购物车 0 件
+                </a>
+            </div>
+         @show 
         </div>
     </div>
     <!-- 首页导航栏 -->
+   @section('nav')
     <div class="top-nav bg3">
         <div class="nav-box inner">
             <div class="all-cat">
@@ -309,7 +317,10 @@
             </ul>
         </div>
     </div>
-@section('body')
+   @show
+
+   
+    @section('body')
     <!-- 顶部轮播 -->
     <div class="swiper-container banner-box">
         <div class="swiper-wrapper">

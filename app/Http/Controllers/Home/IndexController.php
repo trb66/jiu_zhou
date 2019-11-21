@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Home\Slideshows;
 use App\Model\Home\Blogrolls;
 use App\Model\Home\Types;
-use Illuminate\Support\Facades\DB;//M
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -45,6 +45,5 @@ class IndexController extends Controller
             'list' => $list,
             'type' => $res
         ]);
-
     }
 }

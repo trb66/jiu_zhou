@@ -1,9 +1,10 @@
-@extends('Admin.index')
+ @extends('Admin.index')
 @section('title', '图片列表')
 @section('css')
 
 @endsection
 @section('body')
+
 
   <form class="am-form tpl-form-border-form for">
             <div class="am-form-group">
@@ -26,6 +27,7 @@
                     </select>
                 </div>
             </div>
+
 
 <div style="line-height:40px; height:40px;background:#ccc">
     <span style="margin-left:20px"> 规格名称<span style="font-size:10px">规格名只能是中文、字母和下划线</span></span>
