@@ -18,7 +18,7 @@
                         <div class="am-form-group">
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">
-                                    <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                                    <a href="/admin/goods/goodsAdd" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</a>
                                     <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
                                     <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
                                     <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
@@ -26,19 +26,7 @@
                             </div>
                         </div>
                     </div>
-                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-                    <div class="am-form-group tpl-table-list-select">
-                        <select data-am-selected="{btnSize: 'sm'}">
-                            <option value="option1">所有类别</option>
-                            <option value="option2">IT业界</option>
-                            <option value="option3">数码产品</option>
-                            <option value="option3">笔记本电脑</option>
-                            <option value="option3">平板电脑</option>
-                            <option value="option3">只能手机</option>
-                            <option value="option3">超极本</option>
-                        </select>
-                    </div>
-                </div>
+                    <!-- 搜索 -->
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
                     <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
                         <input type="text" class="am-form-field ">
@@ -55,6 +43,7 @@
                             <th>商品名</th>
                             <th>商品价格</th>
                             <th>商品厂家</th>
+                            <th>状态</th>
                             <th>添加时间</th>
                             <th>修改时间</th>
                             <th>操作</th>
@@ -62,10 +51,9 @@
                     </thead>
                     <tbody>
                     @foreach($goods as $v)
-
-                        <tr class="gradeX">
+                        <tr>
                             <td style="color:#000;font-weight:800">{{$v->tname->name}}</td>
-                            <td>{{$v->name}}</td>
+                            <td title="{{ $v->name }}" style="width:150px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">{{$v->name}}</td>
                             <td>{{$v->price}}}</td>
                             <td>{{$v->company}}</td>
                             <td>{{$v->status == 1 ? '已下架': '在售中' }}</td>
