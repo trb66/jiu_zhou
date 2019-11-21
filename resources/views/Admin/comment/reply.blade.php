@@ -115,6 +115,8 @@
      var text = $('#reply-text').val();
      var uid = $('#uid').val();
      var gid = $('#gid').val();
+    
+
           $.ajaxSetup({ 
                 headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
                 });
