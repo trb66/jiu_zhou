@@ -74,31 +74,18 @@
 					</ul>
 					<div class="item-key">
 						<div class="item-sku">
+						   @foreach ($spec as $v)
 							<dl class="item-prop clearfix">
-								<dt class="item-metatit">颜色：</dt>
+								<dt class="item-metatit">{{$v['name']}}：</dt>
 								<dd><ul data-property="颜色" class="clearfix">
-									<li><a href="javascript:;" role="button" data-value="白色"  aria-disabled="true">
-										<span>白色</span>
+									@foreach($v['time'] as $vo)
+									<li><a href="javascript:;" role="button" data-value="{{ $vo }}"  aria-disabled="true">
+										<span>{{ $vo }}</span>
 									</a></li>
+									@endforeach
 								</ul></dd>
 							</dl>
-							<dl class="item-prop clearfix">
-								<dt class="item-metatit">尺码：</dt>
-								<dd id="chima"><ul data-property="尺码" class="clearfix">
-									<li><a href="javascript:;" role="button" data-value="S" aria-disabled="true">
-										<span>S</span>
-									</a></li>
-									<li><a href="javascript:;" role="button" data-value="M" aria-disabled="true">
-										<span>M</span>
-									</a></li>
-									<li><a href="javascript:;" role="button" data-value="L" aria-disabled="true">
-										<span>L</span>
-									</a></li>
-									<li><a href="javascript:;" role="button" data-value="XL" aria-disabled="true">
-										<span>XL</span>
-									</a></li>
-								</ul></dd>
-							</dl>
+							@endforeach
 						</div>
 						<div class="item-amount clearfix bgf5">
 							<div class="item-metatit">数量：</div>

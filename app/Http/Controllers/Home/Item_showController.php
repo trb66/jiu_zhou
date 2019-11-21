@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Model\Home\Goods;
 use App\Model\Home\Imgs;
 use App\Model\Home\Types;
+use App\Model\Home\Specs;
 use App\Model\Home\Comments;
 use App\Model\Home\Users;
 
@@ -19,13 +20,14 @@ class Item_showController extends Controller
     public function show(Request $request) 
     {    
         //接收传过来的id
-        $id = $request->input('id');
+        $id = $_GET['id'];
 
         $res = new Goods();
         $res_img = new Imgs();
         $res_type = new Types();
         $res_user = new Users();
         $res_comment = new Comments();
+        $res_spec = new Specs(); 
 
         //查出这个商品的所以信息
         $goods = $res->item_show($id);
@@ -41,6 +43,24 @@ class Item_showController extends Controller
         $typetow = $typeall[1];
 
         $typeid = $type->id;
+        //查规格
+        $spec = $res_spec->item_spec($cid);
+        // dump($spec);
+       
+        foreach ($spec as $k => $v) {
+    
+            // dump($v);
+            $spec_item = DB::table('spec_items')->where('spec_id',$v->id)->get();
+
+            $spec_item_new = []; 
+
+            foreach ($spec_item as $key => $value) {
+                // dump($value);
+                $spec_item_new[] = $value->time;
+            }
+            $v->time = $spec_item_new;
+        }
+        dump($spec);
         
         //查出爆款的商品
         $baokuan = $res->item_baokuan($typeid,$id);
@@ -66,10 +86,18 @@ class Item_showController extends Controller
         $comments = $comment[0];
 
         $count = $comment[1];
-        dump($count);
 
-
-    	return view('Home.item_show',['good'=> $goods,'type'=>$typetow,'pre'=>$preview_img,'introduce'=>$introduce_img,'baokuan'=> $baokuan,'comments'=>$comments,'count'=>$count]);
+        return view('Home.item_show',[
+                       'good'=> $goods,
+                        'type'=>$typetow,
+                       'pre'=>$preview_img,
+                       'introduce'=>$introduce_img,
+                       'baokuan'=> $baokuan,
+                       'comments'=>$comments,
+                       'count'=>$count,
+                       'spec'=> $spec,
+                     
+        ]);
     }
 
 }
