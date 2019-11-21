@@ -259,17 +259,10 @@ Route::post('/admin/chulilogin', 'Admin\LoginController@chulilog'); // 发送邮
 
 
 
-
 /**
 * 前台路由组
 */
-
-
-
 Route::group(['prefix' => 'home'], function() {
-
-
-
     /**
     *   +-------------------------------------------------------
     *   唐荣博 
@@ -277,14 +270,9 @@ Route::group(['prefix' => 'home'], function() {
     */
 
 
-
     /** 结束
     *   +-------------------------------------------------------
     */
-
-
-
-
 
 
 
@@ -294,13 +282,7 @@ Route::group(['prefix' => 'home'], function() {
     *   刘贵泽 
     *   +-------------------------------------------------------
     */
-
-    //购物车功能
     Route::get('/udai_shopcart', 'Home\ShopcartController@index'); //显示购物车页面  
-
-
-
-
 
 
 
@@ -311,16 +293,11 @@ Route::group(['prefix' => 'home'], function() {
 
 
 
-
-
-
-
     /**
     *   +-------------------------------------------------------
     *   周双峰 
     *   +-------------------------------------------------------
     */  
-
     Route::get('/item_show', 'Home\Item_showController@show');
 
 
@@ -332,14 +309,9 @@ Route::group(['prefix' => 'home'], function() {
       
 
 
-    
-
     /** 结束
     *   +-------------------------------------------------------
     */
-
-
-
 
 
 
@@ -351,7 +323,9 @@ Route::group(['prefix' => 'home'], function() {
     *   +-------------------------------------------------------
     */
 
-
+    Route::get('/goods_list/{id}','Home\GoodsController@index');
+    Route::get('/search','Home\IndexController@search');
+    Route::get('/goods/search','Home\GoodsController@search');
 
 
     /**  结束
@@ -363,4 +337,3 @@ Route::group(['prefix' => 'home'], function() {
 
 
 });
-
