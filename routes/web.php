@@ -150,6 +150,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login', 'admin.power'
 
     //商品添加规格
     Route::get('goodsPrices', 'Admin\GoodsPricesController@index'); //显示商品添加页面
+
+    Route::post('goodsPrices/selIte', 'Admin\GoodsPricesController@selIte'); //传spec_id查items数据
+
+    Route::post('goodsPrices/add', 'Admin\GoodsPricesController@add'); //添加prices数据
+
+    Route::post('specsItems/del', 'Admin\SpecsItemsController@del'); //s删除spec_goods_prices表数据
     /** 结束
     *   +-------------------------------------------------------
     */
@@ -253,16 +259,22 @@ Route::post('/admin/chulilogin', 'Admin\LoginController@chulilog'); // 发送邮
 
 
 
+
 /**
 * 前台路由组
 */
+
+
+
 Route::group(['prefix' => 'home'], function() {
+
+
+
     /**
     *   +-------------------------------------------------------
     *   唐荣博 
     *   +-------------------------------------------------------
     */
-
 
 
 
@@ -283,6 +295,8 @@ Route::group(['prefix' => 'home'], function() {
     *   +-------------------------------------------------------
     */
 
+    //购物车功能
+    Route::get('/udai_shopcart', 'Home\ShopcartController@index'); //显示购物车页面  
 
 
 
@@ -306,12 +320,19 @@ Route::group(['prefix' => 'home'], function() {
     *   周双峰 
     *   +-------------------------------------------------------
     */  
+
     Route::get('/item_show', 'Home\Item_showController@show');
 
 
 
       
 
+
+
+      
+
+
+    
 
     /** 结束
     *   +-------------------------------------------------------
@@ -332,6 +353,7 @@ Route::group(['prefix' => 'home'], function() {
 
 
 
+
     /**  结束
     *   +-------------------------------------------------------
     */
@@ -340,7 +362,5 @@ Route::group(['prefix' => 'home'], function() {
 
 
 
-
 });
-
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Goods extends Model
 {
+
     
    public function item_show($id)
    {
@@ -21,4 +22,5 @@ class Goods extends Model
    {
    	return $this->hasOne('App\Model\Home\Imgs','goods_id','id');
    }
+
 }

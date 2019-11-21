@@ -40,6 +40,7 @@
     <div class="top-search">
         <div class="inner">
             <a class="logo" href="index.html"><img src="/Home/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+         @section('seek')
             <div class="search-box">
                 <form class="input-group">
                     <input placeholder="Ta们都在搜U袋网" type="text">
@@ -60,13 +61,16 @@
                 </p>
             </div>
             <div class="cart-box">
-                <a href="udai_shopcart.html" class="cart-but">
+                <a href="/home/udai_shopcart" class="cart-but">
                     <i class="iconfont icon-shopcart cr fz16"></i> 购物车 0 件
                 </a>
             </div>
+         @show 
+
         </div>
     </div>
     <!-- 首页导航栏 -->
+   @section('nav')
     <div class="top-nav bg3">
         <div class="nav-box inner">
             <div class="all-cat">
@@ -312,6 +316,7 @@
             </ul>
         </div>
     </div>
+   @show
     @section('body')
     <!-- 顶部轮播 -->
     <div class="swiper-container banner-box">
