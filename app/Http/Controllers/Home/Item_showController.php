@@ -10,6 +10,7 @@ use App\Model\Home\Types;
 use App\Model\Home\Specs;
 use App\Model\Home\Comments;
 use App\Model\Home\Users;
+use App\Model\Home\Spec_goods_prices;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +21,7 @@ class Item_showController extends Controller
     public function show(Request $request) 
     {    
         //接收传过来的id
-        $id = $_GET['id'];
+        $id = $request->input('id');
 
         $res = new Goods();
         $res_img = new Imgs();
@@ -28,6 +29,7 @@ class Item_showController extends Controller
         $res_user = new Users();
         $res_comment = new Comments();
         $res_spec = new Specs(); 
+        $res_spec_goods_price = new Spec_goods_prices(); 
 
         //查出这个商品的所以信息
         $goods = $res->item_show($id);
@@ -61,7 +63,10 @@ class Item_showController extends Controller
             $v->time = $spec_item_new;
         }
         // dump($spec);
-        
+        //查库存
+         $store_count = $res_spec_goods_price->item_ku($id); 
+
+
         //查出爆款的商品
         $baokuan = $res->item_baokuan($typeid,$id);
         // dump($baokuan);
@@ -89,13 +94,14 @@ class Item_showController extends Controller
 
         return view('Home.item_show',[
                        'good'=> $goods,
-                        'type'=>$typetow,
+                        'type'=>$type,
                        'pre'=>$preview_img,
                        'introduce'=>$introduce_img,
                        'baokuan'=> $baokuan,
                        'comments'=>$comments,
                        'count'=>$count,
                        'spec'=> $spec,
+                       'ku' => $store_count,
                      
         ]);
     }

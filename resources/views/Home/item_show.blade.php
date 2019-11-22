@@ -13,8 +13,8 @@
 		<section class="item-show__div item-show__head clearfix">
 			<div class="pull-left">
 				<ol class="breadcrumb">
-					<li><a href="index.html">首页</a></li>
-					<li><a href="item_sale_page.html">{{$type->name}}</a></li>
+					<li><a href="/">首页</a></li>
+					<li><a href="/home/goods_list/{{ $type->id }}">{{$type->name}}</a></li>
 					<li class="active">{{$good['name']}}</li>
 				</ol>
 				<div class="item-pic__box" id="magnifier">
@@ -58,8 +58,8 @@
 							<div class="price-panel pull-left">
 								售价：<span class="price">￥{{$good['price']}} <s class="fz16 c9">￥{{$good['price'] / 0.8 }}</s></span>
 							</div>
+                        <spn style="float: right">123123123</span>
 						</div>
-
 					</div>
 					<ul class="item-ind-panel clearfix">
 						<li class="item-ind-item">
@@ -74,15 +74,20 @@
 					<div class="item-key">
 						<div class="item-sku">
 						   @foreach ($spec as $v)
-							<dl class="item-prop clearfix">
+							<dl class="item-prop clearfix gui">
 								<dt class="item-metatit">{{$v['name']}}：</dt>
-								<dd><ul data-property="颜色" class="clearfix">
+								<dd>
+								   <ul data-property="" class="clearfix">
 									@foreach($v['time'] as $vo)
-									<li><a href="javascript:;" role="button" data-value="{{ $vo }}"  aria-disabled="true">
-										<span>{{ $vo }}</span>
-									</a></li>
+									<li>
+										<a  role="button" data-value="{{ $vo }}" class="ssp"  aria-disabled="true">
+										  <span >{{ $vo }}</span>
+									    </a>
+								    </li>
+
 									@endforeach
-								</ul></dd>
+								    </ul>
+							    </dd>
 							</dl>
 							@endforeach
 						</div>
@@ -96,7 +101,7 @@
 										<a class="amount-but sub"></a>
 									</div>
 								</div>
-								<div class="item-stock"><span style="margin-left: 10px;">库存 <b id="Stock">1000</b> 件</span></div>
+								<div class="item-stock"><span style="margin-left: 10px;">库存 <b id="Stock">{{$ku}}</b> 件</span></div>
 								<script>
 									$(function () {
 										$('.amount-input').onlyReg({reg: /[^0-9]/g});
@@ -212,7 +217,7 @@
 									<div class="eval-box">
 										<div class="eval-author">
 											<div class="port">
-												<img src="images/icons/default_avt.png" alt="欢迎来到九州商城" class="cover b-r50">
+												<img src="" alt="欢迎来到九州商城" class="cover b-r50">
 											</div>
 											<div class="name">{{$c->item_user->username}}</div>
 										</div>
@@ -246,7 +251,7 @@
 									<div class="eval-box">
 										<div class="eval-author">
 											<div class="port">
-												<img src="images/icons/default_avt.png" alt="欢迎来到U袋网" class="cover b-r50">
+												<img src="" alt="欢迎来到U袋网" class="cover b-r50">
 											</div>
 											<div class="name">高***恒</div>
 										</div>
@@ -254,13 +259,7 @@
 											<div class="eval-text">
 												真是特别美_回头穿了晒图
 											</div>
-											<div class="eval-imgs">
-												<div class="img-temp"><img src="images/temp/S-001-1_s.jpg" data-src="images/temp/S-001-1_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-2_s.jpg" data-src="images/temp/S-001-2_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-3_s.jpg" data-src="images/temp/S-001-3_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-4_s.jpg" data-src="images/temp/S-001-4_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-5_s.jpg" data-src="images/temp/S-001-5_b.jpg" data-action="zoom" class="cover"></div>
-											</div>
+										
 											<div class="eval-time">
 												2017年08月11日 20:31 颜色分类：深棕色 尺码：均码
 											</div>
@@ -285,7 +284,7 @@
 									<div class="eval-box">
 										<div class="eval-author">
 											<div class="port">
-												<img src="images/icons/default_avt.png" alt="欢迎来到U袋网" class="cover b-r50">
+												<img src="" alt="欢迎来到U袋网" class="cover b-r50">
 											</div>
 											<div class="name">高***恒</div>
 										</div>
@@ -293,13 +292,7 @@
 											<div class="eval-text">
 												真是特别美_回头穿了晒图
 											</div>
-											<div class="eval-imgs">
-												<div class="img-temp"><img src="images/temp/S-001-1_s.jpg" data-src="images/temp/S-001-1_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-2_s.jpg" data-src="images/temp/S-001-2_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-3_s.jpg" data-src="images/temp/S-001-3_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-4_s.jpg" data-src="images/temp/S-001-4_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-5_s.jpg" data-src="images/temp/S-001-5_b.jpg" data-action="zoom" class="cover"></div>
-											</div>
+									
 											<div class="eval-time">
 												2017年08月11日 20:31 颜色分类：深棕色 尺码：均码
 											</div>
@@ -366,5 +359,18 @@
 @endsection
 
 @section('js')
+ <script>
+$(function(){
+  $(".gui li").click(function(){
+	$(this).parent().children().children().css('border', '').css('color','')
+   
+    $(this).children().css('border', '1px solid #b31e22').css('color','#b31e22');
 
+	console.dir($(this).parent().children().children().data('value'))
+    
+  })
+})
+
+
+ </script>
 @endsection
