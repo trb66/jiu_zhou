@@ -25,11 +25,10 @@ class IndexController extends Controller
         //分类和商品数据
         $types = new Types;
         $str = $types->select();
-
         return view('Home/main',[
             'res' => $res,
             'arr' => $arr,
-            'str' => $str,
+            'str' => $str
         ]);
     }
 

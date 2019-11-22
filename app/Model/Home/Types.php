@@ -5,19 +5,15 @@ namespace App\Model\Home;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-
-class types extends Model
+class Types extends Model
 {
-   public function item_type($cid)
-   {
+    public function item_type($cid)
+    {
         $type = $this->where('id',$cid)->first();
 
         $typetow = $this->where('id',$type->pid)->first();
-
-
         return [$type,$typetow];
-   }
-
+    }
     //查分类数据
     public function select()
     {
@@ -36,9 +32,12 @@ class types extends Model
                     $list[$k]['son'][$key]['sun'] = $sun;
                 }
                 //遍历三级分类里的数据
-                foreach ($list[$k]['son'][$key]['sun'] as $kkk => $value) {
+                foreach ($list[$k]['son'][$key]['sun'] as $value) {
                     //查goods表的cid等于三级分类数据里的id
-                    $goodsinfo = DB::table('goods')->where('cid','=',$value['id'])->where('status','=',0)->limit(6)->get();
+                    $goodsinfo = DB::table('goods')->where('cid','=',$value['id'])
+                                                    ->where('status','=',0)
+                                                    ->limit(4)
+                                                    ->get();
                     if (!empty($goodsinfo)) {
                         //遍历三级商品的数据
                         foreach ($goodsinfo as $g) {
@@ -55,6 +54,7 @@ class types extends Model
         }
         return $list;
     }
+
 
     //首页的搜索
     public function search($name)

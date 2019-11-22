@@ -70,15 +70,17 @@
             @endforeach
         </div>
         <div class="con-box">
+
             <a class="left-img hot-img" href="">
-                <img src="/Home/images/floor_6.jpg" alt="" class="cover">
+                <img src="/Home/images/floor_6.jpg" class="cover">
             </a>
+            
             <div class="right-box">
         @if(!empty($v['goodtype']))
             @foreach($v['goodtype'] as $vo)
                 <a href="/home/item_show/?id={{ $vo->id }}" class="floor-item">
                     <div class="item-img hot-img">
-                        <img title="{{ $vo->name }}" src="/storage/{{ $vo->pic }}" alt="纯色圆领短袖T恤活a动衫弹" class="cover">
+                        <img title="{{ $vo->name }}" src="/storage/{{ $vo->pic }}" alt="{{ $vo->name }}" class="cover">
                     </div>
 
                     <div class="price clearfix">

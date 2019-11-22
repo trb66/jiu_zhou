@@ -322,7 +322,7 @@ Route::group(['prefix' => 'home'], function() {
     *   宋奕 
     *   +-------------------------------------------------------
     */
-
+    
     Route::get('/goods_list/{id}','Home\GoodsController@index');
     Route::get('/search','Home\IndexController@search');
     Route::get('/goods/search','Home\GoodsController@search');
