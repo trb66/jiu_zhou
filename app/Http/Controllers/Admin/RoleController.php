@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Admin\trb\Roles;
-use App\Model\Admin\trb\Permissions;
-use App\Model\Admin\trb\Role_has_permissions;
+use App\Model\Admin\Roles;
+use App\Model\Admin\Permissions;
+use App\Model\Admin\Role_has_permissions;
 use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller

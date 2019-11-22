@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Admin\trb\Permissions;
+use App\Model\Admin\Permissions;
 use Illuminate\Support\Facades\DB;
 
 class PowerController extends Controller

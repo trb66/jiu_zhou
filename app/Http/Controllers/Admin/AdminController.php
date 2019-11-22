@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Admin\trb\Roles;
+use App\Model\Admin\Roles;
 use Illuminate\Support\Facades\DB;
-use App\Model\Admin\trb\Admin;
-use App\Model\Admin\trb\User_has_roles;
+use App\Model\Admin\Admin;
+use App\Model\Admin\User_has_roles;
 
 class AdminController extends Controller
 {
@@ -339,21 +339,6 @@ class AdminController extends Controller
             }
 
         }
-    }
-
-    public function test(Request $request)
-    {
-        return view('Admin/test');
-    }
-    public function test2(Request $request)
-    {
-        $fis = $request->file('pic');
-        $res = $fis->store('test', 'public');
-        dump($res);
-    }
-
-    public function tests(Request $request)
-    {
     }
 }
 

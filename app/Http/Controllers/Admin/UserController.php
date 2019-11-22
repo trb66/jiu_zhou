@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\Model\Admin\trb\Users;
-use App\Model\Admin\trb\Users_infos;
+use App\Model\Admin\Users;
+use App\Model\Admin\Users_infos;
 
 class UserController extends Controller
 {
