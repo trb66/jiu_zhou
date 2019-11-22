@@ -28,8 +28,12 @@
                 <a href="/home/userinfo">帮助中心</a>
             </div>
             <div class="pull-right">
-                <a href="/home/login"><span class="cr">登录</span></a>
-                <a href="/home/login?p=register">注册</a>
+                @if(session('UserisLogin'))
+                    <a href="/home/logout"><span class="cr">立即退出</span></a>
+                @else
+                    <a href="/home/login"><span class="cr">登录</span></a>
+                    <a href="/home/login?p=register">注册</a>
+                @endif
                 <a href="">我的九州</a>
                 <a href="">我的订单</a>
             </div>

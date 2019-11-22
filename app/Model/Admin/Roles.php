@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Admin\trb;
+namespace App\Model\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;

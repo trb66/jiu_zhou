@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
-use App\Model\Admin\trb\Admin;
+use App\Model\Admin\Admin;
 
 class LoginController extends Controller
 {
@@ -76,56 +76,6 @@ class LoginController extends Controller
         return redirect('/admin/login');
 
     }
-
-    // // 发送邮件
-    // public function sendemail(Request $request)
-    // {
-    //     // 1.表单验证 邮箱用户是否存在
-    //     $this->validate($request, [
-    //         'email' =>'exists:admins,email'
-    //     ], [
-    //         'exists' => '该邮箱号不存在',
-    //     ]);
-
-    //     // 验证通过发送验证码
-    //     $email = $request->all('email');
-
-    //     $res = $this->send($email['email']);
-
-    //     $request->session()->put('yzm', $res);
-
-    //     return [
-    //         'code' => 1,
-    //     ];
-    // }
-
-    // // 发送邮件
-    // public function send($email)
-    // {
-    //     $data = mt_rand( 100000, 999999);
-
-    //     // 获取邮箱标题
-    //     $title = '验证码'; // 标题
-    //     // 获取邮箱内容
-    //     $content = '您的登陆验证码为: '.$data.', 请在5分钟之内登陆。'; // 内容
- 
-    //     $toMail = '790416621@qgfgq.com'; // 收件人
-
-    //     $res = Mail::raw($content, function ($message) use ($toMail, $title) {
-    //         $message->subject($title);
-    //         $message->to($toMail);
-    //     });
-
-    //     return $data;
-    // } 
-
-    // // 处理登陆
-    // public function chulilog(Request $request) {
-    //     dump($request->all());
-    //     $value = $request->session()->pull('yzm');
-    //     dump($value);
-    //     dump($request->session()->pull('yzm'));
-    // }
 }
 
 

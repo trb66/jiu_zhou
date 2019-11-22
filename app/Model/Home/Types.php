@@ -5,6 +5,10 @@ namespace App\Model\Home;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+
+
+
+
 class Types extends Model
 {
     public function item_type($cid)
@@ -34,10 +38,13 @@ class Types extends Model
                 //遍历三级分类里的数据
                 foreach ($list[$k]['son'][$key]['sun'] as $value) {
                     //查goods表的cid等于三级分类数据里的id
+
                     $goodsinfo = DB::table('goods')->where('cid','=',$value['id'])
                                                     ->where('status','=',0)
                                                     ->limit(4)
                                                     ->get();
+
+                    $goodsinfo = DB::table('goods')->where('cid','=',$value['id'])->where('status','=',0)->limit(3)->get();
                     if (!empty($goodsinfo)) {
                         //遍历三级商品的数据
                         foreach ($goodsinfo as $g) {
