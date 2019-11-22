@@ -34,25 +34,24 @@
             <div class="misc-info">
                 <h3>基本信息</h3>
                 <dl>
-                    <dt>订单 ID：</dt>
+                    <dt>订单ID：</dt>
                     <dd>{{$order['id']}}</dd>
                     <dt>用户昵称：</dt>
-                    <dd>{{$order->username->username}}    ID:{{$order->username->id}}</dd>
+                    <dd>{{$order->nickname->username}}</dd>
                     <dt>手机号码：</dt>
-                    <dd>{{$order->addr->phone}}</dd>
+                    <dd>{{$order['phone']}}</dd>
                 </dl>
                 <dl>
-                    <dt>电子邮箱</dt>
+                    <dt>电子邮箱：</dt>
                     <dd>{{$order->uinfo->email}}</dd>
                     <dt>应付金额：</dt>
-                    <dd> ￥{{$order['price']}}</dd>
-                    <dt>购买数量：</dt>
-                    <dd>{{$order['num']}}</dd>
-                </dl>
-                <dl> 
+                    <dd> ￥ {{$order['total_price']}}</dd>
                     <dt>订单状态：</dt>
                     <dd>{{$status[$order['status']]}}</dd>
-                    <dt>下单时间：</dt>
+
+                </dl>
+                <dl> 
+                                       <dt>下单时间：</dt>
                     <dd>{{$order['created_at']}}</dd>
                     <dt>支付方式：</dt>
                     <dd>其他方式</dd>
@@ -62,13 +61,13 @@
                 <h4>收货信息</h4>
                 <dl>
                     <dt>收货人：</dt>
-                    <dd>{{$order->uinfo->name}}</dd>
+                    <dd>{{$order['username']}}</dd>
                     <dt>联系方式：</dt>
-                    <dd>{{$order->uinfo->phone}}</dd>
+                    <dd>{{$order['phone']}}</dd>
                 </dl>
                 <dl>
                     <dt>收货地址：</dt>
-                    <dd>{{$order->addr->address}} {{$order->addr->addrinfo}}</dd>
+                    <dd>{{$order['address']}}</dd>
                 </dl>
                 <dl>
                     <dt>配送方式：</dt>
@@ -90,29 +89,32 @@
                     <th>商品名</th>
                     <th>商品图片</th>
                     <th>规格</th>
-                    <th>数量</th>
                     <th>商品价格</th>
+                    <th>数量</th>
                     <th>商品小计</th>
 
                 </tr>
             </thead>
             <tbody>
+            @foreach($detail as $v)
+
                 <tr class="gradeX">
-                    <td class="am-text-middle">{{$order->goods->id}}</td>
-                    <td class="am-text-middle">{{$order->goods->name}}</td>
-                    <td>
-                        <img src="assets/img/k.jpg" class="tpl-table-line-img" alt="">
+                    <td class="am-text-middle">{{$v['id']}}</td>
+                    <td class="am-text-middle">{{$v['name']}}</td>
+                    <td class="am-text-middle">
+                        <img src="/storage/{{$v->order_img['pic']}}" width="70" height="60" class="tpl-table-line-img" alt="">
                     </td>
-                    <td class="am-text-middle">规格规格</td>
-                    <td class="am-text-middle">{{$order['num']}}</td>
-                    <td>{{$order['price']}}</td>
-                    <td class="am-text-middle">{{$order['price']*$order['num']}}</td>
+                    <td class="am-text-middle">{{$v['num']}}</td>
+                    <td class="am-text-middle">{{$v->order_spec->key_name}}</td>
+                    <td>{{$v['price']}}</td>
+                    <td class="am-text-middle">{{$v['price']*$v['num']}}</td>
                 </tr>
+            @endforeach
             </tbody>
           </table>
      </div>  
      <div class="total-amount contact-info">
-        <h3>订单总额:<span style="color: red">￥{{$order['price']*$order['num']}}</span></h3>
+        <h3>订单总额:<span style="color: red">￥{{$order['total_price']}}</span></h3>
      </div>
 
   </div> 

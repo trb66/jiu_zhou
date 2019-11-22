@@ -52,13 +52,10 @@
                     <thead>
                         <tr>
                             <th>订单序号</th>
-                            <th>用户名称</th>
-                            <th>商品名称</th>
-                            <th>规格</th>
-                            <th>商品单价</th>
-                            <th>购买数量</th>
-                            <th>总金额</th>
+                            <th>收货人名字</th>
+                            <th>手机号</th>
                             <th>收货地址</th>
+                            <th>总金额</th>
                             <th>用户留言</th>
                             <th>订单状态</th>
                             <th>下单时间</th>
@@ -67,17 +64,13 @@
                     </thead>
                     <tbody>
                    	@foreach($orders as $o)                                      
-                  
                         <tr class="gradeX">
                             <td>{{$o['id']}}</td>
-                            <td>{{$o->username->username}}</td>
-                            <td>{{$o['name']}}</td>
-                            <td>规格</td>
-                            <td>￥ {{$o['price']}} </td>
-                            <td>{{$o['num']}}</td>
-                            <td>￥ {{$o['price']*$o['num']}} </td>
-                             <td>{{$o->addr->address}}{{$o->addr->addrinfo}}</td>
-                            <td>{{$o['message']}}</td>
+                            <td>{{$o['username']}}</td>
+                            <td>{{$o['phone']}}</td>
+                            <td>{{$o['address']}}</td>
+                            <td>{{$o['total_price']}}</td>
+                            <td>{{$o['message']}}</td>   
 
                             @if($o['status'] ==  0)
                             <td style="color: red;">{{$status[$o['status']]}}</td>
@@ -90,6 +83,7 @@
                             @else
                             <td style="color: green;">{{$status[$o['status']]}}</td>
                             @endif
+
                             <td>{{$o['created_at']}}</td>
                             <td>
                                 <input type="hidden" name="status" value="{{$o['status']}}">

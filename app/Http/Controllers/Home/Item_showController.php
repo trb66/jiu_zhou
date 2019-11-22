@@ -22,7 +22,7 @@ class Item_showController extends Controller
     {    
         //接收传过来的id
         $id = $request->input('id');
-
+   
         $res = new Goods();
         $res_img = new Imgs();
         $res_type = new Types();
@@ -30,6 +30,10 @@ class Item_showController extends Controller
         $res_comment = new Comments();
         $res_spec = new Specs(); 
         $res_spec_goods_price = new Spec_goods_prices(); 
+
+         
+
+
 
         //查出这个商品的所以信息
         $goods = $res->item_show($id);
@@ -105,5 +109,9 @@ class Item_showController extends Controller
                      
         ]);
     }
-
+   
+   public function item_collect(Request $request)
+   {
+     
+   }
 }

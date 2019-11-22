@@ -19,7 +19,7 @@
             <tbody>
             <tr>
                 <td><address><strong>九州商城</strong><br>广州市天河区高唐路时代广场E-park</address>
-                    <b>电话：</b> {{$order->addr->phone}}<br>
+                    <b>电话：</b> {{$order['phone']}}<br>
                     <b>E-Mail：</b>{{$order->uinfo->email}} <br>
                  
                 </td>
@@ -45,9 +45,9 @@
             </thead>
             <tbody>
             <tr>
-                <td>{{$order->uinfo->name}}</td>
-                <td>{{$order->uinfo->phone}}</td>
-                <td>{{$order->addr->address}}&nbsp;{{$order->addr->addrinfo}}</td>
+                <td>{{$order['username']}}</td>
+                <td>{{$order['phone']}}</td>
+                <td>{{$order['address']}}</td>
        
             </tr>
             </tbody>
@@ -56,23 +56,23 @@
             <thead>
             <tr>
                 <td><b>商品名称</b></td>
-                <td><b>状态</b></td>
                 <td><b>规格属性</b></td>
                 <td><b>数量</b></td>
                 <td><b>单价</b></td>
                 <td class="text-right"><b>小计</b></td>
+               
             </tr>
             </thead>
             <tbody>
+                @foreach($detail as $v)
                  <tr>
-                    <td>{{$order['name']}}</td>
-                    <td>{{$status[$order['status']]}}</td>
-                    <td>规格规格规格规格</td>
-                    <td>{{$order['num']}}</td>
-                    <td>{{$order['price']}}</td>
-                    <td class="text-right">{{$order['price']*$order['num']}}</td>
+                    <td>{{$v['name']}}</td>
+                    <td>{{$v->order_spec->key_name}}</td>
+                    <td>{{$v['num']}}</td>
+                    <td>{{$v['price']}}</td>
+                    <td class="text-right">{{$v['price']*$v['num']}}</td>
                 </tr>
-               
+               @endforeach
             </tbody>
             <tfoot>
             <tr><td colspan="5" class="text-center"><input class="btn btn-default noprint" type="submit" onclick="window.print();" value="打印" style="border:1px solid black"></td></tr>

@@ -7,6 +7,7 @@ use App\Model\Admin\Orders;
 use App\Model\Admin\Addrs;
 use App\Model\Admin\Goods;
 use App\Model\Admin\Users_infos;
+use App\Model\Admin\Orders_details;
 use App\Model\Admin\Users;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
@@ -24,17 +25,10 @@ class OrderController extends Controller
         $request->session()->flash('status', $sta);
         $request->session()->flash('text', $text);
 
-        $user = DB::table('users')
-                     ->where('username','like','%'.$text.'%')
-                     ->get();
-        $uid = [];
-        foreach ($user as $k => $v) {
-            $uid[$k] = $v->id;
-        }
-
         $res = new Orders();
 
-        $order = $res->show($sta,$text,$uid);
+        $order = $res->show($sta,$text);
+
 
         $status = [ 0 => "未支付",1 => "已支付", 2 => '待发货',3 =>'待收货', 4 =>'已完成'];
 
@@ -88,8 +82,6 @@ class OrderController extends Controller
       
     }
      
-    
-
    public function alter(Request $request)
    {
      
@@ -110,14 +102,16 @@ class OrderController extends Controller
   }
    public function edit(Request $request)
    {   
-     
+    $id = $_POST['id'];
     $data = [
        'phone'=> $_POST['phone'],
        'addrinfo' => $_POST['addrinfo'], 
     ] ;
-     $edit = DB::table('addrs')->where('id','=',$_POST['aid'])->update($data);
-  
+   
+     $res = new Orders();
+     $edit = $res->order_edit($id,$data);
 
+    
        if ($edit) {
           return [
             'code' => 0,
@@ -130,10 +124,7 @@ class OrderController extends Controller
 
          ],500);
        }
-     
-    
   }
-
 
    public function look(Request $request)
    {  
@@ -144,12 +135,20 @@ class OrderController extends Controller
     
     $order = $res->alter($id);
 
+
+
+    $res_detail = new Orders_details();
+
+    $detail = $res_detail->order_look($id);
+
+    // dump($detail);
+
     $status = [ 0 => "未支付",1 => "已支付", 2 => '待发货',3 =>'待收货', 4 =>'已完成'];
     
-    // dump($order);
     
-    return view('Admin/order.lookorder',['order'=>$order,'status'=>$status]);
+    return view('Admin/order.lookorder',['order'=>$order,'status'=>$status,'detail'=>$detail]);
    } 
+
 
    public function print(Request $request)
    {
@@ -160,10 +159,11 @@ class OrderController extends Controller
     
     $order = $res->alter($id);
 
-    $status = [ 0 => "未支付",1 => "已支付", 2 => '待发货',3 =>'待收货', 4 =>'已完成'];
+    $res_detail = new Orders_details();
+
+    $detail = $res_detail->order_look($id);
     
-    
-    return view('Admin/order.print',['order'=>$order,'status'=>$status]);
+    return view('Admin/order.print',['order'=>$order,'detail'=>$detail]);
 
 
 

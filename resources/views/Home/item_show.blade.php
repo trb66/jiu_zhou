@@ -2,6 +2,14 @@
 
 @section('title',$good['name'])
 
+@section('css')
+<style>
+	#collect:hover{
+       color: #b31e22;
+	}
+
+</style>
+@endsection
 
 @section('type')
 
@@ -54,11 +62,12 @@
 						<div class="sale cr">优惠活动：该商品享受8折优惠</div>
 					</div>
 					<div class="item-price bgf5">
-						<div class="price-box clearfix">
+						<div class="w clearfix">
 							<div class="price-panel pull-left">
 								售价：<span class="price">￥{{$good['price']}} <s class="fz16 c9">￥{{$good['price'] / 0.8 }}</s></span>
 							</div>
-                        <spn style="float: right">123123123</span>
+                              <spn id="collect" onclick="collect(this)" data-id="{{$good['id']}}" style="float: right;font-size: 20px;font-weight: 700;vertical-align: middle;margin-top: 5px;position: relative;" aria-hidden="true" class="glyphicon glyphicon glyphicon-star"><b style="font-size: 15px; cursor: pointer;">收藏宝贝</b></span>
+                              </a>
 						</div>
 					</div>
 					<ul class="item-ind-panel clearfix">
@@ -79,8 +88,8 @@
 								<dd>
 								   <ul data-property="" class="clearfix">
 									@foreach($v['time'] as $vo)
-									<li>
-										<a  role="button" data-value="{{ $vo }}" class="ssp"  aria-disabled="true">
+									<li data-name="{{$v['name']}}">
+										<a  role="button" data-value="{{ $vo }}"  onclick="ssp(this)"  aria-disabled="true">
 										  <span >{{ $vo }}</span>
 									    </a>
 								    </li>
@@ -187,7 +196,7 @@
 							<div class="record">商品编号：D-{{$good['id']}}</div>
 							<div class="record">上架时间：{{$good['created_at']}}</div>
 					
-							<div class="record">商品库存：1000件</div>
+							<div class="record">商品库存：{{$ku}}件</div>
 						</div>
 						<div class="rich-text">
 							<p style="text-align: center;">
@@ -366,11 +375,20 @@ $(function(){
    
     $(this).children().css('border', '1px solid #b31e22').css('color','#b31e22');
 
-	console.dir($(this).parent().children().children().data('value'))
+	console.dir($(this).data('name'))
+
     
   })
 })
+ 
+ function ssp(zj) {
+ 	console.dir($(zj).data('value'))
+ }
+ function collect(coll) {
+ 	var gid = $(coll).data('id');
 
+ 
 
+ }
  </script>
 @endsection

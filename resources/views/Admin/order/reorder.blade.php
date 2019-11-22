@@ -23,7 +23,7 @@
                 <div class="am-form-group">
                     <label for="user-name" class="am-u-sm-3 am-form-label">手机号：<span class="tpl-form-line-small-title"></span></label>
                     <div class="am-u-sm-9">
-                        <input type="number" class="tpl-form-input" name="phone" value="{{$order->addr->phone}}" id="phone" >
+                        <input type="number" class="tpl-form-input" name="phone" value="{{$order['phone']}}" id="phone" >
                         <span id="reminder"></span>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                   <div class="am-form-group">
                     <label for="user-name" class="am-u-sm-3 am-form-label">地址：<span class="tpl-form-line-small-title">省/市/区/县</span></label>
                     <div class="am-u-sm-9">
-                        <input type="text" class="tpl-form-input" name="address" value="{{$order->addr->address}}" id="addr" >
+                        <input type="text" class="tpl-form-input" name="address" value="{{$order['address']}}" id="addr" >
                     </div>
                 </div>
      
@@ -39,7 +39,7 @@
                 <div class="am-form-group">
                     <label class="am-u-sm-3 am-form-label" >详细地址:<span class="tpl-form-line-small-title"></span></label>
                     <div class="am-u-sm-9">
-                        <input type="text" name="addrinfo" id="addrinfo" value="{{$order->addr->addrinfo}}" >
+                        <input type="text" name="addrinfo" id="addrinfo" value="" >
                      <span id="addr"></span>
                     </div>
                 </div>
