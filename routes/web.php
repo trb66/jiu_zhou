@@ -268,7 +268,49 @@ Route::group(['prefix' => 'home'], function() {
     *   唐荣博 
     *   +-------------------------------------------------------
     */
+    Route::get('/login', 'Home\LoginController@index'); // 前台登陆
 
+    Route::post('/login', 'Home\LoginController@login'); // 处理登陆
+
+    Route::get('/logout', 'Home\LoginController@logout'); // 退出登陆
+
+    Route::post('/registeryzm', 'Home\LoginController@registeryzm'); // 前台注册
+
+    Route::post('/register', 'Home\LoginController@register'); // 前台注册
+
+    Route::post('/isphone', 'Home\LoginController@isphone'); // 重置密码判断手机号是否存在
+
+    Route::post('/resyzm', 'Home\LoginController@resyzm'); // 重置密码
+
+    Route::post('/respwd', 'Home\LoginController@respwd'); // 重置密码
+
+    Route::get('/userinfo', 'Home\UserController@index')->middleware('user.login'); // 个人中心
+
+    Route::post('/addphoto', 'Home\UserController@addphoto'); // 添加头像
+
+    Route::post('/editinfo', 'Home\UserController@edit'); // 修改个人信息
+
+    Route::get('/editpwd', 'Home\UserController@editpwd')->middleware('user.login'); // 修改登陆密码
+
+    Route::get('/showeditpwd', 'Home\UserController@showpwd'); // 修改登陆密码
+
+    Route::post('/showeditpwd', 'Home\UserController@yuanpwd'); // 判断密码是否正确
+
+    Route::post('/editpwd', 'Home\UserController@savepwd'); // 判断密码是否正确
+
+    Route::get('/useraddress', 'Home\UserController@showaddress')->middleware('user.login'); // 地址
+
+    Route::post('/addaddress', 'Home\UserController@addaddress'); // 添加地址
+
+    Route::post('/deladdress', 'Home\UserController@deladdress'); // 删除地址
+
+    Route::post('/defaultaddr', 'Home\UserController@defaultaddr'); // 设为默认地址
+
+    Route::get('/editaddress', 'Home\UserController@editaddr')->middleware('user.login'); // 修改地址
+
+    Route::post('/editaddress', 'Home\UserController@ceditaddr'); // 修改地址
+
+    Route::get('/collect', 'Home\UserController@showcollect')->middleware('user.login'); // 收藏
 
     /** 结束
     *   +-------------------------------------------------------

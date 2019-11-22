@@ -80,7 +80,7 @@
                             @foreach($user_list as $v)
                                 <tr class="gradeX">
                                     <td>
-                                        <img style='border-radius:50%' src="/storage/{{$v->userinfo->photo}}" width=75 height=75 class="tpl-table-line-img" alt="">
+                                        <img style='border-radius:50%' src="/storage/{{$v->userinfo->photo}}" onerror="this.src='/Home/images/icons//default_avt.png';" width=75 height=75 class="tpl-table-line-img" alt="">
                                     </td>
                                     <td class="am-text-middle">{{$v->username}}</td>
                                     <td class="am-text-middle">{{$v->userinfo->name}}</td>
@@ -169,8 +169,6 @@
         var sts = $('select[name=status] :selected').val();
         var str = $('input[name=str]').val();
         var sou = '';
-        console.log(sts);
-        console.log(str);
         // 1.只搜状态
         if (sts != '状态' && str =='') sou = '?status='+sts; 
 

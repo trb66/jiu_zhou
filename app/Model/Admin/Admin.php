@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Model\Admin\trb;
+namespace App\Model\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-use App\Model\Admin\trb\User_has_roles;
+use App\Model\Admin\User_has_roles;
 
 class Admin extends Model
 {
