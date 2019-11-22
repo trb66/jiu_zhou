@@ -23,7 +23,7 @@
         <div style='height:550px'>
             @foreach($collects as $v)
                 <div class="item-card">
-                    <a href="" class="photo">
+                    <a href="/home/item_show/?id={{$v->id}}" class="photo">
                         <img src="/storage/{{$v->img->pic}}" title="{{$v->name}}" class="cover">
                         <div class="name texts">{{$v->name}}</div>
                     </a>

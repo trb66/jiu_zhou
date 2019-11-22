@@ -426,7 +426,6 @@ class UserController extends Controller
             $goods[$k]->img = Imgs::where('goods_id', $v->id)->where('img_type', '0')->first();
         }
 
-        dump($goods);
         return view('Home/User.user_collection', ['collects' => $goods]);
     }
 }
