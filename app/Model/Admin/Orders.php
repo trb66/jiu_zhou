@@ -67,7 +67,6 @@ class Orders extends Model
     public function search()
     {   
          
-          
         return $this->paginate(2);
         // return $this->where('status','=',$_GET['order_status'])->paginate(2);
     }
