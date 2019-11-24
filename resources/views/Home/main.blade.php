@@ -7,7 +7,11 @@
                 <i class="iconfont icon-shoes ce"></i> {{ $v['name'] }}
             </div>
             <ul class="cat-list clearfix">
-                <li></li>
+                @foreach($v['son'] as $k => $voo)
+                    @if($k < 3)
+                        <li>{{ $voo['name'] }}</li>
+                    @endif
+                @endforeach
             </ul>
             <div class="cat-list__deploy">
                 <div class="deploy-box">
@@ -152,5 +156,46 @@
                 ICP备案证书号：闽ICP备16015525号-2&nbsp;&nbsp;&nbsp;&nbsp;友情链接：@foreach($arr as $v)<a href="http://{{ $v['url'] }}" target="_blank">{{ $v['name'] }}</a> | @endforeach&nbsp;&nbsp;&nbsp;&nbsp;Tel: 15577178717&nbsp;&nbsp;&nbsp;&nbsp;E-mail: syznb520@163.com
             </p>
         </div>
+    </div>
+@endsection
+
+@section('shopcart')
+<div class="right-nav">
+        <ul class="r-with-gotop">
+            <li class="r-toolbar-item">
+                <a href="/home/userinfo" class="r-item-hd">
+                    <i class="iconfont icon-user"></i>
+                    <div class="r-tip__box"><span class="r-tip-text">用户中心</span></div>
+                </a>
+            </li>
+            <li class="r-toolbar-item">
+                <a href="/home/udai_shopcart" class="r-item-hd">
+                    <i class="iconfont icon-cart" ></i>
+                    <div class="r-tip__box"><span class="r-tip-text">购物车</span></div>
+                </a>
+            </li>
+            <li class="r-toolbar-item">
+                <a href="" class="r-item-hd">
+                    <i class="iconfont icon-aixin"></i>
+                    <div class="r-tip__box"><span class="r-tip-text">我的收藏</span></div>
+                </a>
+            </li>
+            <li class="r-toolbar-item">
+                <a href="" class="r-item-hd">
+                    <i class="iconfont icon-liaotian"></i>
+                    <div class="r-tip__box"><span class="r-tip-text">联系客服</span></div>
+                </a>
+            </li>
+            <li class="r-toolbar-item">
+                <a href="issues.html" class="r-item-hd">
+                    <i class="iconfont icon-liuyan"></i>
+                    <div class="r-tip__box"><span class="r-tip-text">留言反馈</span></div>
+                </a>
+            </li>
+            <li class="r-toolbar-item to-top">
+                <i class="iconfont icon-top"></i>
+                <div class="r-tip__box"><span class="r-tip-text">返回顶部</span></div>
+            </li>
+        </ul>
     </div>
 @endsection

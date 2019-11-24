@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Model\Home\Goods;
+use App\Model\Home\Types;
 
 class GoodsController extends Controller
 {
@@ -13,12 +14,16 @@ class GoodsController extends Controller
     {
         $model = new Goods;
         $list = $model->sel($id);
-        foreach ($list as $v) {
-            $res = DB::table('types')->where('id','=',$v->cid)->first();
-        }
+        //统计当前3级分类下共有多少商品
+        $count = DB::table('goods')->where('cid','=',$id)->count();
+
+        //查出当前3级分类
+        $type = Types::where('id','=',$id)->first();
+
         return view('Home/goods_list',[
             'list' => $list,
-            'type' => $res
+            'count' => $count,
+            'type' => $type,
         ]);
     }
     //搜索
@@ -32,6 +37,35 @@ class GoodsController extends Controller
         return view('Home/goods_list',[
             'list' => $list,
             'type' => $res
+        ]);
+    }
+
+    //销量排序(降序)
+    public function orders($id)
+    {
+        $model = new Goods;
+        $orders = $model->orders($id);
+        $count = DB::table('goods')->where('cid','=',$id)->count();
+        $type = Types::where('id','=',$id)->first();
+
+        return view('Home/goods_list',[
+            'list' => $orders,
+            'count' => $count,
+            'type' => $type,
+        ]);
+    }
+    //价格排序
+    public function price($id)
+    {
+        $model = new Goods;
+        $price = $model->price($id);
+        $count = DB::table('goods')->where('cid','=',$id)->count();
+        $type = Types::where('id','=',$id)->first();
+
+        return view('Home/goods_list',[
+            'list' => $price,
+            'count' => $count,
+            'type' => $type,
         ]);
     }
 }

@@ -41,14 +41,14 @@
     
     <body>
         <div class="public-head-layout container">
-            <a class="logo" href="index.html">
-                <img src="/Home/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+            <a class="logo" href="/">
+                <img src="/Home/images/icons/logo.jpg" alt="九州网" class="cover"></a>
         </div>
         <div style="background:url(/Home/images/login_bg.jpg) no-repeat center center; ">
             <div class="login-layout container">
                 <div class="form-box login">
                     <div class="tabs-nav">
-                        <h2>欢迎登录U袋网平台</h2></div>
+                        <h2>欢迎登录九州网平台</h2></div>
                     <div class="tabs_container">
                         <form class="tabs_form" action="" method="post" id="login_form">
                             <div class="form-group">
@@ -623,7 +623,7 @@
                 <a href="">
                     <li>网店代销</li></a>
                 <a href="">
-                    <li>U袋学堂</li></a>
+                    <li>九州学堂</li></a>
                 <a href="">
                     <li>联系我们</li></a>
                 <a href="">
@@ -632,7 +632,7 @@
                     <li>新手上路</li></a>
             </ul>
             <!-- 版权 -->
-            <p class="copyright">© 2005-2017 U袋网 版权所有，并保留所有权利
+            <p class="copyright">© 2005-2017 九州网 版权所有，并保留所有权利
                 <br>ICP备案证书号：闽ICP备16015525号-2&nbsp;&nbsp;&nbsp;&nbsp;福建省宁德市福鼎市南下村小区（锦昌阁）1栋1梯602室&nbsp;&nbsp;&nbsp;&nbsp;Tel: 18650406668&nbsp;&nbsp;&nbsp;&nbsp;E-mail: 18650406668@qq.com</p></div>
     </body>
 

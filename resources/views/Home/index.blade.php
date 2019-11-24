@@ -64,11 +64,6 @@
                     <a href="">家居</a>
                 </p>
             </div>
-            <div class="cart-box">
-                <a href="/home/udai_shopcart" class="cart-but">
-                    <i class="iconfont icon-shopcart cr fz16"></i> 购物车 0 件
-                </a>
-            </div>
          @show 
         </div>
     </div>
@@ -1004,6 +999,7 @@
         });
     </script>
     <!-- 右侧菜单 -->
+@section('shopcart')
     <div class="right-nav">
         <ul class="r-with-gotop">
             <li class="r-toolbar-item">
@@ -1042,6 +1038,7 @@
             </li>
         </ul>
     </div>
+@show
     <!-- 底部信息 -->
     @section('bottom')
     <div class="footer">

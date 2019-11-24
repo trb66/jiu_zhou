@@ -5,10 +5,6 @@ namespace App\Model\Home;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-
-
-
-
 class Types extends Model
 {
     public function item_type($cid)
@@ -28,8 +24,7 @@ class Types extends Model
             $son = $this->where('pid','=',$v['id'])->get()->toArray();
             if(!empty($son)){
                 $list[$k]['son'] = $son;
-            }
-            foreach ($list[$k]['son'] as $key => $val) {
+                foreach ($list[$k]['son'] as $key => $val) {
                 //三级分类
                 $sun = $this->where('pid','=',$val['id'])->get()->toArray();
                 if (!empty($sun)) {
@@ -44,7 +39,10 @@ class Types extends Model
                                                     ->limit(4)
                                                     ->get();
 
-                    $goodsinfo = DB::table('goods')->where('cid','=',$value['id'])->where('status','=',0)->limit(3)->get();
+                    $goodsinfo = DB::table('goods')->where('cid','=',$value['id'])
+                                                    ->where('status','=',0)
+                                                    ->limit(3)
+                                                    ->get();
                     if (!empty($goodsinfo)) {
                         //遍历三级商品的数据
                         foreach ($goodsinfo as $g) {
@@ -58,6 +56,7 @@ class Types extends Model
                     }
                 }
             }
+            }
         }
         return $list;
     }
@@ -67,9 +66,9 @@ class Types extends Model
     public function search($name)
     {
         $res = DB::table('goods')
-                            ->where('status','=',0)
-                            ->where('name','like','%'. $name .'%')
-                            ->paginate(8);
+                    ->where('status','=',0)
+                    ->where('name','like','%'. $name .'%')
+                    ->paginate(8);
         if($res->first()){
             foreach ($res as $k => $v) {
                 $img = DB::table('imgs')->where('goods_id','=',$v->id)->get();
@@ -93,4 +92,10 @@ class Types extends Model
             return $res;
         }
     }
+
+    public function specs_Info()
+    {
+        return $this->hasMany('App\Model\Home\Specs', 'type_id', 'id');
+    }
+
 }

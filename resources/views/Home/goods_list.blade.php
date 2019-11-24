@@ -21,10 +21,44 @@
 @section('body')
 <div class="content inner">
     <section class="item-show__div clearfix">
-        <ol class="breadcrumb">
-            <li><a href="/">首页</a></li>
-            <li class="active">{{ $type->name }}</li>
-        </ol>
+        <div class="filter-box">
+            @foreach($type->specs_Info as $v)
+                <div class="filter-prop-item">
+                    <span class="filter-prop-title">{{ $v->name }}</span>
+                    <ul class="clearfix">
+                        <a href="/home/goods_list/{{ $type->id }}"><li class="active">全部</li></a>
+                        @foreach($v->specs_Items_Info as $vv)
+                            <a href=""><li>{{ $vv->time }}</li></a>
+                        @endforeach
+                    </ul>
+                </div>
+            @endforeach
+
+                <div class="filter-prop-item">
+                    <span class="filter-prop-title">价格：</span>
+                    <ul class="clearfix">
+                        <a href=""><li class="active">全部</li></a>
+                        <a href=""><li>20-40</li></a>
+                        <a href=""><li>40-80</li></a>
+                        <a href=""><li>80-100</li></a>
+                        <a href=""><li>100-150</li></a>
+                        <a href=""><li>150以上</li></a>
+                        <form class="price-order">
+                            <input type="text">
+                            <span class="cc">-</span>
+                            <input type="text">
+                            <input type="button" value="确定">
+                        </form>
+                    </ul>
+                </div>
+            </div>
+            <div class="sort-box bgf5">
+                <div class="sort-text">排序：</div>
+                <a href="/home/goods_list/{{ $type->id }}"><div class="sort-text">综合</div></a>
+                <a href="/home/orders/{{ $type->id }}"><div class="sort-text">销量 <i class="iconfont icon-sortDown"></i></div></a>
+                <a href="/home/price/{{ $type->id }}"><div class="sort-text">价格 </div></a>
+                <div class="sort-total pull-right">共 {{ $count }} 个商品</div>
+            </div>
         <div class="pull-left">
             <div class="item-list__area clearfix">
             @foreach($list as $v)
@@ -37,7 +71,7 @@
                         <div class="sale no-hide"><a href="">满100减20</a></div>
                     </div>
                     <div class="buttom">
-                        <div>销量 <b>666</b></div>
+                        <div>销量 <b>{{ $v->sales }}</b></div>
                         <div>人气 <b>888</b></div>
                         <div>评论 <b>1688</b></div>
                     </div>

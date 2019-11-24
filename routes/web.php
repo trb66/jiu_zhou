@@ -365,9 +365,16 @@ Route::group(['prefix' => 'home'], function() {
     *   +-------------------------------------------------------
     */
     
+    //显示商品列表
     Route::get('/goods_list/{id}','Home\GoodsController@index');
+    //商城首页的搜索
     Route::get('/search','Home\IndexController@search');
+    //商品列表页面的搜索
     Route::get('/goods/search','Home\GoodsController@search');
+    //销量排序
+    Route::get('/orders/{id}','Home\GoodsController@orders');
+    //价格排序
+    Route::get('/price/{id}','Home\GoodsController@price');
 
 
     /**  结束

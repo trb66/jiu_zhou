@@ -19,6 +19,7 @@ class SpecsItemsController extends Controller
         $pag = 10;
         $res = new Spec_goods_prices;
         $specGoodsPrices = $res->Sgpsel($pag);
+
         return view('/Admin/specsItems.SpecsItems', ['specGoodsPrices' => $specGoodsPrices]);
     }
 

@@ -25,10 +25,14 @@ class IndexController extends Controller
         //分类和商品数据
         $types = new Types;
         $str = $types->select();
+
+        $id = session('adminInfo');
+        $shopcart = DB::table('shop_cars')->where('uid','=',$id)->get();
+
         return view('Home/main',[
             'res' => $res,
             'arr' => $arr,
-            'str' => $str
+            'str' => $str,
         ]);
     }
 

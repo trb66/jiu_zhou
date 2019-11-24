@@ -59,11 +59,11 @@
                                         </thead>
                                         <tbody>
                                         @foreach($specGoodsPrices as $v)
-                                            <tr class="even gradeC">
+                                           <tr class="even gradeC">
                                                 <td>{{$v->id}}</td>
-                                                <td>{{$v->goods_name->name}}</td>
+                                                <td>{{$v->goods_name['name']}}</td>
                                                 <td>{{$v->key_name}}</td>
-                                                <td>{{$v->price}}￥</td>
+                                                <td>￥{{$v->price}}</td>
                                                 <td>{{$v->store_count}}</td>
                                                 <td>
                                                     <div class="tpl-table-black-operation">
