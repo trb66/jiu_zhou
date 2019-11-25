@@ -18,8 +18,7 @@ class Comments extends Model
     public function item_user()
     {
     	return $this->hasOne('App\Model\Home\Users','id','uid');
-    } 
+    }
 
     
-
 }

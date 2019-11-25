@@ -20,7 +20,7 @@
     <div class="user-content__box clearfix bgf">
         <div class="title">订单中心-我的收藏</div>
         <div class="collection-list__area clearfix">
-        <div style='height:550px'>
+        <div style='height:550px' id='container'>
             @foreach($collects as $v)
                 <div class="item-card">
                     <a href="/home/item_show/?id={{$v->id}}" class="photo">
@@ -29,7 +29,7 @@
                     </a>
                     <div class="middle">
                         <div class="price"><small>￥</small>{{$v->price}}</div>
-                        <div class="sale"><a href="javascript:void(0)" id='quxiao' data-id='{{$v->id}}'>取消收藏</a></div>
+                        <div class="sale"><a href="javascript:void(0)" class='quxiao' data-id='{{$v->id}}'>取消收藏</a></div>
                     </div>
                 </div>
             @endforeach
@@ -38,12 +38,12 @@
 
         
 <!--         <div class="page text-right clearfix">
-            <a class="disabled">上一页</a>
+            <a href='{{$collects->previousPageUrl()}}'>上一页</a>
             <a class="select">1</a>
             <a href="">2</a>
-            <a href="">3</a>
-            <a class="" href="">下一页</a>
-            <a class="disabled">1/3页</a>
+            <a href="">{{$collects->perPage()}}</a>
+            <a class="" href="{{$collects->nextPageUrl()}}">下一页</a>
+            <a class="disabled">1/{{$collects->total()}}页</a>
         </div> -->
     </div>
     </div>
@@ -52,11 +52,32 @@
 @section('js')
 
 <script type="text/javascript">
-    $('#quxiao').click(function() {
+    $.ajaxSetup({
+            headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+    });
+    // 取消收藏
+    $('.quxiao').click(function() {
+        var mys = $(this);
+
         var id = $(this).data('id');
 
-        $
-        console.log(this);
+        $.ajax({
+            type: 'post',
+            url: '/home/cancelcollection',
+            data: {
+                id: id,
+            },
+            success: function(res) {
+                mys.parent().parent().parent().remove();
+                if ($('#container').children().length <= 0) {
+                    location.href = '/home/collect?page=1';
+                }
+            },
+            error: function(err) {
+                alert(err.responseJSON.msg);
+            }
+        });
     });
+
 </script>
 @endsection
