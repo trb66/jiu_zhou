@@ -359,7 +359,10 @@ Route::group(['prefix' => 'home'], function() {
     *   +-------------------------------------------------------
     */  
     Route::get('/item_show', 'Home\Item_showController@show');
+    Route::get('/item_show/spec_all', 'Home\Item_showController@spec_all');
+    Route::post('/item_show/addcar', 'Home\Item_showController@addcar');
 
+ 
 
 
       

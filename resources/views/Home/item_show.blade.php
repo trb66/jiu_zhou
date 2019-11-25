@@ -2,6 +2,16 @@
 
 @section('title',$good['name'])
 
+@section('css')
+<style>
+	#collect:hover{
+       color: #b31e22;
+	}
+	.ceshi{
+
+	}
+</style>
+@endsection
 
 @section('type')
 
@@ -13,21 +23,21 @@
 		<section class="item-show__div item-show__head clearfix">
 			<div class="pull-left">
 				<ol class="breadcrumb">
-					<li><a href="index.html">首页</a></li>
-					<li><a href="item_sale_page.html">{{$type->name}}</a></li>
+					<li><a href="/">首页</a></li>
+					<li><a href="/home/goods_list/{{ $type['id'] }}">{{$type['name']}}</a></li>
 					<li class="active">{{$good['name']}}</li>
 				</ol>
 				<div class="item-pic__box" id="magnifier">
 					<div class="small-box">
                    
-						<img class="cover" src="/storage/{{$pre[0]->pic}}" alt="{{$good['name']}}">
+						<img class="cover" src="/storage/{{$pre[count($pre) - 1]->pic}}" alt="{{$good['name']}}">
 						<span class="hover"></span>
                        
 					</div>
 					<div class="thumbnail-box">
 						<a href="javascript:;" class="btn btn-default btn-prev"></a>
 						<div class="thumb-list">
-							<ul class="wrapper clearfix">
+							<ul class="wrapper clearfix" id='test'>
                                @foreach($pre as $ki => $img)
 
 								<li class="item" data-src="/storage/{{$img['pic']}}"><img class="cover" src="/storage/{{$img['pic']}}" alt="商品预览图"></li>
@@ -54,17 +64,18 @@
 						<div class="sale cr">优惠活动：该商品享受8折优惠</div>
 					</div>
 					<div class="item-price bgf5">
-						<div class="price-box clearfix">
+						<div class="w clearfix">
 							<div class="price-panel pull-left">
-								售价：<span class="price">￥{{$good['price']}} <s class="fz16 c9">￥{{$good['price'] / 0.8 }}</s></span>
+								售价：<span class="price jiage">￥{{$good['price']}}</span> <s class="fz16 c9 jiages">￥{{$good['price'] / 0.8 }}</s>
 							</div>
+                              <spn id="collect" onclick="collect(this)" data-id="{{$good['id']}}" style="float: right;font-size: 20px;font-weight: 700;vertical-align: middle;margin-top: 5px;position: relative;" aria-hidden="true" class="glyphicon glyphicon glyphicon-star"><b style="font-size: 15px; cursor: pointer;">收藏宝贝</b></span>
+                              </a>
 						</div>
-
 					</div>
 					<ul class="item-ind-panel clearfix">
 						<li class="item-ind-item">
 							<span class="ind-label c9">累计销量</span>
-							<span class="ind-count cr">1688</span>
+							<span class="ind-count cr">{{$good['sales']}}</span>
 						</li>
 						<li class="item-ind-item">
 							<a href=""><span class="ind-label c9">累计评论</span>
@@ -74,29 +85,35 @@
 					<div class="item-key">
 						<div class="item-sku">
 						   @foreach ($spec as $v)
-							<dl class="item-prop clearfix">
+							<dl class="item-prop clearfix gui" data-spec_id="{{$v['id']}}">
 								<dt class="item-metatit">{{$v['name']}}：</dt>
-								<dd><ul data-property="颜色" class="clearfix">
+								<dd>
+								   <ul data-property="" data-name='{{ $v["name"] }}' class="clearfix test">
 									@foreach($v['time'] as $vo)
-									<li><a href="javascript:;" role="button" data-value="{{ $vo }}"  aria-disabled="true">
-										<span>{{ $vo }}</span>
-									</a></li>
+									<li data-name="{{$v['name']}}" data-value="{{ $vo }}">
+										<a role="button" aria-disabled="true">
+										  <span >{{ $vo }}</span>
+									    </a>
+								    </li>
+
 									@endforeach
-								</ul></dd>
+								    </ul>
+							    </dd>
 							</dl>
-							@endforeach
+							@endforeach                       
 						</div>
+
 						<div class="item-amount clearfix bgf5">
 							<div class="item-metatit">数量：</div>
 							<div class="amount-box">
 								<div class="amount-widget">
-									<input class="amount-input" value="1" maxlength="8" title="请输入购买量" type="text">
+									<input class="amount-input" value="1" id="num" maxlength="8" title="请输入购买量" type="text">
 									<div class="amount-btn">
 										<a class="amount-but add"></a>
 										<a class="amount-but sub"></a>
 									</div>
 								</div>
-								<div class="item-stock"><span style="margin-left: 10px;">库存 <b id="Stock">1000</b> 件</span></div>
+								<div class="item-stock"><span style="margin-left: 10px;">库存 <b id="Stock">{{$ku}}</b> 件</span></div>
 								<script>
 									$(function () {
 										$('.amount-input').onlyReg({reg: /[^0-9]/g});
@@ -130,8 +147,8 @@
 						</div>
 						<div class="item-action clearfix bgf5">
 							<a href="javascript:;" rel="nofollow" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">立即购买</a>
-							<a href="javascript:;" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket">
-								<i class="iconfont icon-shopcart"></i> 加入购物车
+							<a  onclick="return addcar(this)" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket">
+								<i class="iconfont icon-shopcart"></i>加入购物车
 							</a>
 						</div>
 					</div>
@@ -182,7 +199,7 @@
 							<div class="record">商品编号：D-{{$good['id']}}</div>
 							<div class="record">上架时间：{{$good['created_at']}}</div>
 					
-							<div class="record">商品库存：1000件</div>
+							<div class="record">商品库存：{{$ku}}件</div>
 						</div>
 						<div class="rich-text">
 							<p style="text-align: center;">
@@ -212,7 +229,7 @@
 									<div class="eval-box">
 										<div class="eval-author">
 											<div class="port">
-												<img src="images/icons/default_avt.png" alt="欢迎来到九州商城" class="cover b-r50">
+												<img src="" alt="欢迎来到九州商城" class="cover b-r50">
 											</div>
 											<div class="name">{{$c->item_user->username}}</div>
 										</div>
@@ -238,15 +255,14 @@
 											
 									@endforeach
 
-									<!-- 分页 -->
-							
+								<!-- 分页 -->
 								</div>
 								<!--  -->
 								<div role="tabpanel" class="tab-pane fade" id="normal" aria-labelledby="normal-tab">
 									<div class="eval-box">
 										<div class="eval-author">
 											<div class="port">
-												<img src="images/icons/default_avt.png" alt="欢迎来到U袋网" class="cover b-r50">
+												<img src="" alt="欢迎来到U袋网" class="cover b-r50">
 											</div>
 											<div class="name">高***恒</div>
 										</div>
@@ -254,13 +270,7 @@
 											<div class="eval-text">
 												真是特别美_回头穿了晒图
 											</div>
-											<div class="eval-imgs">
-												<div class="img-temp"><img src="images/temp/S-001-1_s.jpg" data-src="images/temp/S-001-1_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-2_s.jpg" data-src="images/temp/S-001-2_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-3_s.jpg" data-src="images/temp/S-001-3_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-4_s.jpg" data-src="images/temp/S-001-4_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-5_s.jpg" data-src="images/temp/S-001-5_b.jpg" data-action="zoom" class="cover"></div>
-											</div>
+										
 											<div class="eval-time">
 												2017年08月11日 20:31 颜色分类：深棕色 尺码：均码
 											</div>
@@ -285,7 +295,7 @@
 									<div class="eval-box">
 										<div class="eval-author">
 											<div class="port">
-												<img src="images/icons/default_avt.png" alt="欢迎来到U袋网" class="cover b-r50">
+												<img src="" alt="欢迎来到U袋网" class="cover b-r50">
 											</div>
 											<div class="name">高***恒</div>
 										</div>
@@ -293,13 +303,7 @@
 											<div class="eval-text">
 												真是特别美_回头穿了晒图
 											</div>
-											<div class="eval-imgs">
-												<div class="img-temp"><img src="images/temp/S-001-1_s.jpg" data-src="images/temp/S-001-1_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-2_s.jpg" data-src="images/temp/S-001-2_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-3_s.jpg" data-src="images/temp/S-001-3_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-4_s.jpg" data-src="images/temp/S-001-4_b.jpg" data-action="zoom" class="cover"></div>
-												<div class="img-temp"><img src="images/temp/S-001-5_s.jpg" data-src="images/temp/S-001-5_b.jpg" data-action="zoom" class="cover"></div>
-											</div>
+									
 											<div class="eval-time">
 												2017年08月11日 20:31 颜色分类：深棕色 尺码：均码
 											</div>
@@ -366,5 +370,95 @@
 @endsection
 
 @section('js')
+ <script>
+$(function(){
+  $(".gui li").click(function(){
+	 $(this).parent().children().children().css('border', '').css('color','')
+   
+     $(this).children().css('border', '1px solid #b31e22').css('color','#b31e22');
+    
+   	var s = $('.test');
+   	var a = {};
 
+   	s.each(function(v, val) {
+   		var bb = $(val).data('name');
+   		$(val).children().each(function() {
+   			if ($(this).children('a').attr('style') == 'border: 1px solid rgb(179, 30, 34); color: rgb(179, 30, 34);') {
+   				a[bb] = $(this).children('a').children('span').html();
+   			}
+   		});
+   	})
+   	// console.log(Object.keys(a).length);
+   	var names = '';
+   	var x = 0;
+   	for(k in a) {
+   		x++;
+   		names += k+':'+a[k]+' ';
+   	}
+   	if(s.length == x) {
+    
+        $.ajax({
+            type: 'get',
+            url: '/home/item_show/spec_all',
+                data: {
+                	
+                    names: names,
+                },
+            success:function(res) {
+            var spec_id = res.good.id;
+            var price = res.good.price;
+            var store_count = res.good.store_count;
+
+            $('.jiage').html(price);
+            $('.jiages').html(price / 0.8);
+            $('#Stock').html(store_count);
+             
+            if (store_count == 0) {
+            	alter('该规格的商品已售罄 ，商家正在匆忙补货中！！！');
+            }
+
+            },
+            error:function(err) {
+            }
+
+        })
+   		
+   	}
+
+  })
+})
+function addcar(car) {
+  var commod = $('#num').val()
+
+
+        $.ajaxSetup({
+                headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+            });
+		$.ajax({
+		        type: 'post',
+		        url: '/home/item_show/addcar',
+		        data: {
+		        	commod:commod,
+		        	
+		
+		        },
+		        success:function(res) {
+
+		        },
+		        error:function(err) {
+
+		        }
+
+		    })
+
+   	} 
+
+ function collect(coll) {
+ 	var gid = $(coll).data('id');
+ 	console.dir(gid);
+
+
+    
+ }
+ </script>
 @endsection
