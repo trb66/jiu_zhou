@@ -316,15 +316,19 @@ Route::group(['prefix' => 'home'], function() {
 
     Route::get('/userorder', 'Home\UserController@user_Order')->middleware('user.login'); // 用户订单
 
-    Route::post('/delorder', 'Home\UserController@delOrder')->middleware('user.login'); // 用户订单
+    Route::post('/delorder', 'Home\UserController@delOrder')->middleware('user.login'); // 删除订单
 
-    Route::get('/delorder', 'Home\UserController@delOrder')->middleware('user.login'); // 显示评论
+    Route::post('/cancelorder', 'Home\UserController@cancelOrder')->middleware('user.login'); // 取消订单
+
+    Route::get('/orderinfo', 'Home\UserController@orderDetail')->middleware('user.login'); // 订单详情
 
     Route::get('/logistics', 'Home\UserController@showLogistics')->middleware('user.login'); // 查看物流
 
     Route::get('/comments', 'Home\UserController@addComments')->middleware('user.login'); // 用户评价
 
     Route::post('/addcomments', 'Home\UserController@caddComments')->middleware('user.login'); // 添加评价
+
+    Route::get('/showcomment', 'Home\UserController@showComment')->middleware('user.login'); // 添加评价
 
     /** 结束
     *   +-------------------------------------------------------

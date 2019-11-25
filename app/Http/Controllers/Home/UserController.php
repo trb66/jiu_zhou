@@ -12,6 +12,7 @@ use App\Model\Admin\Goods;
 use App\Model\Admin\Imgs;
 use App\Model\Admin\Comments;
 use App\Model\Admin\Orders;
+use App\Model\Admin\Expresses;
 use App\Model\Admin\Orders_details;
 
 use Illuminate\Support\Facades\DB;
@@ -490,6 +491,47 @@ class UserController extends Controller
         }
     }
 
+    // 取消订单
+    public function cancelOrder(Request $request)
+    {
+        $uid = session('UserInfo.id'); // 用户ID
+
+        $oid = $request->input('oid'); // 订单ID
+
+        $res = Orders::where('id', $oid)->where('uid', $uid)->where('status', '0')->first();
+
+        if(!is_null($res)) {
+            Orders::where('id', $oid)->where('uid', $uid)->where('status', '0')->delete(); // 删除订单
+
+            Orders_details::where('oid', $oid)->delete(); // 删除订单详情
+
+            return [
+                'code' => 1,
+                'msg' => '取消成功',
+            ];
+        } else {
+             return response()->json([
+                'code' => 0,
+                'msg' => '网络错误，请重试',
+            ], 500);
+        }
+    }
+
+    public function orderDetail(Request $request)
+    {
+        $oid = $request->input('id');
+
+        $uid = session('UserInfo.id'); // 用户ID
+
+        $res = Orders::where('id', $oid)->where('uid', $uid)->where('status', '<>', '4')->first();
+
+        if(is_null($res)) {
+            return redirect('/home/userorder');
+        } else {
+            return view('Home/User.orderdetail', ['order' => $res]);
+        }
+    }
+
     // 添加评论
     public function addComments(Request $request)
     {
@@ -576,7 +618,7 @@ class UserController extends Controller
             return redirect('/home/userorder');
         }
 
-        $dizhi = DB::table('express')->where('oid', $oid)->first();
+        $dizhi = Expresses::where('oid', $oid)->first();
 
         $dan = $dizhi->express; // 快递单号
 

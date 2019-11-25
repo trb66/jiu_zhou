@@ -104,7 +104,7 @@
                                                         <ul class="item-list">
                                                             <li class="td td-item">
                                                                 <div class="item-pic">
-                                                                    <a href="#" class="J_MakePoint">
+                                                                    <a href="/home/item_show/?id={{ $vv->gid }}" class="J_MakePoint">
                                                                         <img src="/storage/{{ $vv->goodsImg->pic }}" class="itempic J_ItemImg">
                                                                     </a>
                                                                 </div>
@@ -154,7 +154,10 @@
                                                                     <br>
                                                                     <p class="Mystatus">等待买家付款</p>
                                                                     <p class="order-info">
-                                                                        <a href="orderinfo.html" style='color:red'>订单详情</a>
+                                                                        <a onclick='cancel(this)' data-id='{{ $v->id }}' style='color:red'>取消订单</a>
+                                                                    </p>
+                                                                    <p class="order-info">
+                                                                        <a href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
                                                                     </p>
                                                                 @elseif($v->status == 1)
                                                                     <p class="Mystatus">买家已付款</p>
@@ -162,18 +165,15 @@
                                                                         <a href="orderinfo.html">等待发货</a>
                                                                     </p>
                                                                     <p class="order-info">
-                                                                        <a href="logistics.html">订单详情</a>
+                                                                        <a href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
                                                                     </p>
                                                                 @elseif($v->status == 2)
                                                                     <p class="Mystatus">卖家已发货</p>
                                                                     <p class="order-info">
-                                                                        <a href="orderinfo.html">订单详情</a>
+                                                                        <a href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
                                                                     </p>
                                                                     <p class="order-info">
                                                                         <a href="/home/logistics/?id={{$v->id}}">查看物流</a>
-                                                                    </p>
-                                                                    <p class="order-info">
-                                                                        <a href="#">延长收货</a>
                                                                     </p>
                                                                 @else
                                                                     <br>
@@ -192,7 +192,7 @@
                                                                         一键支付
                                                                     </div>
                                                                 @elseif($v->status == 1)
-                                                                    <div class="am-btn am-btn-danger anniu">
+                                                                    <div class="tips am-btn am-btn-danger anniu">
                                                                         提醒发货
                                                                     </div>
                                                                 @elseif($v->status == 2)
@@ -265,7 +265,7 @@
                                                         <ul class="item-list">
                                                             <li class="td td-item">
                                                                 <div class="item-pic">
-                                                                    <a href="#" class="J_MakePoint">
+                                                                    <a href="/home/item_show/?id={{ $vv->gid }}" class="J_MakePoint">
                                                                         <img src="/storage/{{ $vv->goodsImg->pic }}" class="itempic J_ItemImg">
                                                                     </a>
                                                                 </div>
@@ -314,7 +314,10 @@
                                                                     <br>
                                                                     <p class="Mystatus">等待买家付款</p>
                                                                     <p class="order-info">
-                                                                        <a href="orderinfo.html" style='color:red'>订单详情</a>
+                                                                        <a  onclick='cancel(this)' data-id='{{ $v->id }}' style='color:red'>取消订单</a>
+                                                                    </p>
+                                                                    <p class="order-info">
+                                                                        <a href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
                                                                     </p>
                                                                 </div>
                                                             </li>
@@ -379,7 +382,7 @@
                                                         <ul class="item-list">
                                                             <li class="td td-item">
                                                                 <div class="item-pic">
-                                                                    <a href="#" class="J_MakePoint">
+                                                                    <a href="/home/item_show/?id={{ $vv->gid }}" class="J_MakePoint">
                                                                         <img src="/storage/{{ $vv->goodsImg->pic }}" class="itempic J_ItemImg">
                                                                     </a>
                                                                 </div>
@@ -430,12 +433,12 @@
                                                                         <a href="orderinfo.html">等待发货</a>
                                                                     </p>
                                                                     <p class="order-info">
-                                                                        <a href="logistics.html">订单详情</a>
+                                                                        <a href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
                                                                     </p>
                                                                 </div>
                                                             </li>
                                                             <li class="td td-change">
-                                                                    <div class="am-btn am-btn-danger anniu">
+                                                                    <div class="tips am-btn am-btn-danger anniu">
                                                                         提醒发货
                                                                     </div>
                                                             </li>
@@ -495,7 +498,7 @@
                                                         <ul class="item-list">
                                                             <li class="td td-item">
                                                                 <div class="item-pic">
-                                                                    <a href="#" class="J_MakePoint">
+                                                                    <a href="/home/item_show/?id={{ $vv->gid }}" class="J_MakePoint">
                                                                         <img src="/storage/{{ $vv->goodsImg->pic }}" class="itempic J_ItemImg">
                                                                     </a>
                                                                 </div>
@@ -543,7 +546,7 @@
                                                                 <div class="item-status">
                                                                     <p class="Mystatus">卖家已发货</p>
                                                                     <p class="order-info">
-                                                                        <a href="orderinfo.html">订单详情</a>
+                                                                        <a href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
                                                                     </p>
                                                                     <p class="order-info">
                                                                         <a href="/home/logistics/?id={{$v->id}}">查看物流</a>
@@ -615,7 +618,7 @@
                                                         <ul class="item-list">
                                                             <li class="td td-item">
                                                                 <div class="item-pic">
-                                                                    <a href="#" class="J_MakePoint">
+                                                                    <a href="/home/item_show/?id={{ $vv->gid }}" class="J_MakePoint">
                                                                         <img src="/storage/{{ $vv->goodsImg->pic }}" class="itempic J_ItemImg">
                                                                     </a>
                                                                 </div>
@@ -697,6 +700,9 @@
 @section('js')
     <script src="/Home/Orders/amazeui.js"></script>
     <script type="text/javascript">
+        $('.tips').click(function () {
+            alert('卖家已收到您的留言，正在为您积极备货呢~');
+        })        
         var id;
         var me;
         function dels(mys) {
@@ -726,6 +732,34 @@
             });
         })
 
+        // 取消订单
+        function cancel(mys)
+        {
+            var s = window.confirm("你确定要取消订单吗？");
+
+            if(s) {
+                var oid = $(mys).data('id'); // 订单ID
+                // 发起ajax请求
+                $.ajaxSetup({
+                    headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: '/home/cancelorder',
+                    data: {
+                        oid: oid,
+                    },
+                    success: function(res) {
+                        $(mys).parent().parent().parent().parent().parent().parent().parent().remove();
+                    },
+                    error: function(err) {
+                        alert('网络错误，请重试');
+                    }
+                });
+
+            }
+
+        }
 
     </script>
 @endsection
