@@ -31,12 +31,9 @@ class GoodsController extends Controller
     {
         $model = new Goods;
         $list = $model->search($_GET['name']);
-        foreach ($list as $v) {
-            $res = DB::table('types')->where('id','=',$v->cid)->first();
-        }
-        return view('Home/goods_list',[
-            'list' => $list,
-            'type' => $res
+
+        return view('Home/goods_search',[
+            'list' => $list
         ]);
     }
 
@@ -64,6 +61,20 @@ class GoodsController extends Controller
 
         return view('Home/goods_list',[
             'list' => $price,
+            'count' => $count,
+            'type' => $type,
+        ]);
+    }
+
+    //价格组搜索
+    public function group($id)
+    {
+        $model = new Goods;
+        $res = $model->group($id);
+        $count = DB::table('goods')->where('cid','=',$id)->count();
+        $type = Types::where('id','=',$id)->first();
+        return view('Home/goods_list',[
+            'list' => $res,
             'count' => $count,
             'type' => $type,
         ]);

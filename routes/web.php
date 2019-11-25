@@ -375,6 +375,8 @@ Route::group(['prefix' => 'home'], function() {
     Route::get('/orders/{id}','Home\GoodsController@orders');
     //价格排序
     Route::get('/price/{id}','Home\GoodsController@price');
+    //填写价格搜索
+    Route::get('/group/{id}','Home\GoodsController@group');
 
 
     /**  结束

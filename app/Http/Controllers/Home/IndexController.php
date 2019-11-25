@@ -41,12 +41,9 @@ class IndexController extends Controller
     {
         $model = new Types;
         $list = $model->search($_GET['name']);
-        foreach ($list as $v) {
-            $res = DB::table('types')->where('id','=',$v->cid)->first();
-        }
-        return view('Home/goods_list',[
-            'list' => $list,
-            'type' => $res
+        
+        return view('Home/goods_search',[
+            'list' => $list
         ]);
     }
 }
