@@ -517,6 +517,7 @@ class UserController extends Controller
         }
     }
 
+    // 订单详情
     public function orderDetail(Request $request)
     {
         $oid = $request->input('id');
@@ -553,7 +554,7 @@ class UserController extends Controller
             $gids[$k] = $v->gid;
         }
 
-        $com = Comments::whereIn('gid', $gids)->where('uid', $uid)->get();
+        $com = Comments::whereIn('gid', $gids)->where('uid', $uid)->where('oid', $id)->get();
 
         if(!$com->isEmpty()) { // 已经评价
             echo '<script>alert("该订单已经评价");location.href = "/home/userorder";</script>';
@@ -569,12 +570,13 @@ class UserController extends Controller
 
         $data = $request->input('comments'); // 用户评价
 
-
+        $oid = $request->input('id'); // 订单id
 
         foreach($data as $v) {
             $cos = explode("-",$v);
 
             $data = [
+                'oid' => $oid,
                 'uid' => $uid,
                 'gid' => $cos[0],
                 'pid' => 0,
@@ -623,6 +625,7 @@ class UserController extends Controller
         $dan = $dizhi->express; // 快递单号
 
         $express_all = json_decode($this->wuliu($dan));
+
         // 投递状态 0快递收件(揽件)1.在途中 2.正在派件 3.已签收 4.派送失败 5.疑难件 6.退件签收
         // deliverystatus
         $express_info = [];

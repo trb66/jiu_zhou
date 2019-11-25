@@ -69,5 +69,10 @@ class Orders extends Model
    {
       return $this->hasMany('App\Model\Admin\Orders_details', 'oid', 'id');    
    }
+
+   public function orderComm()
+   {
+      return $this->hasMany('App\Model\Admin\Comments', 'oid', 'id');    
+   }
 }    
 

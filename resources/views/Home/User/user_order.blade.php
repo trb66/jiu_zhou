@@ -157,7 +157,7 @@
                                                                         <a onclick='cancel(this)' data-id='{{ $v->id }}' style='color:red'>取消订单</a>
                                                                     </p>
                                                                     <p class="order-info">
-                                                                        <a href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
+                                                                        <a style='color:red' href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
                                                                     </p>
                                                                 @elseif($v->status == 1)
                                                                     <p class="Mystatus">买家已付款</p>
@@ -165,23 +165,25 @@
                                                                         <a href="orderinfo.html">等待发货</a>
                                                                     </p>
                                                                     <p class="order-info">
-                                                                        <a href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
+                                                                        <a style='color:red' href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
                                                                     </p>
                                                                 @elseif($v->status == 2)
                                                                     <p class="Mystatus">卖家已发货</p>
                                                                     <p class="order-info">
-                                                                        <a href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
-                                                                    </p>
-                                                                    <p class="order-info">
                                                                         <a href="/home/logistics/?id={{$v->id}}">查看物流</a>
                                                                     </p>
+                                                                    <p class="order-info">
+                                                                        <a style='color:red' href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
+                                                                    </p>
                                                                 @else
-                                                                    <br>
                                                                     <p class="order-info">
                                                                         <a href="#">交易完成</a>
                                                                     </p>
                                                                     <p class="order-info">
-                                                                        <a data-id="{{ $v->id }}" data-toggle="modal" data-target="#myModal" onclick='dels(this)' style='color:red'>删除订单</a>
+                                                                        <a data-id="{{ $v->id }}" data-toggle="modal" data-target="#myModal" onclick='dels(this)' style='color:black'>删除订单</a>
+                                                                    </p>
+                                                                    <p class="order-info">
+                                                                        <a style='color:red' href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
                                                                     </p>
                                                                 @endif
                                                                 </div>
@@ -200,9 +202,15 @@
                                                                         确认收货
                                                                     </div>
                                                                 @else
-                                                                    <div onclick="location.href = '/home/comments/?id={{$v->id}}'" class="am-btn am-btn-danger anniu">
-                                                                        评价商品
-                                                                    </div>
+                                                                    @if($v->orderComm->isEmpty())
+                                                                        <div onclick="location.href = '/home/comments/?id={{$v->id}}'" class="am-btn am-btn-danger anniu">
+                                                                            评价商品
+                                                                        </div>
+                                                                    @else
+                                                                        <div class="am-btn am-btn-danger anniu">
+                                                                            已评价
+                                                                        </div>
+                                                                    @endif
                                                                 @endif
                                                             </li>
                                                         </div>
@@ -317,7 +325,7 @@
                                                                         <a  onclick='cancel(this)' data-id='{{ $v->id }}' style='color:red'>取消订单</a>
                                                                     </p>
                                                                     <p class="order-info">
-                                                                        <a href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
+                                                                        <a style='color:red' href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
                                                                     </p>
                                                                 </div>
                                                             </li>
@@ -433,7 +441,7 @@
                                                                         <a href="orderinfo.html">等待发货</a>
                                                                     </p>
                                                                     <p class="order-info">
-                                                                        <a href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
+                                                                        <a style='color:red' href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
                                                                     </p>
                                                                 </div>
                                                             </li>
@@ -546,13 +554,10 @@
                                                                 <div class="item-status">
                                                                     <p class="Mystatus">卖家已发货</p>
                                                                     <p class="order-info">
-                                                                        <a href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
-                                                                    </p>
-                                                                    <p class="order-info">
                                                                         <a href="/home/logistics/?id={{$v->id}}">查看物流</a>
                                                                     </p>
                                                                     <p class="order-info">
-                                                                        <a href="#">延长收货</a>
+                                                                        <a style='color:red' href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
                                                                     </p>
                                                                 </div>
                                                             </li>
@@ -664,19 +669,27 @@
                                                             </li>
                                                             <li class="td td-status">
                                                                 <div class="item-status">
-                                                                    <br>
                                                                     <p class="order-info">
                                                                         <a href="#">交易完成</a>
                                                                     </p>
                                                                     <p class="order-info">
-                                                                        <a data-id="{{ $v->id }}" data-toggle="modal" data-target="#myModal" onclick='dels(this)' style='color:red'>删除订单</a>
+                                                                        <a data-id="{{ $v->id }}" data-toggle="modal" data-target="#myModal" onclick='dels(this)' style='color:black'>删除订单</a>
+                                                                    </p>
+                                                                    <p class="order-info">
+                                                                        <a style='color:red' href="/home/orderinfo/?id={{ $v->id }}">订单详情</a>
                                                                     </p>
                                                                 </div>
                                                             </li>
                                                             <li class="td td-change">
+                                                                @if($v->orderComm->isEmpty())
                                                                     <div onclick="location.href = '/home/comments/?id={{$v->id}}'" class="am-btn am-btn-danger anniu">
                                                                         评价商品
                                                                     </div>
+                                                                @else
+                                                                    <div class="am-btn am-btn-danger anniu">
+                                                                        已评价
+                                                                    </div>
+                                                                @endif
                                                             </li>
                                                         </div>
                                                     </div>

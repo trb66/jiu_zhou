@@ -36,6 +36,7 @@
             <hr/>
             <!-- 用户ID -->
             <div data-id='{{$order->uid}}' class='uid'></div>
+            <div data-id='{{$order->id}}' class='oid'></div>
             <div class="comment-main">
                 @foreach($order->orderInfo as $v)
                     <div class="comment-list">
@@ -112,6 +113,8 @@
 
             var goodsId = $('.goodsId'); // 商品ID
 
+            var oid = $('.oid').data('id'); // 订单ID
+
             goodsId.each(function(k, val) {
                 comments[k] = $(val).data('id');
             })
@@ -137,20 +140,21 @@
                 url: '/home/addcomments',
                 data: {
                     id: uid,
+                    oid: oid,
                     comments: comments,
                 },
                 success: function(res) {
-                    $('#hhh').css('display', 'none');
-                    $('#tips').css('display', 'block');
-                    var time = 3;
-                    var timer;
-                    timer = window.setInterval(function(){
-                        $('#sec').html(time--);
-                        if (time < 0) {
-                            window.location.href = '/home/userorder';
-                            clearInterval(timer);
-                        }
-                    }, 1000);
+                    // $('#hhh').css('display', 'none');
+                    // $('#tips').css('display', 'block');
+                    // var time = 3;
+                    // var timer;
+                    // timer = window.setInterval(function(){
+                    //     $('#sec').html(time--);
+                    //     if (time < 0) {
+                    //         window.location.href = '/home/userorder';
+                    //         clearInterval(timer);
+                    //     }
+                    // }, 1000);
                 },
                 error: function(err) {
                     console.dir(err);
