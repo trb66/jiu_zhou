@@ -8,6 +8,7 @@
 @endsection
 
 @section('ss')
+
 <form action="/home/goods/search" method="get" class="input-group">
     <input value="" name="name" placeholder="Ta们都在搜九州网" type="text">
     <span class="input-group-btn">
@@ -22,32 +23,28 @@
 <div class="content inner">
     <section class="item-show__div clearfix">
         <div class="filter-box">
+
             @foreach($type->specs_Info as $v)
                 <div class="filter-prop-item">
                     <span class="filter-prop-title">{{ $v->name }}</span>
                     <ul class="clearfix">
                         <a href="/home/goods_list/{{ $type->id }}"><li class="active">全部</li></a>
                         @foreach($v->specs_Items_Info as $vv)
-                            <a href=""><li>{{ $vv->time }}</li></a>
+                            <a href="javascript:;"><li>{{ $vv->time }}</li></a>
                         @endforeach
                     </ul>
                 </div>
             @endforeach
 
                 <div class="filter-prop-item">
-                    <span class="filter-prop-title">价格：</span>
+                    <span class="filter-prop-title">价格</span>
                     <ul class="clearfix">
                         <a href=""><li class="active">全部</li></a>
-                        <a href=""><li>20-40</li></a>
-                        <a href=""><li>40-80</li></a>
-                        <a href=""><li>80-100</li></a>
-                        <a href=""><li>100-150</li></a>
-                        <a href=""><li>150以上</li></a>
-                        <form class="price-order">
-                            <input type="text">
-                            <span class="cc">-</span>
-                            <input type="text">
-                            <input type="button" value="确定">
+                        <form method="get" action="/home/group/{{ $type->id }}" class="price-order">
+                            <input value="<?= !empty($_GET['price']) ? $_GET['price'] : '' ?>" name="price" type="text">
+                            <span class="cc">--</span>
+                            <input value="<?= !empty($_GET['prices']) ? $_GET['prices'] : '' ?>" name="prices" type="text">
+                            <input type="submit" value="确定">
                         </form>
                     </ul>
                 </div>
@@ -83,4 +80,10 @@
         </div>
     </section>
 </div>
+<script type="text/javascript">
+    function test(mys)
+    {
+        console.log($(mys).data('id'))
+    }
+</script>
 @endsection

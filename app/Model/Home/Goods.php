@@ -107,4 +107,20 @@ class Goods extends Model
         }
         return $res;
     }
+
+    public function group($id)
+    {
+        $res = $this->where('cid','=',$id)
+                    ->where('status','=',0)
+                    ->whereBetween('price',$_GET)
+                    ->paginate(8);
+        foreach ($res as $k => $v) {
+            $img = DB::table('imgs')->where('goods_id','=',$v['id'])->first();
+            
+            $img_path = $img->pic;
+          
+            $res[$k]['pic'] = $img_path;
+        }
+        return $res;
+    }
 }
