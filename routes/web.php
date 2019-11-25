@@ -286,31 +286,45 @@ Route::group(['prefix' => 'home'], function() {
 
     Route::get('/userinfo', 'Home\UserController@index')->middleware('user.login'); // 个人中心
 
-    Route::post('/addphoto', 'Home\UserController@addphoto'); // 添加头像
+    Route::post('/addphoto', 'Home\UserController@addPhoto'); // 添加头像
 
     Route::post('/editinfo', 'Home\UserController@edit'); // 修改个人信息
 
-    Route::get('/editpwd', 'Home\UserController@editpwd')->middleware('user.login'); // 修改登陆密码
+    Route::get('/editpwd', 'Home\UserController@editPwd')->middleware('user.login'); // 修改登陆密码
 
-    Route::get('/showeditpwd', 'Home\UserController@showpwd'); // 修改登陆密码
+    Route::get('/showeditpwd', 'Home\UserController@showPwd'); // 修改登陆密码
 
-    Route::post('/showeditpwd', 'Home\UserController@yuanpwd'); // 判断密码是否正确
+    Route::post('/showeditpwd', 'Home\UserController@yuanPwd'); // 判断密码是否正确
 
-    Route::post('/editpwd', 'Home\UserController@savepwd'); // 判断密码是否正确
+    Route::post('/editpwd', 'Home\UserController@savePwd'); // 判断密码是否正确
 
-    Route::get('/useraddress', 'Home\UserController@showaddress')->middleware('user.login'); // 地址
+    Route::get('/useraddress', 'Home\UserController@showAddress')->middleware('user.login'); // 地址
 
-    Route::post('/addaddress', 'Home\UserController@addaddress'); // 添加地址
+    Route::post('/addaddress', 'Home\UserController@addAddress'); // 添加地址
 
-    Route::post('/deladdress', 'Home\UserController@deladdress'); // 删除地址
+    Route::post('/deladdress', 'Home\UserController@delAddress'); // 删除地址
 
-    Route::post('/defaultaddr', 'Home\UserController@defaultaddr'); // 设为默认地址
+    Route::post('/defaultaddr', 'Home\UserController@defaultAddr'); // 设为默认地址
 
-    Route::get('/editaddress', 'Home\UserController@editaddr')->middleware('user.login'); // 修改地址
+    Route::get('/editaddress', 'Home\UserController@editAddr')->middleware('user.login'); // 修改地址
 
-    Route::post('/editaddress', 'Home\UserController@ceditaddr'); // 修改地址
+    Route::post('/editaddress', 'Home\UserController@ceditAddr'); // 修改地址
 
-    Route::get('/collect', 'Home\UserController@showcollect')->middleware('user.login'); // 收藏
+    Route::get('/collect', 'Home\UserController@showCollect')->middleware('user.login'); // 收藏
+
+    Route::post('/cancelcollection', 'Home\UserController@cancelCollection')->middleware('user.login'); // 取消收藏
+
+    Route::get('/userorder', 'Home\UserController@user_Order')->middleware('user.login'); // 用户订单
+
+    Route::post('/delorder', 'Home\UserController@delOrder')->middleware('user.login'); // 用户订单
+
+    Route::get('/delorder', 'Home\UserController@delOrder')->middleware('user.login'); // 显示评论
+
+    Route::get('/logistics', 'Home\UserController@showLogistics')->middleware('user.login'); // 查看物流
+
+    Route::get('/comments', 'Home\UserController@addComments')->middleware('user.login'); // 用户评价
+
+    Route::post('/addcomments', 'Home\UserController@caddComments')->middleware('user.login'); // 添加评价
 
     /** 结束
     *   +-------------------------------------------------------

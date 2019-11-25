@@ -65,5 +65,9 @@ class Orders extends Model
         // return $this->where('status','=',$_GET['order_status'])->paginate(2);
     }
    
+   public function orderInfo()
+   {
+      return $this->hasMany('App\Model\Admin\Orders_details', 'oid', 'id');    
+   }
 }    
 
