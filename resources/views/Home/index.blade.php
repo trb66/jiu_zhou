@@ -28,7 +28,9 @@
                 <a href="/home/userinfo">帮助中心</a>
             </div>
             <div class="pull-right">
+
                 @if(session('UserisLogin'))
+                    <a><span class="cr">欢迎您，{{session('UserInfo.username')}}</span></a>
                     <a href="/home/logout"><span class="cr">立即退出</span></a>
                 @else
                     <a href="/home/login"><span class="cr">登录</span></a>

@@ -86,4 +86,10 @@ class Types extends Model
             return $res;
         }
     }
+    
+    public function specs_Info()
+    {
+        return $this->hasMany('App\Model\Home\Specs', 'type_id', 'id');
+    }
+
 }
