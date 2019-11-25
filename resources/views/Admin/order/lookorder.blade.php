@@ -34,8 +34,8 @@
             <div class="misc-info">
                 <h3>基本信息</h3>
                 <dl>
-                    <dt>订单ID：</dt>
-                    <dd>{{$order['id']}}</dd>
+                    <dt>订单号：</dt>
+                    <dd>{{$order->express_num->express}}</dd>
                     <dt>用户昵称：</dt>
                     <dd>{{$order->nickname->username}}</dd>
                     <dt>手机号码：</dt>

@@ -7,7 +7,9 @@
 	#collect:hover{
        color: #b31e22;
 	}
+	.ceshi{
 
+	}
 </style>
 @endsection
 
@@ -22,20 +24,20 @@
 			<div class="pull-left">
 				<ol class="breadcrumb">
 					<li><a href="/">首页</a></li>
-					<li><a href="/home/goods_list/{{ $type->id }}">{{$type->name}}</a></li>
+					<li><a href="/home/goods_list/{{ $type['id'] }}">{{$type['name']}}</a></li>
 					<li class="active">{{$good['name']}}</li>
 				</ol>
 				<div class="item-pic__box" id="magnifier">
 					<div class="small-box">
                    
-						<img class="cover" src="/storage/{{$pre[0]->pic}}" alt="{{$good['name']}}">
+						<img class="cover" src="/storage/{{$pre[count($pre) - 1]->pic}}" alt="{{$good['name']}}">
 						<span class="hover"></span>
                        
 					</div>
 					<div class="thumbnail-box">
 						<a href="javascript:;" class="btn btn-default btn-prev"></a>
 						<div class="thumb-list">
-							<ul class="wrapper clearfix">
+							<ul class="wrapper clearfix" id='test'>
                                @foreach($pre as $ki => $img)
 
 								<li class="item" data-src="/storage/{{$img['pic']}}"><img class="cover" src="/storage/{{$img['pic']}}" alt="商品预览图"></li>
@@ -64,7 +66,7 @@
 					<div class="item-price bgf5">
 						<div class="w clearfix">
 							<div class="price-panel pull-left">
-								售价：<span class="price">￥{{$good['price']}} <s class="fz16 c9">￥{{$good['price'] / 0.8 }}</s></span>
+								售价：<span class="price jiage">￥{{$good['price']}}</span> <s class="fz16 c9 jiages">￥{{$good['price'] / 0.8 }}</s>
 							</div>
                               <spn id="collect" onclick="collect(this)" data-id="{{$good['id']}}" style="float: right;font-size: 20px;font-weight: 700;vertical-align: middle;margin-top: 5px;position: relative;" aria-hidden="true" class="glyphicon glyphicon glyphicon-star"><b style="font-size: 15px; cursor: pointer;">收藏宝贝</b></span>
                               </a>
@@ -73,7 +75,7 @@
 					<ul class="item-ind-panel clearfix">
 						<li class="item-ind-item">
 							<span class="ind-label c9">累计销量</span>
-							<span class="ind-count cr">1688</span>
+							<span class="ind-count cr">{{$good['sales']}}</span>
 						</li>
 						<li class="item-ind-item">
 							<a href=""><span class="ind-label c9">累计评论</span>
@@ -83,13 +85,13 @@
 					<div class="item-key">
 						<div class="item-sku">
 						   @foreach ($spec as $v)
-							<dl class="item-prop clearfix gui">
+							<dl class="item-prop clearfix gui" data-spec_id="{{$v['id']}}">
 								<dt class="item-metatit">{{$v['name']}}：</dt>
 								<dd>
-								   <ul data-property="" class="clearfix">
+								   <ul data-property="" data-name='{{ $v["name"] }}' class="clearfix test">
 									@foreach($v['time'] as $vo)
-									<li data-name="{{$v['name']}}">
-										<a  role="button" data-value="{{ $vo }}"  onclick="ssp(this)"  aria-disabled="true">
+									<li data-name="{{$v['name']}}" data-value="{{ $vo }}">
+										<a role="button" aria-disabled="true">
 										  <span >{{ $vo }}</span>
 									    </a>
 								    </li>
@@ -98,13 +100,14 @@
 								    </ul>
 							    </dd>
 							</dl>
-							@endforeach
+							@endforeach                       
 						</div>
+
 						<div class="item-amount clearfix bgf5">
 							<div class="item-metatit">数量：</div>
 							<div class="amount-box">
 								<div class="amount-widget">
-									<input class="amount-input" value="1" maxlength="8" title="请输入购买量" type="text">
+									<input class="amount-input" value="1" id="num" maxlength="8" title="请输入购买量" type="text">
 									<div class="amount-btn">
 										<a class="amount-but add"></a>
 										<a class="amount-but sub"></a>
@@ -144,8 +147,8 @@
 						</div>
 						<div class="item-action clearfix bgf5">
 							<a href="javascript:;" rel="nofollow" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">立即购买</a>
-							<a href="javascript:;" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket">
-								<i class="iconfont icon-shopcart"></i> 加入购物车
+							<a  onclick="return addcar(this)" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket">
+								<i class="iconfont icon-shopcart"></i>加入购物车
 							</a>
 						</div>
 					</div>
@@ -252,8 +255,7 @@
 											
 									@endforeach
 
-									<!-- 分页 -->
-							
+								<!-- 分页 -->
 								</div>
 								<!--  -->
 								<div role="tabpanel" class="tab-pane fade" id="normal" aria-labelledby="normal-tab">
@@ -371,24 +373,92 @@
  <script>
 $(function(){
   $(".gui li").click(function(){
-	$(this).parent().children().children().css('border', '').css('color','')
+	 $(this).parent().children().children().css('border', '').css('color','')
    
-    $(this).children().css('border', '1px solid #b31e22').css('color','#b31e22');
-
-	console.dir($(this).data('name'))
-
+     $(this).children().css('border', '1px solid #b31e22').css('color','#b31e22');
     
+   	var s = $('.test');
+   	var a = {};
+
+   	s.each(function(v, val) {
+   		var bb = $(val).data('name');
+   		$(val).children().each(function() {
+   			if ($(this).children('a').attr('style') == 'border: 1px solid rgb(179, 30, 34); color: rgb(179, 30, 34);') {
+   				a[bb] = $(this).children('a').children('span').html();
+   			}
+   		});
+   	})
+   	// console.log(Object.keys(a).length);
+   	var names = '';
+   	var x = 0;
+   	for(k in a) {
+   		x++;
+   		names += k+':'+a[k]+' ';
+   	}
+   	if(s.length == x) {
+    
+        $.ajax({
+            type: 'get',
+            url: '/home/item_show/spec_all',
+                data: {
+                	
+                    names: names,
+                },
+            success:function(res) {
+            var spec_id = res.good.id;
+            var price = res.good.price;
+            var store_count = res.good.store_count;
+
+            $('.jiage').html(price);
+            $('.jiages').html(price / 0.8);
+            $('#Stock').html(store_count);
+             
+            if (store_count == 0) {
+            	alter('该规格的商品已售罄 ，商家正在匆忙补货中！！！');
+            }
+
+            },
+            error:function(err) {
+            }
+
+        })
+   		
+   	}
+
   })
 })
- 
- function ssp(zj) {
- 	console.dir($(zj).data('value'))
- }
+function addcar(car) {
+  var commod = $('#num').val()
+
+
+        $.ajaxSetup({
+                headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+            });
+		$.ajax({
+		        type: 'post',
+		        url: '/home/item_show/addcar',
+		        data: {
+		        	commod:commod,
+		        	
+		
+		        },
+		        success:function(res) {
+
+		        },
+		        error:function(err) {
+
+		        }
+
+		    })
+
+   	} 
+
  function collect(coll) {
  	var gid = $(coll).data('id');
+ 	console.dir(gid);
 
- 
 
+    
  }
  </script>
 @endsection

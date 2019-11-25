@@ -18,6 +18,7 @@ class UserIsLogin
         if ($request->session()->has('UserisLogin')) {
             return $next($request);
         } else {
+            echo '<script>location.href="/home/login";</script>';
             return redirect('/home/login');
         }
     }

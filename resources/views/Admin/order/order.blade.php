@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
 
 @endsection
 
@@ -91,10 +92,36 @@
                                      <a href="/admin/order/lookorder/?id={{$o['id']}}" >
                                         <i class="am-icon-lemon-o"></i>查看
                                     </a>
-                                    @if($o['status'] == 1 or $o['status'] == 2)
-                                      <a href="javascript:;" style="border:1px solid orange;color: orange" class="tpl-table-black-operation" data-id="{{$o['id']}}" onclick="return fahuo(this)">
+                                    @if($o['status'] == 1)
+                                      <a  data-toggle="modal"  data-target="#exampleModal" data-whatever="@mdo"  style="border:1px solid orange;color: orange" class="tpl-table-black-operation"  >
                                          <i class="am-icon-hospital-o"></i>发货
                                     </a>
+                                       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="exampleModalLabel">填写物流信息</h4>
+                                              </div>
+                                              <div class="modal-body">
+                                                <form>
+                                                  <div class="form-group">
+                                                    <label for="recipient-name" class="control-label">物流公司:</label>
+                                                    <input type="text" class="form-control" id="recipient-name">
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label for="message-text" class="control-label">订单号:</label>
+                                                    <input type="text" class="form-control" id="message-text"></textarea>
+                                                  </div>
+                                                </form>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                <button type="button" class="btn btn-primary" data-id="{{$o['id']}}" onclick="return fahuo(this)">确认发货</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>                                                              
                                     @endif
                                     <a href="javascript:;" class="tpl-table-black-operation-del dell" data-id="{{$o['id']}}" onclick="return del(this)">
                                         <i class="am-icon-trash"></i> 删除
@@ -118,6 +145,8 @@
 
 @section('js')
 <script src="/Admin/assets/js/jquery.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
 <script>
       // 搜索
       $('#sea').click(function(){
@@ -160,33 +189,39 @@
             })
         }
     }
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget)
+  var recipient = button.data('whatever')
+
+  var modal = $(this)
+  
+})
 
     function fahuo(sta) {
-     var id = $(sta).data()
+     var id = $(sta).data('id')
+     var log = $('#recipient-name').val()
+     var lognum = $('#message-text').val()
      $.ajaxSetup({
             headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
             });
-
           $.ajax({
             type: 'post',
             url: '/admin/order/fahuo',
             data: {
                id : id,
-
+               log:log,
+               lognum:lognum,
             },
             success: function(res) { 
-
-             location.href = '/admin/order';   
+               location.href = '/admin/order';
                
             },
             error: function (err) {
-                alert(err.responseJSON.msg);    
+               alert(err.responseJSON.msg);           
             
             }
         })
     }
-
-  
 </script>
 @endsection
 

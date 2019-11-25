@@ -18,15 +18,17 @@
             </thead>
             <tbody>
             <tr>
-                <td><address><strong>九州商城</strong><br>广州市天河区高唐路时代广场E-park</address>
+                <td><address><strong>九州商城</strong><br>
+                    广州市天河区高唐路时代广场E-park</address>
                     <b>电话：</b> {{$order['phone']}}<br>
                     <b>E-Mail：</b>{{$order->uinfo->email}} <br>
-                 
                 </td>
                 <td style="width: 50%;">
-                    <b>下单日期：</b> {{$order['created_at']}}<br>               
+                    <b>订单号：</b>{{$order->express_num->express}}<br> 
                     <b></b><br>                    
-                    <b>配送方式：</b> 快递配送<br><br>
+                    <b>配送方式：</b>{{$order->express_num->express_name}}<br><br>
+                    <b></b><br>                                 
+                    <b>下单日期：</b> {{$order['created_at']}}<br>  
                     <b>用户备注：</b>{{$order['message']}}<br>
                 </td>
             </tr>

@@ -37,7 +37,12 @@ class Orders extends Model
         return $this->hasOne('\App\Model\Admin\Goods', 'id', 'gid');
         
     }
-
+    
+     public function express_num()
+    {
+        return $this->hasOne('\App\Model\Admin\Expresses', 'oid', 'id');
+        
+    }
 
     public function del($id)
     {

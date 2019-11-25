@@ -9,6 +9,7 @@ use App\Model\Admin\Goods;
 use App\Model\Admin\Users_infos;
 use App\Model\Admin\Orders_details;
 use App\Model\Admin\Users;
+use App\Model\Admin\Expresses;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
@@ -30,7 +31,7 @@ class OrderController extends Controller
         $order = $res->show($sta,$text);
 
 
-        $status = [ 0 => "未支付",1 => "已支付", 2 => '待发货',3 =>'待收货', 4 =>'已完成'];
+        $status = [ 0 => "未支付",1 => '待发货',2 =>'待收货', 3 =>'已完成',4 =>'用户已删除'];
 
         return view('Admin/order.order',['orders' => $order,'status'=>$status]);
     
@@ -62,25 +63,41 @@ class OrderController extends Controller
     //发货
     public function fahuo(Request $request)
     { 
+
       $id = $request->input('id');
-      // dump($id);
-      $status = ['status' => '3'];
+      $log = $request->input('log');
+      $lognum = $request->input('lognum');
+    	
+
+       $data = [
+       	 'oid'=> $id,
+         'express_name' => $log,
+         'express' => $lognum,
+       ];
+
+       $wuliu = DB::table('express')->insert($data);
+
+
+      $status = ['status' => '2'];
+
+      dump($id);
       $fahuo = DB::table('orders')->where('id','=',$id)->update($status);
-      
+      dump($fahuo);
        if ($fahuo) {
           return response()->json([
             'code' => 0,
-            'msg' => '订单已删除'
+            'msg' => '已成功发货'
         ],200);
        } else {
          return response()->json([
             'code' => 1,
-            'msg' => '订单删除失败'
+            'msg' => '网络错误，发货失败'
 
          ],500);
        }
+    
       
-    }
+  }
      
    public function alter(Request $request)
    {
