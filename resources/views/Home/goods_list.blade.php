@@ -80,10 +80,4 @@
         </div>
     </section>
 </div>
-<script type="text/javascript">
-    function test(mys)
-    {
-        console.log($(mys).data('id'))
-    }
-</script>
 @endsection
