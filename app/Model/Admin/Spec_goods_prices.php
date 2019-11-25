@@ -30,4 +30,5 @@ class Spec_goods_prices extends Model
     {
         return $this->hasOne('App\Model\Admin\Goods', 'id', 'goods_id');
     }
+
 }

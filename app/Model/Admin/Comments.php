@@ -65,4 +65,14 @@ class Comments extends Model
        return $this->insert($all);
 
     }
+
+    public function goodsName()
+    {
+      return $this->hasOne('\App\Model\Admin\Goods', 'id', 'gid');
+    }
+
+    public function goodImgs()
+    {
+      return $this->hasOne('\App\Model\Admin\Imgs', 'goods_id', 'gid');
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Model\Home;
 
 use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Support\Facades\DB;
 
 class Goods extends Model
@@ -44,7 +45,6 @@ class Goods extends Model
     public function search($name)
     {
         $res = $this->where('name','like','%'. $name .'%')->where('status','=',0)->paginate(8);
-
         if($res->first()){
             foreach ($res as $k => $v) {
                 $img = DB::table('imgs')->where('goods_id','=',$v->id)->get();

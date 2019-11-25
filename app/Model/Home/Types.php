@@ -5,15 +5,19 @@ namespace App\Model\Home;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+
 class Types extends Model
 {
-    public function item_type($cid)
-    {
+   public function item_type($cid)
+   {
         $type = $this->where('id',$cid)->first();
 
         $typetow = $this->where('id',$type->pid)->first();
+
+
         return [$type,$typetow];
-    }
+   }
+
     //查分类数据
     public function select()
     {
@@ -24,25 +28,17 @@ class Types extends Model
             $son = $this->where('pid','=',$v['id'])->get()->toArray();
             if(!empty($son)){
                 $list[$k]['son'] = $son;
-                foreach ($list[$k]['son'] as $key => $val) {
+            }
+            foreach ($list[$k]['son'] as $key => $val) {
                 //三级分类
                 $sun = $this->where('pid','=',$val['id'])->get()->toArray();
                 if (!empty($sun)) {
                     $list[$k]['son'][$key]['sun'] = $sun;
                 }
                 //遍历三级分类里的数据
-                foreach ($list[$k]['son'][$key]['sun'] as $value) {
+                foreach ($list[$k]['son'][$key]['sun'] as $kkk => $value) {
                     //查goods表的cid等于三级分类数据里的id
-
-                    $goodsinfo = DB::table('goods')->where('cid','=',$value['id'])
-                                                    ->where('status','=',0)
-                                                    ->limit(4)
-                                                    ->get();
-
-                    $goodsinfo = DB::table('goods')->where('cid','=',$value['id'])
-                                                    ->where('status','=',0)
-                                                    ->limit(3)
-                                                    ->get();
+                    $goodsinfo = DB::table('goods')->where('cid','=',$value['id'])->where('status','=',0)->limit(3)->get();
                     if (!empty($goodsinfo)) {
                         //遍历三级商品的数据
                         foreach ($goodsinfo as $g) {
@@ -56,19 +52,17 @@ class Types extends Model
                     }
                 }
             }
-            }
         }
         return $list;
     }
-
 
     //首页的搜索
     public function search($name)
     {
         $res = DB::table('goods')
-                    ->where('status','=',0)
-                    ->where('name','like','%'. $name .'%')
-                    ->paginate(8);
+                            ->where('status','=',0)
+                            ->where('name','like','%'. $name .'%')
+                            ->paginate(8);
         if($res->first()){
             foreach ($res as $k => $v) {
                 $img = DB::table('imgs')->where('goods_id','=',$v->id)->get();
