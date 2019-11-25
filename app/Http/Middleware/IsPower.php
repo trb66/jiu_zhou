@@ -51,8 +51,7 @@ class IsPower
         if (in_array($action_str, $power_list)) {
             return $next($request);
         } else {
-            return $next($request);
-            // echo '<script>alert("没有权限");location.href="/admin";</script>';
+            echo '<script>alert("没有权限");location.href="/admin";</script>';
         }
     }
 }

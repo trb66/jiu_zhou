@@ -431,7 +431,7 @@ class UserController extends Controller
         foreach($goods as $k => $v) {
             $goods[$k]->img = Imgs::where('goods_id', $v->id)->where('img_type', '0')->first();
         }
-
+        
         return view('Home/User.user_collection', ['collects' => $goods]);
     }
 

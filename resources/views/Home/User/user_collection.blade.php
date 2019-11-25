@@ -21,18 +21,22 @@
         <div class="title">订单中心-我的收藏</div>
         <div class="collection-list__area clearfix">
         <div style='height:550px' id='container'>
-            @foreach($collects as $v)
-                <div class="item-card">
-                    <a href="/home/item_show/?id={{$v->id}}" class="photo">
-                        <img src="/storage/{{$v->img->pic}}" title="{{$v->name}}" class="cover">
-                        <div class="name texts">{{$v->name}}</div>
-                    </a>
-                    <div class="middle">
-                        <div class="price"><small>￥</small>{{$v->price}}</div>
-                        <div class="sale"><a href="javascript:void(0)" class='quxiao' data-id='{{$v->id}}'>取消收藏</a></div>
+            @if($collects->isEmpty())
+                <h3>暂无收藏~</h3>
+            @else
+                @foreach($collects as $v)
+                    <div class="item-card">
+                        <a href="/home/item_show/?id={{$v->id}}" class="photo">
+                            <img src="/storage/{{$v->img->pic}}" title="{{$v->name}}" class="cover">
+                            <div class="name texts">{{$v->name}}</div>
+                        </a>
+                        <div class="middle">
+                            <div class="price"><small>￥</small>{{$v->price}}</div>
+                            <div class="sale"><a href="javascript:void(0)" class='quxiao' data-id='{{$v->id}}'>取消收藏</a></div>
+                        </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            @endif
         </div>
         <div style='float:right'>{{ $collects->links() }}</div>
 
