@@ -19,7 +19,7 @@ class GoodsController extends Controller
 
         //查出当前3级分类
         $type = Types::where('id','=',$id)->first();
-
+        // dd($type);
         return view('Home/goods_list',[
             'list' => $list,
             'count' => $count,
