@@ -81,4 +81,10 @@ class Types extends Model
             return $res;
         }
     }
+
+    //商品规格信息
+    public function specs_Info()
+    {
+        return $this->hasMany('App\Model\Home\Specs', 'type_id', 'id');
+    }
 }

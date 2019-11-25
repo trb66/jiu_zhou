@@ -11,5 +11,9 @@ class Specs extends Model
      return $this->where('type_id',$cid)->get();
  
    }
+   public function specs_Items_Info()
+    {
+        return $this->hasMany('App\Model\Home\Spec_items', 'spec_id', 'id');
+    }
    
 }
