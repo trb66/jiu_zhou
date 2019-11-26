@@ -50,4 +50,9 @@ class Goods extends Model
         
         return $delUser = $this->where('id', $id)->delete();
     }
+
+  public function baokuan_img()
+   {
+    return $this->hasOne('App\Model\Home\Imgs','goods_id','id');
+   }
 }

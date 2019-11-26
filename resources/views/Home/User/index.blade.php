@@ -48,7 +48,7 @@
     <div class="content clearfix bgf5">
         <section class="user-center inner clearfix">
             <div class="pull-left bgf">
-                <a href="udai_welcome.html" class="title">U袋欢迎页</a>
+                <a href="/home/user_welcome" class="title">Welcome！</a>
                 <dl class="user-center__nav">
                     <dt>帐户信息</dt>
                     <a href="/home/userinfo"><dd class="active">个人资料</dd></a>
@@ -81,7 +81,7 @@
     <div class="right-nav">
         <ul class="r-with-gotop">
             <li class="r-toolbar-item">
-                <a href="\home\userinfo" class="r-item-hd">
+                <a href="\home\user_welcome" class="r-item-hd">
                     <i class="iconfont icon-user" data-badge="0"></i>
                     <div class="r-tip__box"><span class="r-tip-text">用户中心</span></div>
                 </a>

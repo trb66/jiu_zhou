@@ -284,6 +284,8 @@ Route::group(['prefix' => 'home'], function() {
 
     Route::post('/respwd', 'Home\LoginController@respwd'); // 重置密码
 
+    Route::get('/user_welcome', 'Home\UserController@welcome'); // 欢迎页
+
     Route::get('/userinfo', 'Home\UserController@index')->middleware('user.login'); // 个人中心
 
     Route::post('/addphoto', 'Home\UserController@addPhoto'); // 添加头像

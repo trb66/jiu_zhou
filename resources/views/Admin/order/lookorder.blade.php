@@ -34,8 +34,12 @@
             <div class="misc-info">
                 <h3>基本信息</h3>
                 <dl>
-                    <dt>订单号：</dt>
-                    <dd>{{$order->express_num->express}}</dd>
+                    <dt>物流单号：</dt>
+                    @if(is_null($order->express_num))
+                        <dd>暂无~</dd>
+                    @else
+                        <dd>{{$order->express_num->express}}</dd>
+                    @endif
                     <dt>用户昵称：</dt>
                     <dd>{{$order->nickname->username}}</dd>
                     <dt>手机号码：</dt>
@@ -71,7 +75,11 @@
                 </dl>
                 <dl>
                     <dt>配送方式：</dt>
-                    <dd>快递配送</dd>
+                    @if(is_null($order->express_num))
+                        <dd>暂无~</dd>
+                    @else
+                        <dd>{{$order->express_num->express_name}}</dd>
+                    @endif
                </dl>
                 <dl>
                     <dt>留言：</dt>

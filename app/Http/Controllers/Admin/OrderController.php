@@ -75,7 +75,7 @@ class OrderController extends Controller
          'express' => $lognum,
        ];
 
-       $wuliu = DB::table('express')->insert($data);
+       $wuliu = DB::table('expresses')->insert($data);
 
 
       $status = ['status' => '2'];
@@ -112,7 +112,6 @@ class OrderController extends Controller
     $status = [ 0 => "未支付",1 => "已支付", 2 => '待发货',3 =>'待收货', 4 =>'已完成'];
     
     // dump($order);
-    
     return view('Admin/order.reorder',['order'=>$order,'status'=>$status]);
 
 

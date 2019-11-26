@@ -28,6 +28,39 @@ class UserController extends Controller
         return view('Home/User.userinfo', ['info' => $info]);
     }
 
+    public function welcome(Request $request)
+    {
+        $id = session('UserInfo.id'); // 用户id
+
+        $user = Users::where('id', $id)->first();
+
+        $countorder[0] = Orders::where('uid', $id)->where('status', '0')->count();
+
+        $countorder[1] = Orders::where('uid', $id)->where('status', '1')->count();
+
+        $countorder[2] = Orders::where('uid', $id)->where('status', '2')->count();
+
+        $countorder[3] = Orders::where('uid', $id)->where('status', '3')->count();
+
+        $countorder['coll'] = Collects::where('uid', $id)->count();
+
+        $orders = Orders::where('uid', $id)->where('status', '<>', '4')->orderBy('status')->take(4)->get();
+
+        $goods_all = Goods::get();
+
+        $goods = [];
+
+        $s = 0;
+        $a = 1;
+        for($i = 0; $i < count($goods_all); $i++) {
+            $goods[$s][$i] = $goods_all[$i];
+            if($a % 5 == 0) $s++;
+            $a++;
+        }
+
+        return view('Home/User.user_welcome', ['user' => $user, 'orders' => $orders, 'countorder' => $countorder, 'goods' => $goods]);
+    }
+
     // 添加用户头像
     public function addPhoto(Request $request)
     {
@@ -466,7 +499,7 @@ class UserController extends Controller
     {
         $uid = session('UserInfo.id'); // 用户ID
 
-        $orders = Orders::where('uid', $uid)->where('status', '<>', '4')->get();
+        $orders = Orders::where('uid', $uid)->where('status', '<>', '4')->orderBy('status')->get();
 
         return view('Home/User.user_order', ['orders' => $orders]);
     }

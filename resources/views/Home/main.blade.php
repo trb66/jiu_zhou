@@ -163,7 +163,7 @@
 <div class="right-nav">
         <ul class="r-with-gotop">
             <li class="r-toolbar-item">
-                <a href="/home/userinfo" class="r-item-hd">
+                <a href="/home/user_welcome" class="r-item-hd">
                     <i class="iconfont icon-user"></i>
                     <div class="r-tip__box"><span class="r-tip-text">用户中心</span></div>
                 </a>

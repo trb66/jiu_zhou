@@ -1,52 +1,59 @@
 @extends('Home/User.index')
 
-@section('title', '我的订单')
+@section('title', '个人中心')
 
 @section('css')
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link href="/Home/Orders/admin.css" rel="stylesheet" type="text/css">
     <link href="/Home/Orders/amazeui.css" rel="stylesheet" type="text/css">
     <link href="/Home/Orders/personal.css" rel="stylesheet" type="text/css">
     <link href="/Home/Orders/orstyle.css" rel="stylesheet" type="text/css">
-    <style type="text/css">
-        #container{
-            background:white;
-            margin-top:-15px;
-        }
-    </style>
 @endsection
 
 @section('body')
-
-
-<div id='container'>
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">删除订单</h4>
-      </div>
-      <div class="modal-body">
-        您确定要删除订单吗？
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" id='gb' data-dismiss="modal">关 闭</button>
-        <button type="button" class="btn btn-primary" id='ok'>确 定</button>
-      </div>
+<div class="pull-right">
+    <div class="user-center__info bgf">
+        <div class="pull-left clearfix">
+            <div class="port b-r50 pull-left">
+                <img src="/storage/{{ $user->userinfo->photo }}" onerror="this.src='/Home/images/icons//default_avt.png';" alt="用户名" class="cover b-r50">
+                <a href="/home/userinfo" class="edit"><i class="iconfont icon-edit"></i></a>
+            </div>
+            <br>
+            <p class="name text-nowrap">您好，{{ $user->username }}！</p>
+            <p class="level text-nowrap">身份：普通会员 </p>
+        </div>
+        <div class="pull-right user-nav">
+            <a href="/home/userorderl" class="user-nav__but">
+                <i class="iconfont icon-rmb fz40 cr"></i>
+                <div class="c6">待支付 <span class="cr">{{ $countorder[0] }}</span></div>
+            </a>
+            <a href="/home/userorder" class="user-nav__but">
+                <i class="iconfont icon-xiaoxi fz40 cr"></i>
+                <div class="c6">待发货 <span class="cr">{{ $countorder[1] }}</span></div>
+            </a>
+            <a href="/home/userorder" class="user-nav__but">
+                <i class="iconfont icon-speed fz40 cr"></i>
+                <div class="c6">待收货 <span class="cr">{{ $countorder[2] }}</span></div>
+            </a>
+            <a href="/home/userorder" class="user-nav__but">
+                <i class="iconfont icon-eval fz40 cr"></i>
+                <div class="c6">待评价 <span class="c3">{{ $countorder[3] }}</span></div>
+            </a>
+            <a href="/home/collect" class="user-nav__but">
+                <i class="iconfont icon-star fz40 cr"></i>
+                <div class="c6">收藏 <span class="c3">{{ $countorder['coll'] }}</span></div>
+            </a>
+        </div>
     </div>
-  </div>
-</div>
-    <div class="center">
+    <div class="order-list__div bgf">
+        <div class="user-title">
+            我的订单<span class="c6"></span>
+            <span class="c6">（显示最新四条）</span>
+            <a href="/home/userorder" class="pull-right">查看所有订单></a>
+        </div>
+        <div class="center">
         <div class="col-main">
             <div class="user-order">
-                <!--标题 -->
-                <div class="am-cf am-padding">
-                    <div class="am-fl am-cf">
-                        <strong class="am-text-danger am-text-lg">订单中心</strong> / <small>订单管理</small>
-                    </div>
-                </div>
-                <hr/>
                 <div class="am-tabs am-tabs-d2 am-margin" data-am-tabs>
                     <ul class="am-avg-sm-5 am-tabs-nav am-nav am-nav-tabs">
                         <li class="am-active"><a href="#tab1">所有订单</a></li>
@@ -87,7 +94,7 @@
                             <div class="order-main">
                                 <div class="order-list">
                                     @if($orders->isEmpty()) 
-                                        <h1 style='font-size:25px'>暂无订单~</h1>
+                                        <h1 style='font-size:25px'>暂无最新~</h1>
                                     @else
                                         @foreach($orders as $v)
                                             <!--不同状态订单-->
@@ -707,79 +714,46 @@
             </div>
         </div>
     </div>
+    </div>
+    <div class="recommends">
+        <div class="lace-title type-2">
+            <span class="cr">爆款推荐</span>
+        </div>
+        <div class="swiper-container recommends-swiper">
+            <div class="swiper-wrapper">
+                @foreach($goods as $v)
+                    <div class="swiper-slide">
+                        @foreach($v as $vv)
+                            <a class="picked-item" onclick='console.log(1213);' href="/home/item_show/?id={{ $vv->id }}">
+                                <img src="/storage/{{ $vv->baokuan_img->pic }}" alt="" class="cover">
+                                <div class="look_price">¥{{ $vv->price }}</div>
+                            </a>
+                        @endforeach
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        <script>
+            $(document).ready(function(){
+                var recommends = new Swiper('.recommends-swiper', {
+                    spaceBetween : 40,
+                    autoplay : 5000,
+                });
+            });
+        </script>
+    </div>
 </div>
+
 @endsection
     
 @section('js')
-    <script src="/Home/Orders/amazeui.js"></script>
-    <script type="text/javascript">
-        var son = $('.konorder');
-        son.each(function() {
-            if($(this).children().length == 0) {
-                $(this).append('<h1 style="font-size:25px">暂无订单~</h1>');
-            }
-        })
-
-        $('.tips').click(function () {
-            alert('卖家已收到您的留言，正在为您积极备货呢~');
-        })        
-        var id;
-        var me;
-        function dels(mys) {
-            id = $(mys).data('id');
-            me = mys;
+<script src="/Home/Orders/amazeui.js"></script>
+<script type="text/javascript">
+    var son = $('.konorder');
+    son.each(function() {
+        if($(this).children().length == 0) {
+            $(this).append('<h1 style="font-size:25px">暂无最新~</h1>');
         }
-
-        $('#ok').click(function() {
-            $('#gb').click(); // 关闭模态框
-
-            // 发起ajax请求
-            $.ajaxSetup({
-                headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
-            });
-            $.ajax({
-                type: 'post',
-                url: '/home/delorder',
-                data: {
-                    id: id,
-                },
-                success: function(res) {
-                    $(me).parent().parent().parent().parent().parent().parent().parent().remove();
-                },
-                error: function(err) {
-                    alert('网络错误，请重试');
-                }
-            });
-        })
-
-        // 取消订单
-        function cancel(mys)
-        {
-            var s = window.confirm("你确定要取消订单吗？");
-
-            if(s) {
-                var oid = $(mys).data('id'); // 订单ID
-                // 发起ajax请求
-                $.ajaxSetup({
-                    headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
-                });
-                $.ajax({
-                    type: 'post',
-                    url: '/home/cancelorder',
-                    data: {
-                        oid: oid,
-                    },
-                    success: function(res) {
-                        $(mys).parent().parent().parent().parent().parent().parent().parent().remove();
-                    },
-                    error: function(err) {
-                        alert('网络错误，请重试');
-                    }
-                });
-
-            }
-
-        }
-
-    </script>
+    })
+</script>
 @endsection
