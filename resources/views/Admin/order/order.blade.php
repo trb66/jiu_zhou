@@ -30,17 +30,16 @@
                     <select data-am-selected="{btnSize: 'sm'}"  name="order_status">
                         <option {{ session('status') == 69 ? 'selected' : '' }}  value="69">订单状态</option>
                         <option {{ session('status') == '0' ? 'selected' : '' }} value="0">未支付</option>
-                        <option {{ session('status') == 1 ? 'selected' : '' }} value="1">已支付</option>
-                        <option {{ session('status') == 2 ? 'selected' : '' }} value="2">待发货</option>
-                        <option {{ session('status') == 3 ? 'selected' : '' }} value="3">待收货</option>
-                        <option {{ session('status') == 4 ? 'selected' : '' }} value="4">已完成</option>
+                        <option {{ session('status') == 1 ? 'selected' : '' }} value="1">待发货</option>
+                        <option {{ session('status') == 2 ? 'selected' : '' }} value="2">待收货</option>
+                        <option {{ session('status') == 3 ? 'selected' : '' }} value="3">已完成</option>
                    </select>
                 </div>
             </div>
             <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
                 <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 
-                    <input type="text" class="am-form-field" value="{{session('text')}}" name="order_search" id="oo">
+                    <input type="text" class="am-form-field"  name="order_search" id="oo">
 
                     <span class="am-input-group-btn">
                       <button id="sea" type='button' class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"></button>
@@ -155,11 +154,8 @@
         var text = $('#oo').val();
         console.dir(text)
         console.dir(status)
-        
-        if (status == '69' && text == '') location.href = '/admin/order/?status='+ status+'&text='+text;
-        if (status == '69' && text != '') location.href = '/admin/order/?text='+ text+'&status='+status;
-        if(status != '69' &&  text != '' ) location.href = '/admin/order/?status='+ status+'&text='+text;      
-        if (status != '69' && text == '') location.href = '/admin/order/?status='+ status+'&text='+text;
+        location.href = '/admin/order/?status='+ status+'&text='+text;
+    
       })
      
       function del(ord) {
@@ -201,6 +197,11 @@ $('#exampleModal').on('show.bs.modal', function (event) {
      var id = $(sta).data('id')
      var log = $('#recipient-name').val()
      var lognum = $('#message-text').val()
+
+     if (log == '' || lognum == '')
+     {
+       alert('请填写正规的物流信息')
+     }
      $.ajaxSetup({
             headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
             });
@@ -217,7 +218,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
                
             },
             error: function (err) {
-               alert(err.responseJSON.msg);           
+                      
             
             }
         })

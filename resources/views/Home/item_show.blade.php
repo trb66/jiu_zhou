@@ -242,7 +242,7 @@
 
 											</div>
 											 <div class="eval-time" style="margin-top:35px">
-												{{$c['created_at']}} 颜色分类：深棕色 尺码：均码 
+												{{$c['created_at']}} {{$c->item_orderx['item_gui']['key_name']}}
 											</div>
 										@foreach($comments as $v)
 											@if($v['type'] == 1 && $c['id'] == $v['pid'])

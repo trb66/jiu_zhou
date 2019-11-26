@@ -26,6 +26,6 @@ class Comments extends Model
     }
      public function item_orderx()
     {
-      return $this->hasOne('App\Model\Home\Order_derails','uid','uid');
+      return $this->hasOne('App\Model\Home\Orders_details','oid','oid');
     }
 }

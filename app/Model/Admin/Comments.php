@@ -44,7 +44,6 @@ class Comments extends Model
 
     public function reply($id)
     {
-      dump($id);
       return $this->where('id', $id['id'])
                   ->orwhere('pid',$id['id'])
                   ->orderBy('created_at')

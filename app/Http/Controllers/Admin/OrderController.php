@@ -29,10 +29,10 @@ class OrderController extends Controller
         $res = new Orders();
 
         $order = $res->show($sta,$text);
-
+        
+        // dump($order);
 
         $status = [ 0 => "未支付",1 => '待发货',2 =>'待收货', 3 =>'已完成',4 =>'用户已删除'];
-
         return view('Admin/order.order',['orders' => $order,'status'=>$status]);
     
    }
@@ -97,9 +97,7 @@ class OrderController extends Controller
            ],500);
          }
 
-      }
-    
-      
+      }  
   }
      
    public function alter(Request $request)
@@ -113,30 +111,35 @@ class OrderController extends Controller
     $order = $res->alter($id);
 
     $status = [ 0 => "未支付",1 => "已支付", 2 => '待发货',3 =>'待收货', 4 =>'已完成'];
-    
-    // dump($order);
-    
+
+    $addr = explode('-', $order->address);
+
+    $order->addr1 = $addr[0];
+    $order->addr2 = $addr[1];
+    $order->addr3 = $addr[2];
+    $order->addr4 = $addr[3];
     return view('Admin/order.reorder',['order'=>$order,'status'=>$status]);
 
 
   }
    public function edit(Request $request)
    {   
-    $id = $_POST['id'];
+     $id = $request->input('id');
+      
     $data = [
-       'phone'=> $_POST['phone'],
-       'addrinfo' => $_POST['addrinfo'], 
+       'phone'=> $request->input('phone'),
+       'address' => $request->input('address'), 
     ] ;
    
      $res = new Orders();
      $edit = $res->order_edit($id,$data);
 
-    
+     dump($edit);
        if ($edit) {
-          return [
+          return response()->json([
             'code' => 0,
             'msg' => '修改成功',
-        ];
+        ],200);
        } else {
          return response()->json([
             'code' => 1,
@@ -161,11 +164,9 @@ class OrderController extends Controller
 
     $detail = $res_detail->order_look($id);
 
-    // dump($detail);
-
     $status = [ 0 => "未支付",1 => "已支付", 2 => '待发货',3 =>'待收货', 4 =>'已完成'];
     
-    
+
     return view('Admin/order.lookorder',['order'=>$order,'status'=>$status,'detail'=>$detail]);
    } 
 

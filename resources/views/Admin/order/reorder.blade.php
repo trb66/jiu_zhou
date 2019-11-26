@@ -5,7 +5,11 @@
 
 
 @section('body')
-
+<div style='display:'>
+    <span data-dizhi="{{$order->addr1}}" id='dizhi1'></span>
+    <span data-dizhi="{{$order->addr2}}" id='dizhi2'></span>
+    <span data-dizhi="{{$order->addr3}}" id='dizhi3'></span>
+</div>
 
 <div class="row">
 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
@@ -19,11 +23,11 @@
         <div class="widget-body am-fr">
 
             <form class="am-form tpl-form-border-form tpl-form-border-br">
-                <input type="hidden" name="aid" value="{{$order['aid']}}">
+                <input type="hidden" name="id" value="{{$order['id']}}">
                 <div class="am-form-group">
                     <label for="user-name" class="am-u-sm-3 am-form-label">手机号：<span class="tpl-form-line-small-title"></span></label>
                     <div class="am-u-sm-9">
-                        <input type="number" class="tpl-form-input" name="phone" value="{{$order['phone']}}" id="phone" >
+                        <input style='border-radius:5px' type="number" class="tpl-form-input" name="phone" value="{{$order['phone']}}" id="phone" >
                         <span id="reminder"></span>
                     </div>
                 </div>
@@ -31,7 +35,11 @@
                   <div class="am-form-group">
                     <label for="user-name" class="am-u-sm-3 am-form-label">地址：<span class="tpl-form-line-small-title">省/市/区/县</span></label>
                     <div class="am-u-sm-9">
-                        <input type="text" class="tpl-form-input" name="address" value="{{$order['address']}}" id="addr" >
+                        <div  id='address'   data-toggle="distpicker">
+                          <select style='width:200px;margin-right:10px;border-radius:5px;float:left' id='sel1'></select>&nbsp;
+                          <select style='width:200px;margin-right:10px;border-radius:5px;float:left' id='sel2'></select>&nbsp; 
+                          <select style='width:200px;margin-right:10px;border-radius:5px;float:left' id='sel3'></select>&nbsp; 
+                        </div>
                     </div>
                 </div>
      
@@ -39,7 +47,7 @@
                 <div class="am-form-group">
                     <label class="am-u-sm-3 am-form-label" >详细地址:<span class="tpl-form-line-small-title"></span></label>
                     <div class="am-u-sm-9">
-                        <input type="text" name="addrinfo" id="addrinfo" value="" >
+                        <input type="text" style='border-radius:5px' value="{{$order->addr4}}" name="addrinfo" id="addrinfo" value="" >
                      <span id="addr"></span>
                     </div>
                 </div>
@@ -54,11 +62,23 @@
     </div>
 </div>
 
+
 @endsection
 
 @section('js')
 <script src="/Admin/assets/js/jquery.min.js"></script>
+<script src="/Home/address/js/distpicker.data.js"></script>
+<script src="/Home/address/js/distpicker.js"></script>
+<script src="/Home/address/js/main.js"></script>
 <script>
+  
+    // 默认选择地址
+    $('#address').distpicker({
+      province: $('#dizhi1').data('dizhi'),
+      city: $('#dizhi2').data('dizhi'),
+      district: $('#dizhi3').data('dizhi')
+    });
+
      $('#phone').focus(function(){
       
         $('#reminder').html('<b>请输入11位的手机号</b>');
@@ -93,27 +113,29 @@
 
      $('#addrinfo').blur(function() {
         
-         let addrinfo =  $('#addrinfo').val();
-         let resin = /^[u4e00-\u9fa5][a-zA-Z0-9_]{15,30}+$/;
-          
-          if ($('#addrinfo').val() == '') {
-            $('#addr').html('<b style="color:red">地址不能为空！</b>');
-          } else {
-             if (resin.test(addrinfo)) {
-               $('#addrinfo').css('border','1px solid green');
-               $('#addr').html('<b></b>');
-             } else {
-               $('#addr').html('<b style="color:red">地址格式不正确</b>'); 
-             }
-          }
+         var addrinfo =  $('#addrinfo').val();
+          if(addrinfo == '') {
+                $('#addr').empty();
+                $('#addr').append('<div class="alert alert-danger" role="alert">详细地址不能留空</div>');
+                return false;   
+            }
        
      })
 
      $('.edit').click(function(){
-        var aid = $('input[name=aid]').val();
+        var id = $('input[name=id]').val();
+
         var phone = $('#phone').val();
-        var address = $('#addr').val();
+        var dizhi1 = $('#sel1 :selected').val(); // 省
+
+        var dizhi2 = $('#sel2 :selected').val(); // 市
+            
+        var dizhi3 = $('#sel3 :selected').val(); // 区/县
+
         var addrinfo = $('input[name=addrinfo]').val();
+        var address = dizhi1+'-'+dizhi2+'-'+dizhi3+'-'+addrinfo
+
+        console.dir(phone)
       
         $.ajaxSetup({
             headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
@@ -122,18 +144,24 @@
             type: 'post',
             url: '/admin/order/edit',
             data: {
-                aid:aid,
+                id:id,
                 phone:phone,
                 address:address,
-                addrinfo:addrinfo,
+           
             },
             success: function(res) {
+          
+   
              location.href = '/admin/order';   
-              
+       
+       
                     
             },
             error: function (err) {
+                if (err.responseJSON.code == 1) {
+
                 alert(err.responseJSON.msg);
+                }
             }
         })
         return false;

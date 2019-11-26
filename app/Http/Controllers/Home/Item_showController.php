@@ -12,6 +12,7 @@ use App\Model\Home\Comments;
 use App\Model\Home\Users;
 use App\Model\Home\Users_infos;
 use App\Model\Home\Spec_goods_prices;
+use App\Model\Home\Order_details;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Model;

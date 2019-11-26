@@ -35,7 +35,11 @@
                 <h3>基本信息</h3>
                 <dl>
                     <dt>订单号：</dt>
-                    <dd>{{$order->express_num->express}}</dd>
+                    @if(is_null($order->express_num))
+                        <dd>暂无~</dd>
+                    @else
+                        <dd>{{$order->express_num->express}}</dd>
+                    @endif
                     <dt>用户昵称：</dt>
                     <dd>{{$order->nickname->username}}</dd>
                     <dt>手机号码：</dt>
@@ -71,7 +75,11 @@
                 </dl>
                 <dl>
                     <dt>配送方式：</dt>
-                    <dd>快递配送</dd>
+                    @if(is_null($order->express_num))
+                        <dd>暂无~</dd>
+                    @else
+                        <dd>{{$order->express_num->express_name}}</dd>
+                    @endif
                </dl>
                 <dl>
                     <dt>留言：</dt>
@@ -104,9 +112,9 @@
                     <td class="am-text-middle">
                         <img src="/storage/{{$v->order_img['pic']}}" width="70" height="60" class="tpl-table-line-img" alt="">
                     </td>
-                    <td class="am-text-middle">{{$v['num']}}</td>
                     <td class="am-text-middle">{{$v->order_spec->key_name}}</td>
                     <td>{{$v['price']}}</td>
+                    <td class="am-text-middle">{{$v['num']}}</td>
                     <td class="am-text-middle">{{$v['price']*$v['num']}}</td>
                 </tr>
             @endforeach
@@ -121,7 +129,7 @@
  </div>
   </form>
       <div class="subject" style="width:52%;margin:10px 0 0 0;">
-           @if($order['status'] == '1' || $order['status'] == '2')
+           @if($order['status'] == '1')
             <a href="/admin/order/alter/?id={{$order['id']}}" style="float:right;margin-right:10px" class="ncap-btn-big ncap-btn-green"><i class="fa fa-pencil-square-o"></i>修改订单</a>
            @endif
             <a href="/admin/order/print/?id={{$order['id']}}" target="_blank" style="float:right;margin-right:10px" class="ncap-btn-big ncap-btn-green"><i class="fa fa-print"></i>打印订单</a>
