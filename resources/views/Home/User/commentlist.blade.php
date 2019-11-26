@@ -157,7 +157,7 @@
                     }, 1000);
                 },
                 error: function(err) {
-                    // console.dir(err);
+                    alert('服务器异常');
                 }
             }); 
         }
