@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Model\Admin\Goods;
 
 
-class    extends Controller
+class GoodsController extends Controller
 {
     //显示商品列表
     public function index() 
