@@ -690,6 +690,24 @@ class UserController extends Controller
         }
         return curl_exec($curl);
         }
-}
 
-// goods_id = 商品id and img_type = 1 first
+        // 售后
+        public function afterSale(Request $request)
+        {
+            return view('Home/User.article1');
+        }
+
+        // 用户协议
+        public function userAgreement(Request $request)
+        {
+            return view('Home/User.useragreement');
+        }
+
+        // 用户疑问
+        public function userQuestion(Request $request)
+        {
+            return view('Home/User.user_question');
+        }
+        
+        
+}

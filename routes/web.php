@@ -330,6 +330,13 @@ Route::group(['prefix' => 'home'], function() {
 
     Route::get('/showcomment', 'Home\UserController@showComment')->middleware('user.login'); // 添加评价
 
+    Route::get('/article1', 'Home\UserController@afterSale')->middleware('user.login'); // 售后
+
+    Route::get('/article2', 'Home\UserController@userAgreement')->middleware('user.login'); // 用户协议
+
+    Route::get('/article3', 'Home\UserController@userQuestion')->middleware('user.login'); // 用户协议
+
+
     /** 结束
     *   +-------------------------------------------------------
     */
