@@ -147,7 +147,7 @@
 						</div>
 						<div class="item-action clearfix bgf5">
 							<a href="javascript:;" rel="nofollow" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">立即购买</a>
-							<a  onclick="return addcar(this)" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket">
+							<a  href="javascript:;" onclick="return addcar(this)" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket">
 								<i class="iconfont icon-shopcart"></i>加入购物车
 							</a>
 						</div>
@@ -427,35 +427,66 @@ $(function(){
 
   })
 })
-function addcar(car) {
-  var commod = $('#num').val()
+  function addcar(car) {
+    var commod = $('#num').val()
 
 
-        $.ajaxSetup({
-                headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
-            });
+	var s = $('.test');
+   	var a = {};
+
+   	s.each(function(v, val) {
+   		var bb = $(val).data('name');
+   		$(val).children().each(function() {
+   			if ($(this).children('a').attr('style') == 'border: 1px solid rgb(179, 30, 34); color: rgb(179, 30, 34);') {
+   				a[bb] = $(this).children('a').children('span').html();
+   			}
+   		});
+   	})
+   	var names = '';
+   	var x = 0;
+   	for(k in a) {
+   		x++;
+   		names += k+':'+a[k]+' ';
+   	}
+      if (names == '')
+      {
+      	alert('还没选择规格呢');
+      }
+	    $.ajaxSetup({
+	        headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+	        });
 		$.ajax({
-		        type: 'post',
-		        url: '/home/item_show/addcar',
-		        data: {
-		        	commod:commod,
-		        	
-		
-		        },
-		        success:function(res) {
+			   type: 'post',
+			   url: '/home/item_show/addcar',
+			   data: {
+			   	commod:commod,
+			   	names:names
+			},
+	        success:function(res) {
+	           if(res.code == 0){
+	           	var r=confirm(res.msg)
+                 if (r) {
+              	 location.href = '/home/udai_shopcart';
 
-		        },
-		        error:function(err) {
+                 }
+              } else if(res.code == 1){ 
+                alert(res.msg)
+              }
+	  
+	        },
+	        error:function(err) {
+              if(err.responseJSON.code == 1){
+              	 location.href = '/home/login';
+              }
+	        }
 
-		        }
+		})
+} 
 
-		    })
 
-   	} 
 
  function collect(coll) {
  	var gid = $(coll).data('id');
- 	console.dir(gid);
 
 
     

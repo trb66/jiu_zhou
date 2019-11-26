@@ -12,15 +12,6 @@ class ShopcartController extends Controller
     //显示购物车页面
     public function index()
     {
-
-        session([
-                'UserisLogin' => true,
-                'UserInfo' => [
-                    'id' => 9,
-                    'username' => 'mm',
-                ],
-            ]);
-
         $user = session()->get('UserisLogin');
         // 判断用户是否登陆
         if($user){

@@ -359,8 +359,8 @@ Route::group(['prefix' => 'home'], function() {
     *   +-------------------------------------------------------
     */  
     Route::get('/item_show', 'Home\Item_showController@show');
-    Route::get('/item_show/spec_all', 'Home\Item_showController@spec_all');
-    Route::post('/item_show/addcar', 'Home\Item_showController@addcar');
+    Route::get('/item_show/spec_all', 'Home\Item_showController@spec_all'); //选择规格
+    Route::post('/item_show/addcar', 'Home\Item_showController@addcar'); //加入购物车
 
  
 

@@ -75,26 +75,29 @@ class OrderController extends Controller
          'express' => $lognum,
        ];
 
-       $wuliu = DB::table('express')->insert($data);
 
+      $wuliu = DB::table('expresses')->insert($data);
+      
+      if ($wuliu) {
 
-      $status = ['status' => '2'];
+        $status = ['status' => '2'];
 
-      dump($id);
-      $fahuo = DB::table('orders')->where('id','=',$id)->update($status);
-      dump($fahuo);
-       if ($fahuo) {
-          return response()->json([
-            'code' => 0,
-            'msg' => '已成功发货'
-        ],200);
-       } else {
-         return response()->json([
-            'code' => 1,
-            'msg' => '网络错误，发货失败'
+        $fahuo = DB::table('orders')->where('id','=',$id)->update($status);
 
-         ],500);
-       }
+         if ($fahuo) {
+            return response()->json([
+              'code' => 0,
+              'msg' => '已成功发货'
+          ],200);
+         } else {
+           return response()->json([
+              'code' => 1,
+              'msg' => '网络错误，发货失败'
+
+           ],500);
+         }
+
+      }
     
       
   }

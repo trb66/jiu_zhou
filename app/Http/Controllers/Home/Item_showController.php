@@ -110,14 +110,47 @@ class Item_showController extends Controller
     
     // 加入购物车
     public function addcar(Request $request)
-    {
-        $commod = $request->input('commod');
-        // $key_name = $request->input('names');
-        
-        $uid = session('UserInfo.id');
-        // $good = DB::table('spec_goods_prices')->where('key_name',$names)->first();
-        
+    {  
+        if (session('UserInfo') != null) {
+            
+            $uid = session('UserInfo.id');
+            $info = Users::where('id', session('UserInfo.id'))->first();
+            
+            $commod = $request->input('commod');
+            $key_name = $request->input('names');
 
+            $good = DB::table('spec_goods_prices')->where('key_name',$key_name)->first();   
+
+            $data = [
+                  'uid' => $uid,
+                  'spec_id' =>$good->id,
+                  'commod' => $commod,
+                  'selected'=> '0',
+                 ];
+            $addcar = DB::table('shop_cars')->insert($data);
+            
+            if ($addcar) {
+              return response()->json([
+                'code' => 0,
+                'msg' => '已成功加入购物车，是否进入购物车',
+            ],200);
+            }
+              return response()->json([
+                'code' => 1,
+                'msg' => '网络繁忙加入购物车失败，请检查网络是否通畅',
+            ],500); 
+
+        } else {
+           return response()->json([
+                'code' => 1,
+                'msg' => '请登录',
+            ], 500);
+         
+        }
+      
+
+
+        
     }
 
 
