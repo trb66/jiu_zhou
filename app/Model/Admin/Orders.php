@@ -7,20 +7,17 @@ use Illuminate\Support\Facades\DB;
 class Orders extends Model
 {
 
-    public function show($sta,$text,$uid)
+    public function show($sta,$text)
     {      
 
-       if ($sta == '69' || $sta == '') return $this->paginate(4);
-       if($sta != '69' || $text == '' ) return $this->where('status',$sta)->paginate(3)->appends(['status'=> $sta]);
-       if($sta == '69' || $text != '') {
+       if ($sta == '69' || $sta == 'null') return $this->paginate(4);
+       // if($sta != '69' || $text == 'null' ) return $this->where('status',$sta)->paginate(3)->appends(['status'=> $sta]);
+  
 
-          return $this->where('uid',$uid)->get();
-      
-       }
-
+       return $this->paginate(4);
     }
  
-    public function username()
+    public function nickname()
     {
         return $this->hasOne('\App\Model\Admin\Users', 'id', 'uid');
     }
@@ -40,6 +37,12 @@ class Orders extends Model
         return $this->hasOne('\App\Model\Admin\Goods', 'id', 'gid');
         
     }
+    
+     public function express_num()
+    {
+        return $this->hasOne('\App\Model\Admin\Expresses', 'oid', 'id');
+        
+    }
 
     public function del($id)
     {
@@ -57,10 +60,18 @@ class Orders extends Model
     }
      
 
+    public function order_edit($id,$data) 
+    {
+
+     return $this->where('id',$id)->update($data);
+
+
+
+    }
+
     public function search()
     {   
          
-          
         return $this->paginate(2);
         // return $this->where('status','=',$_GET['order_status'])->paginate(2);
     }

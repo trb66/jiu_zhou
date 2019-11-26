@@ -10,12 +10,7 @@ class Types extends Model
 {
    public function item_type($cid)
    {
-        $type = $this->where('id',$cid)->first();
-
-        $typetow = $this->where('id',$type->pid)->first();
-
-
-        return [$type,$typetow];
+        return $this->where('id',$cid)->first();
    }
 
     //查分类数据

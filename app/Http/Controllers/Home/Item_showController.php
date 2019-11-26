@@ -10,6 +10,7 @@ use App\Model\Home\Types;
 use App\Model\Home\Specs;
 use App\Model\Home\Comments;
 use App\Model\Home\Users;
+use App\Model\Home\Spec_goods_prices;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +21,7 @@ class Item_showController extends Controller
     public function show(Request $request) 
     {    
         //接收传过来的id
-        $id = $_GET['id'];
+        $id = $request->input('id');
 
         $res = new Goods();
         $res_img = new Imgs();
@@ -28,7 +29,8 @@ class Item_showController extends Controller
         $res_user = new Users();
         $res_comment = new Comments();
         $res_spec = new Specs(); 
-
+        $res_spec_goods_price = new Spec_goods_prices(); 
+       
         //查出这个商品的所以信息
         $goods = $res->item_show($id);
   
@@ -36,40 +38,37 @@ class Item_showController extends Controller
         $cid = $goods['cid'];
 
          //得到这个商品所属的分类
-        $typeall = $res_type->item_type($cid);
+        $type = $res_type->item_type($cid);
         
-        $type = $typeall[0];
-        //二级分类
-        $typetow = $typeall[1];
 
-        $typeid = $type->id;
+        $typeid = $type['id'];
+
+        
         //查规格
         $spec = $res_spec->item_spec($cid);
-        // dump($spec);
        
         foreach ($spec as $k => $v) {
-    
-            // dump($v);
+
             $spec_item = DB::table('spec_items')->where('spec_id',$v->id)->get();
 
             $spec_item_new = []; 
 
             foreach ($spec_item as $key => $value) {
-                // dump($value);
                 $spec_item_new[] = $value->time;
             }
             $v->time = $spec_item_new;
         }
         // dump($spec);
-        
+        //查库存
+         $store_count = $res_spec_goods_price->item_ku($id); 
+         
+       
         //查出爆款的商品
         $baokuan = $res->item_baokuan($typeid,$id);
-        // dump($baokuan);
         $goodid = [];
         foreach ($baokuan as $k => $v) {
             $goodid[$k] = $v->id;
         }
-        // dump($goodid);
         //爆款的图片
         $imgs = $res_img->item_img($img_id);
         
@@ -86,18 +85,45 @@ class Item_showController extends Controller
         $comments = $comment[0];
 
         $count = $comment[1];
-
         return view('Home.item_show',[
-                       'good'=> $goods,
-                        'type'=>$typetow,
-                       'pre'=>$preview_img,
-                       'introduce'=>$introduce_img,
-                       'baokuan'=> $baokuan,
-                       'comments'=>$comments,
-                       'count'=>$count,
-                       'spec'=> $spec,
+                           'good'=> $goods,
+                           'type'=>$type,
+                           'pre'=>$preview_img,
+                           'introduce'=>$introduce_img,
+                           'baokuan'=> $baokuan,
+                           'comments'=>$comments,
+                           'count'=>$count,
+                           'spec'=> $spec,
+                           'ku' => $store_count,
                      
         ]);
     }
+    public function spec_all(Request $request) 
+    {
+      $names = $request->input('names');
+     
+      $good = DB::table('spec_goods_prices')->where('key_name',$names)->first();
+      $ku = $good->store_count;
+      return ['good' =>$good,'ku'=>$ku];
+    }  
+  
+    
+    // 加入购物车
+    public function addcar(Request $request)
+    {
+        $commod = $request->input('commod');
+        // $key_name = $request->input('names');
+        
+        $uid = session('UserInfo.id');
+        // $good = DB::table('spec_goods_prices')->where('key_name',$names)->first();
+        
 
+    }
+
+
+   //收藏
+   public function item_collect(Request $request)
+   {
+     
+   }
 }
