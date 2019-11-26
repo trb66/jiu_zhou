@@ -10,6 +10,7 @@ use App\Model\Home\Types;
 use App\Model\Home\Specs;
 use App\Model\Home\Comments;
 use App\Model\Home\Users;
+use App\Model\Home\Users_infos;
 use App\Model\Home\Spec_goods_prices;
 
 use Illuminate\Support\Facades\Session;
@@ -114,31 +115,38 @@ class Item_showController extends Controller
         if (session('UserInfo') != null) {
             
             $uid = session('UserInfo.id');
-            $info = Users::where('id', session('UserInfo.id'))->first();
-            
             $commod = $request->input('commod');
             $key_name = $request->input('names');
 
-            $good = DB::table('spec_goods_prices')->where('key_name',$key_name)->first();   
+            if ($key_name != '' ) {
 
-            $data = [
-                  'uid' => $uid,
-                  'spec_id' =>$good->id,
-                  'commod' => $commod,
-                  'selected'=> '0',
-                 ];
-            $addcar = DB::table('shop_cars')->insert($data);
-            
-            if ($addcar) {
-              return response()->json([
-                'code' => 0,
-                'msg' => '已成功加入购物车，是否进入购物车',
-            ],200);
-            }
-              return response()->json([
-                'code' => 1,
-                'msg' => '网络繁忙加入购物车失败，请检查网络是否通畅',
-            ],500); 
+	            $good = DB::table('spec_goods_prices')->where('key_name',$key_name)->first();   
+
+	            $data = [
+	                  'uid' => $uid,
+	                  'spec_id' =>$good->id,
+	                  'commod' => $commod,
+	                  'selected'=> '0',
+	                 ];
+	            $addcar = DB::table('shop_cars')->insert($data);
+	            
+	            if ($addcar) {
+	              return response()->json([
+	                'code' => 0,
+	                'msg' => '已成功加入购物车，是否进入购物车',
+	            ],200);
+	            }
+	              return response()->json([
+	                'code' => 1,
+	                'msg' => '网络繁忙加入购物车失败，请检查网络是否通畅',
+	            ],200); 
+
+            } 
+             return response()->json([
+	                'code' => 2,
+	                'msg' => '请选择规格',
+	            ],200); 
+
 
         } else {
            return response()->json([
@@ -147,16 +155,105 @@ class Item_showController extends Controller
             ], 500);
          
         }
-      
-
-
         
     }
 
-
    //收藏
    public function item_collect(Request $request)
-   {
+   { 
+   	       
+      if (session('UserInfo') != null) {
+
+    	$gid = $request->input('gid');
+        $uid = session('UserInfo.id');
+        
+        //查询该商品是否已收藏
+        $arcollect = DB::table('collects')->where('uid',$uid)->where('goods_id',$gid)->first();
+     
+        if ($arcollect) {
+           return response()->json([
+	                'code' => 2,
+	                'msg' => '您已收藏过这个商品啦',
+	        ],200);
+        } else {
+
+	        $data = [
+	           'uid' => $uid,  
+	           'goods_id' => $gid,
+	        ];
+
+	        $collect = DB::table('collects')->insert($data);
+
+	         if ($collect) {
+	            return response()->json([
+		                'code' => 0,
+		                'msg' => '收藏成功',
+		            ],200);
+	         }
+	          return response()->json([
+		                'code' => 1,
+		                'msg' => '网络繁忙，请检查网络是否通畅再重试',
+		            ],200);
+        }
+
+      } else {
+           return response()->json([
+                'code' => 1,
+                'msg' => '请登录',
+            ], 500);
+         
+      }
      
    }
+   //立即购买
+   public function item_gobuy(Request $request) 
+   {
+      if (session('UserInfo') != null) {
+            
+            $uid = session('UserInfo.id');
+            $commod = $request->input('commod');
+            $key_name = $request->input('names');
+
+            if ($key_name != '' ) {
+
+	            $good = DB::table('spec_goods_prices')->where('key_name',$key_name)->first();   
+
+	            $data = [
+	                  'uid' => $uid,
+	                  'spec_id' =>$good->id,
+	                  'commod' => $commod,
+	                  'selected'=> '1',
+	                 ];
+	            $addcar = DB::table('shop_cars')->insert($data);
+	            
+	            if ($addcar) {
+	              return response()->json([
+	                'code' => 0,
+	                'msg' => '正在努力跳转...........',
+	            ],200);
+	            }
+	              return response()->json([
+	                'code' => 1,
+	                'msg' => '网络繁忙，请检查网络是否通畅',
+	            ],200); 
+
+            } 
+             return response()->json([
+	                'code' => 2,
+	                'msg' => '请选择规格',
+	            ],200); 
+
+
+        } else {
+           return response()->json([
+                'code' => 1,
+                'msg' => '请登录',
+            ], 500);
+         
+        }
+ 
+
+   }
+
+
 }

@@ -28,10 +28,10 @@ class CommentsController extends Controller
   public function reply(Request $request) 
   {  
     $id = $request->input();
-
+    
     $res = new Comments();
     $com = $res->reply($id);
-
+    dump($com);
     return view('Admin/comment.reply',['comment'=>$com,'id'=>$id]);
   }
    

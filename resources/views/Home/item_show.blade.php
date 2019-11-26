@@ -146,7 +146,7 @@
 							</div>
 						</div>
 						<div class="item-action clearfix bgf5">
-							<a href="javascript:;" rel="nofollow" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">立即购买</a>
+							<a href="javascript:;" rel="nofollow" onclick="return gobuy(this)" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">立即购买</a>
 							<a  href="javascript:;" onclick="return addcar(this)" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket">
 								<i class="iconfont icon-shopcart"></i>加入购物车
 							</a>
@@ -224,12 +224,14 @@
 							<div class="tab-content">
 								<!--  -->
 								<div role="tabpanel" class="tab-pane fade in active" id="all" aria-labelledby="all-tab">
+						
                                   @foreach($comments as $c)
 									@if($c['type'] == 0)
 									<div class="eval-box">
 										<div class="eval-author">
 											<div class="port">
-												<img src="" alt="欢迎来到九州商城" class="cover b-r50">
+						
+												<img src="/storage/{{$c->item_userinfo->photo}}" alt="欢迎来到九州商城" class="cover b-r50">
 											</div>
 											<div class="name">{{$c->item_user->username}}</div>
 										</div>
@@ -254,7 +256,7 @@
 								    @endif				
 											
 									@endforeach
-
+                         
 								<!-- 分页 -->
 								</div>
 								<!--  -->
@@ -370,7 +372,7 @@
 @endsection
 
 @section('js')
- <script>
+<script>
 $(function(){
   $(".gui li").click(function(){
 	 $(this).parent().children().children().css('border', '').css('color','')
@@ -430,7 +432,6 @@ $(function(){
   function addcar(car) {
     var commod = $('#num').val()
 
-
 	var s = $('.test');
    	var a = {};
 
@@ -448,10 +449,6 @@ $(function(){
    		x++;
    		names += k+':'+a[k]+' ';
    	}
-      if (names == '')
-      {
-      	alert('还没选择规格呢');
-      }
 	    $.ajaxSetup({
 	        headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
 	        });
@@ -463,15 +460,18 @@ $(function(){
 			   	names:names
 			},
 	        success:function(res) {
-	           if(res.code == 0){
-	           	var r=confirm(res.msg)
-                 if (r) {
-              	 location.href = '/home/udai_shopcart';
+	          if(res.code == 0){
+	           var r=confirm(res.msg)
+	               if (r) {
+	              	   location.href = '/home/udai_shopcart';
 
-                 }
+	                }
               } else if(res.code == 1){ 
-                alert(res.msg)
+                  alert(res.msg)
+              } else {
+              	   alert(res.msg)
               }
+
 	  
 	        },
 	        error:function(err) {
@@ -483,13 +483,95 @@ $(function(){
 		})
 } 
 
-
-
  function collect(coll) {
  	var gid = $(coll).data('id');
+     console.dir(gid)
 
+      $.ajaxSetup({
+	        headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+	        });
+		$.ajax({
+			   type: 'post',
+			   url: '/home/item_show/item_collect',
+			   data: {
+			   gid:gid,
+			},
+	        success:function(res) {
+	           if(res.code == 0){
+                  alert(res.msg)
+                  $('#collect').css('color','orange')
+ 
+	           } else if (res.msg == 1) {
+                  alert(res.msg)
+	           } else {
+                  alert(res.msg)
+                  $('#collect').css('color','orange')
 
+	           }
+	    
+	        },
+	       error:function(err) {
+              if(err.responseJSON.code == 1){
+              	 location.href = '/home/login';
+              }
+	        }
+
+		}) 
+ }
+
+ function gobuy(wo) {
+    var commod = $('#num').val()
     
+	var s = $('.test');
+   	var a = {};
+
+   	s.each(function(v, val) {
+   		var bb = $(val).data('name');
+   		$(val).children().each(function() {
+   			if ($(this).children('a').attr('style') == 'border: 1px solid rgb(179, 30, 34); color: rgb(179, 30, 34);') {
+   				a[bb] = $(this).children('a').children('span').html();
+   			}
+   		});
+   	})
+   	var names = '';
+   	var x = 0;
+   	for(k in a) {
+   		x++;
+   		names += k+':'+a[k]+' ';
+   	}
+   	$.ajaxSetup({
+	        headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+	        });
+		$.ajax({
+			   type: 'post',
+			   url: '/home/item_show/item_gobuy',
+			   data: {
+			   commod:commod,
+			   names:names
+
+			},
+	        success:function(res) {
+	          if(res.code == 0){
+
+	              location.href = '/home/';
+
+              } else if(res.code == 1){ 
+                  alert(res.msg)
+              } else {
+              	   alert(res.msg)
+              }
+
+	  
+	        },
+	        error:function(err) {
+              if(err.responseJSON.code == 1){
+              	 location.href = '/home/login';
+              }
+	        }
+
+		}) 
+  
+ 
  }
  </script>
 @endsection
