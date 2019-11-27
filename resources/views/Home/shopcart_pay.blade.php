@@ -152,7 +152,7 @@
    }  
    $('.crr').html(sum);
 $('.default').click(function() {
-    if($(this).data('acquiescent') == 0) {
+    if($(this).data('acquiescent') == 2) {
         var id = $(this).data('id')
         $.ajax({
             type: 'post',

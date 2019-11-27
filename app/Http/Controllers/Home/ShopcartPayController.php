@@ -33,7 +33,7 @@ class ShopcartPayController extends Controller
         $uid = session()->get('UserInfo')['id'];
         $res = new Shop_cars;
         $carsOne = $res->carsOne($uid);
-        $addrs = DB::table('addrs')->where('uid', $uid)->orderBy('acquiescent', 'desc')->get();
+        $addrs = DB::table('addrs')->where('uid', $uid)->orderBy('acquiescent', 'asc')->get();
 
          //查询购物车数量
         $id = session('UserInfo')['id'];
@@ -44,9 +44,9 @@ class ShopcartPayController extends Controller
     public function addrsSta(Request $request)
     {  
         $uid = session()->get('UserInfo')['id'];
-        $id = $request->input();
+        $id = $request->input(); 
         //修改当前选择的地址状态为默认
-        $addrs = DB::table('addrs')->where('uid', $uid)->where('id', '<>', $id)->update(['acquiescent'=> 0]);
+        $addrs = DB::table('addrs')->where('uid', $uid)->where('id', '<>', $id)->update(['acquiescent'=> 2]);
         $addrssta = DB::table('addrs')->where('uid', $uid)->where('id', $id)->update(['acquiescent'=> 1]);
         //修改除了当前选择的地址外其他地址都不是默认的
         if($addrssta != null) {
