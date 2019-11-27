@@ -16,10 +16,20 @@ class SpecsItemsController extends Controller
     public function index(Request $request)
     {   
         //查询Spec_goods_prices表所有的数据
-        $pag = 10;
-        $res = new Spec_goods_prices;
-        $specGoodsPrices = $res->Sgpsel($pag);
 
+        $pag = 15;
+        //用商品名模糊搜索
+        $name = $request->input('name');
+        if($name != null) {
+            $goods = DB::table('goods')->where('name', 'like', '%'.$name.'%')->paginate($pag);
+            $id = [];
+            foreach ($goods as $key => $value) { 
+                 $id[$key] = $value->id;
+            }
+             $specGoodsPrices = Spec_goods_prices::wherein('goods_id', $id)->paginate($pag);
+        }else {
+            $specGoodsPrices = Spec_goods_prices::paginate($pag);
+        }
         return view('/Admin/specsItems.SpecsItems', ['specGoodsPrices' => $specGoodsPrices]);
     }
 
@@ -85,7 +95,6 @@ class SpecsItemsController extends Controller
                  ], 500);
         }   
         
-
     }
 
     //删除spec_goods_pnces里面的数据

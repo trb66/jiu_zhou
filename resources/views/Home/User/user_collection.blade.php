@@ -37,6 +37,7 @@
                     </div>
                 @endforeach
             @endif
+
         </div>
         <div style='float:right'>{{ $collects->links() }}</div>
 
@@ -48,6 +49,7 @@
             <a href="">{{$collects->perPage()}}</a>
             <a class="" href="{{$collects->nextPageUrl()}}">下一页</a>
             <a class="disabled">1/{{$collects->total()}}页</a>
+
         </div> -->
     </div>
     </div>
@@ -82,6 +84,7 @@
             }
         });
     });
+
 
 </script>
 @endsection

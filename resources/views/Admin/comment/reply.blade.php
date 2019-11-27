@@ -97,6 +97,7 @@
                 <input type="hidden" value="{{$id['gid']}}" name="gid" id="gid">
                 <input type="hidden" value="{{$id['oid']}}" name="oid" id="oid">
 
+
                 <textarea class="form-control" rows="3" placeholder="请输入回复内容" name="content" id="reply-text"></textarea>
                 <button type="button" class="btn btn-primary pull-right " onclick="return reply(this)" data-id="{{$id['id']}}" style="margin-top: 10px;">回复</button>
             </form>
@@ -143,3 +144,4 @@
       }
 </script>
 @endsection
+

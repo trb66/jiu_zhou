@@ -11,13 +11,26 @@ use App\Model\Admin\Goods;
 class GoodsController extends Controller
 {
     //显示商品列表
-    public function index() 
+
+    public function index(Request $request) 
     {
         //遍历goods商品表
         $page = 12;
-        $ty = new Goods;
-        $res = $ty->goods($page);
-        return view("Admin/goods.goods", ['goods' => $res]);
+
+        $id = $request->input('id'); 
+
+        $name = $request->input('name');
+        if($id != null && $name != null) {
+          $res = Goods::where('cid', $id)->where('name', 'like', '%'.$name.'%')->paginate($page);
+        }elseif($id != null) {
+          $res = Goods::where('cid', $id)->paginate($page);
+        } else {
+          $res = Goods::paginate($page);
+        }
+         
+        $types = DB::table('types')->get();
+
+        return view("Admin/goods.goods", ['goods' => $res, 'id' => $id,'name' => $name, 'types' => $types]);
     }
 
     //添加商品页面
@@ -157,11 +170,14 @@ class GoodsController extends Controller
         }
 
     }
+
+    //删除商品
     public function del(Request $request) 
     {  
        $id = $request->all();
        $good = new Goods();
        $res = $good->del($id);
+
        if($res) {         
            return response()->json([
                 'code' => '0',
@@ -176,4 +192,43 @@ class GoodsController extends Controller
        
 
     }
+
+
+    //搜索商品
+    public function seek(Request $request)
+    {
+      // dump($request->all());
+       //下拉列表搜索分类商品 
+        $typeGgds = DB::table('goods')->where($request->all())->get()->toArray();
+         return $goods =  response()->json( $typeGgds );
+          
+        
+    }
+
+    //修改状态
+    public function status(Request $request)
+    {
+          $id = $request->all('id');
+          $goodss = DB::table('goods')->where($id);
+          $goods = $goodss->first();
+          dump($goods->status);
+          if($goods->status == 0) { //在售中
+             if(!$goodss->update(['status' => 1])) {
+                return response()->json([
+                         'code' => '0',
+                         'msg' => '服务器错误，请重试~',
+                ], 500);
+             }
+          } else {
+            if(!$goodss->update(['status'=> 0])) {
+              return response()->json([
+                       'code' => '0',
+                       'msg' => '服务器错误，请重试~',
+              ], 500);
+          }
+
+        }
+        return ['code' => '1'];
+    }
+
 }

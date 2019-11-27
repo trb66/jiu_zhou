@@ -36,11 +36,13 @@ class IndexController extends Controller
             $num += $shu;
         }
         
+
         return view('Home/main',[
             'res' => $res,
             'arr' => $arr,
             'str' => $str,
             'num' => $num
+
         ]);
     }
 
@@ -52,6 +54,7 @@ class IndexController extends Controller
         
         return view('Home/goods_search',[
             'list' => $list
+
         ]);
     }
 }

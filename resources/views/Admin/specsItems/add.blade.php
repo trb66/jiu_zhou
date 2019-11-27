@@ -10,7 +10,8 @@
             <div class="am-form-group">
                 <label for="user-phone" class="am-u-sm-12 am-form-label am-text-left">选中模型分类<span class="tpl-form-line-small-title">Types</span></label>
                 <div class="am-u-sm-12  am-margin-top-xs">
-                    <select name='types'  data-am-selected="{searchBox: 1}" style="display: none;">
+
+                    <select name='types' data-am-selected="{searchBox: 1}" style="display: none;">
                         @foreach($types as $v)
 
                            @php
@@ -52,7 +53,7 @@
 
 @endsection
 @section('js')
-<script src="/plug/jQ/jquery-1.12.4.min.js"></script>·
+
 <script>
 
   $('#addval').click(function(){
@@ -99,9 +100,13 @@
           contentType: false,  //不要设置数据类型
           data: data,
           success: function(res) {
-            if(res == 'yes') {
-              alert('规格属性添加成功,快快去为您的商品添加规格把')
+
+            if(confirm("规格属性添加成功，是否继续添加？")) {
+                location.href = '/admin/specsItems/add';
+
+            }else {
               location.href = '/admin/goods';
+
             }
           },
           error: function(err) {

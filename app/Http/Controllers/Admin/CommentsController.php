@@ -31,6 +31,7 @@ class CommentsController extends Controller
     
     $res = new Comments();
     $com = $res->reply($id);
+
     return view('Admin/comment.reply',['comment'=>$com,'id'=>$id]);
   }
    

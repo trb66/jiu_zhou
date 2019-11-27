@@ -15,5 +15,5 @@ class Specs extends Model
     {
         return $this->hasMany('App\Model\Home\Spec_items', 'spec_id', 'id');
     }
-   
+
 }

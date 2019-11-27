@@ -56,6 +56,7 @@
                 <a href="/home/price/{{ $type->id }}"><div class="sort-text">价格 </div></a>
                 <div class="sort-total pull-right">共 {{ $count }} 个商品</div>
             </div>
+
         <div class="pull-left">
             <div class="item-list__area clearfix">
             @foreach($list as $v)
@@ -69,6 +70,7 @@
                     </div>
                     <div class="buttom">
                         <div>销量 <b>{{ $v->sales }}</b></div>
+
                         <div>人气 <b>888</b></div>
                         <div>评论 <b>1688</b></div>
                     </div>
@@ -86,4 +88,5 @@
         console.log($(mys).data('id'))
     }
 </script>
+
 @endsection

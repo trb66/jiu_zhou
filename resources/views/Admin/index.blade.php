@@ -435,7 +435,6 @@
             </ul>
         </div>
 
-
         <!-- 内容区域 重写 -->
         <div class="tpl-content-wrapper">
             @section('body')

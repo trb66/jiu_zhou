@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Model\Home\Goods;
 use App\Model\Home\Types;
 
+
 class GoodsController extends Controller
 {
     public function index($id)
@@ -24,6 +25,7 @@ class GoodsController extends Controller
             'list' => $list,
             'count' => $count,
             'type' => $type,
+
         ]);
     }
     //搜索
@@ -77,6 +79,7 @@ class GoodsController extends Controller
             'list' => $res,
             'count' => $count,
             'type' => $type,
+
         ]);
     }
 }

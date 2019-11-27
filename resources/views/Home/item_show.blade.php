@@ -13,6 +13,7 @@
 </style>
 @endsection
 
+
 @section('type')
 
 @endsection
@@ -25,11 +26,13 @@
 				<ol class="breadcrumb">
 					<li><a href="/">首页</a></li>
 					<li><a href="/home/goods_list/{{ $type['id'] }}">{{$type['name']}}</a></li>
+
 					<li class="active">{{$good['name']}}</li>
 				</ol>
 				<div class="item-pic__box" id="magnifier">
 					<div class="small-box">
                    
+
 						<img class="cover" src="/storage/{{$pre[count($pre) - 1]->pic}}" alt="{{$good['name']}}">
 						<span class="hover"></span>
                        
@@ -38,6 +41,7 @@
 						<a href="javascript:;" class="btn btn-default btn-prev"></a>
 						<div class="thumb-list">
 							<ul class="wrapper clearfix" id='test'>
+
                                @foreach($pre as $ki => $img)
 
 								<li class="item" data-src="/storage/{{$img['pic']}}"><img class="cover" src="/storage/{{$img['pic']}}" alt="商品预览图"></li>
@@ -71,11 +75,13 @@
                               <spn id="collect" onclick="collect(this)" data-id="{{$good['id']}}" style="float: right;font-size: 20px;font-weight: 700;vertical-align: middle;margin-top: 5px;position: relative;" aria-hidden="true" class="glyphicon glyphicon glyphicon-star"><b style="font-size: 15px; cursor: pointer;">收藏宝贝</b></span>
                               </a>
 						</div>
+
 					</div>
 					<ul class="item-ind-panel clearfix">
 						<li class="item-ind-item">
 							<span class="ind-label c9">累计销量</span>
 							<span class="ind-count cr">{{$good['sales']}}</span>
+
 						</li>
 						<li class="item-ind-item">
 							<a href=""><span class="ind-label c9">累计评论</span>
@@ -108,12 +114,14 @@
 							<div class="amount-box">
 								<div class="amount-widget">
 									<input class="amount-input" value="1" id="num" maxlength="8" title="请输入购买量" type="text">
+
 									<div class="amount-btn">
 										<a class="amount-but add"></a>
 										<a class="amount-but sub"></a>
 									</div>
 								</div>
 								<div class="item-stock"><span style="margin-left: 10px;">库存 <b id="Stock">{{$ku}}</b> 件</span></div>
+
 								<script>
 									$(function () {
 										$('.amount-input').onlyReg({reg: /[^0-9]/g});
@@ -146,9 +154,11 @@
 							</div>
 						</div>
 						<div class="item-action clearfix bgf5">
+
 							<a href="javascript:;" rel="nofollow" onclick="return gobuy(this)" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">立即购买</a>
 							<a  href="javascript:;" onclick="return addcar(this)" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket">
 								<i class="iconfont icon-shopcart"></i>加入购物车
+
 							</a>
 						</div>
 					</div>
@@ -200,6 +210,7 @@
 							<div class="record">上架时间：{{$good['created_at']}}</div>
 					
 							<div class="record">商品库存：{{$ku}}件</div>
+
 						</div>
 						<div class="rich-text">
 							<p style="text-align: center;">
@@ -224,7 +235,7 @@
 							<div class="tab-content">
 								<!--  -->
 								<div role="tabpanel" class="tab-pane fade in active" id="all" aria-labelledby="all-tab">
-						
+
                                   @foreach($comments as $c)
 									@if($c['type'] == 0)
 									<div class="eval-box">
@@ -232,6 +243,7 @@
 											<div class="port">
 						
 												<img src="/storage/{{$c->item_userinfo->photo}}" alt="欢迎来到九州商城" class="cover b-r50">
+
 											</div>
 											<div class="name">{{$c->item_user->username}}</div>
 										</div>
@@ -243,6 +255,7 @@
 											</div>
 											 <div class="eval-time" style="margin-top:35px">
 												{{$c['created_at']}} {{$c->item_orderx['item_gui']['key_name']}}
+
 											</div>
 										@foreach($comments as $v)
 											@if($v['type'] == 1 && $c['id'] == $v['pid'])
@@ -258,6 +271,7 @@
 									@endforeach
                          
 								<!-- 分页 -->
+
 								</div>
 								<!--  -->
 								<div role="tabpanel" class="tab-pane fade" id="normal" aria-labelledby="normal-tab">
@@ -265,6 +279,7 @@
 										<div class="eval-author">
 											<div class="port">
 												<img src="" alt="欢迎来到U袋网" class="cover b-r50">
+
 											</div>
 											<div class="name">高***恒</div>
 										</div>
@@ -298,6 +313,7 @@
 										<div class="eval-author">
 											<div class="port">
 												<img src="" alt="欢迎来到U袋网" class="cover b-r50">
+
 											</div>
 											<div class="name">高***恒</div>
 										</div>

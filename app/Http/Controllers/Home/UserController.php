@@ -16,6 +16,7 @@ use App\Model\Admin\Expresses;
 use App\Model\Admin\Orders_details;
 
 use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -63,6 +64,7 @@ class UserController extends Controller
 
     // 添加用户头像
     public function addPhoto(Request $request)
+
     {
         // 1. 表单验证
         // exists 确定数据表中是否存在数据, 不存在则报错
@@ -236,18 +238,21 @@ class UserController extends Controller
 
     // 修改密码
     public function editPwd(Request $request)
+
     {
         return view('Home/User.editpwd');
     }
 
     // 显示修改密码
     public function showPwd(Request $request)
+
     {
         return view('Home/User.showepwd');
     }
 
     // 验证原密码
     public function yuanPwd(Request $request)
+
     {
         $pwd = $request->input('pwd');
 
@@ -265,6 +270,7 @@ class UserController extends Controller
 
     // 修改密码
     public function savePwd(Request $request)
+
     {
         $pwd = Hash::make($request->input('pwd'));
 
@@ -284,6 +290,7 @@ class UserController extends Controller
 
     // 显示地址
     public function showAddress(Request $request)
+
     {
         $id = session('UserInfo.id'); // 用户id
 
@@ -296,6 +303,7 @@ class UserController extends Controller
 
     // 添加地址
     public function addAddress(Request $request)
+
     {
         $id = session('UserInfo.id'); // 用户id
         
@@ -333,6 +341,7 @@ class UserController extends Controller
 
     // 删除地址
     public function delAddress(Request $request)
+
     {
         $aid = $request->input('id'); // 地址id
 
@@ -363,6 +372,7 @@ class UserController extends Controller
 
     // 设为默认地址
     public function defaultAddr(Request $request)
+
     {
         $uid = session('UserInfo.id'); // 用户ID;
 
@@ -393,6 +403,7 @@ class UserController extends Controller
 
     // 显示修改地址
     public function editAddr(Request $request)
+
     {
         $uid = session('UserInfo.id'); // 用户ID;
 
@@ -415,6 +426,7 @@ class UserController extends Controller
 
     // 处理修改地址
     public function ceditAddr(Request $request)
+
     {
         $id = $request->input('id'); // 地址ID
 
@@ -448,6 +460,7 @@ class UserController extends Controller
 
     // 显示收藏
     public function showCollect(Request $request)
+
     {
         $uid = session('UserInfo.id'); // 用户ID
 
@@ -744,3 +757,4 @@ class UserController extends Controller
         
         
 }
+

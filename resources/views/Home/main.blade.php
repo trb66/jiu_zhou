@@ -7,11 +7,13 @@
                 <i class="iconfont icon-shoes ce"></i> {{ $v['name'] }}
             </div>
             <ul class="cat-list clearfix">
+
                 @foreach($v['son'] as $k => $voo)
                     @if($k < 3)
                         <li>{{ $voo['name'] }}</li>
                     @endif
                 @endforeach
+
             </ul>
             <div class="cat-list__deploy">
                 <div class="deploy-box">
@@ -79,12 +81,14 @@
                 <img src="/Home/images/floor_6.jpg" class="cover">
             </a>
             
+
             <div class="right-box">
         @if(!empty($v['goodtype']))
             @foreach($v['goodtype'] as $vo)
                 <a href="/home/item_show/?id={{ $vo->id }}" class="floor-item">
                     <div class="item-img hot-img">
                         <img title="{{ $vo->name }}" src="/storage/{{ $vo->pic }}" alt="{{ $vo->name }}" class="cover">
+
                     </div>
 
                     <div class="price clearfix">

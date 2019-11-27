@@ -46,6 +46,7 @@ class Comments extends Model
     {
       return $this->where('id', $id['id'])
                   ->orwhere('pid',$id['id'])
+
                   ->orderBy('created_at')
                   ->get();
 
@@ -57,6 +58,7 @@ class Comments extends Model
           'uid' => $data['uid'],
           'gid'=>$data['gid'],
           'oid' => $data['oid'],
+
           'text' => $data['text'],
           'type' => '1',
           'pid' => $data['id'],
@@ -75,4 +77,5 @@ class Comments extends Model
     {
       return $this->hasOne('\App\Model\Admin\Imgs', 'goods_id', 'gid');
     }
+
 }

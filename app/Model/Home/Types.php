@@ -33,6 +33,7 @@ class Types extends Model
                 //遍历三级分类里的数据
                 foreach ($list[$k]['son'][$key]['sun'] as $kkk => $value) {
                     //查goods表的cid等于三级分类数据里的id
+
                     $goodsinfo = DB::table('goods')->where('cid','=',$value['id'])->where('status','=',0)->limit(3)->get();
                     if (!empty($goodsinfo)) {
                         //遍历三级商品的数据
@@ -88,3 +89,4 @@ class Types extends Model
         return $this->hasMany('App\Model\Home\Specs', 'type_id', 'id');
     }
 }
+

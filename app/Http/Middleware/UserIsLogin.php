@@ -19,6 +19,7 @@ class UserIsLogin
             return $next($request);
         } else {
             echo '<script>location.href="/home/login";</script>';
+
             return redirect('/home/login');
         }
     }

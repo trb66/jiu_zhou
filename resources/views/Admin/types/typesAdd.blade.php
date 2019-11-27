@@ -15,9 +15,10 @@
                 </div>
                 <form class="am-form tpl-form-border-form tpl-form-border-br">
                     <div class="am-form-group">
-                        <label for="user-weibo" class="am-u-sm-3 am-form-label">添加分类 <span class="tpl-form-line-small-title">Type</span></label>
+
+                        <label for="user-weibo" class="am-u-sm-3 am-form-label">添加顶级分类 <span class="tpl-form-line-small-title">Type</span></label>
                         <div class="am-u-sm-9">
-                            <input type="text" id="user-weibo" v-model="message" placeholder="请添加顶级">
+                            <input type="text" id="user-weibo" v-model="message" placeholder="请填写顶级分类名">
                             <div>
 
                             </div>
@@ -59,7 +60,12 @@
                     })
                     .then(function(res) {
                         if(res) {
-                          location.href = '/admin/types';  //添加成功跳转到列表页
+
+                            if(confirm("添加成功！是否继续添加")) {
+                                location.href = '/admin/types/add';
+                              }else {
+                                location.href = '/admin/types';  //添加成功跳转到列表页
+                              }
                         }
                     })
                     .catch(function(err){

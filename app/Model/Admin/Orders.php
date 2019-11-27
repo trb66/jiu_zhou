@@ -42,6 +42,7 @@ class Orders extends Model
     }
  
     public function nickname()
+
     {
         return $this->hasOne('\App\Model\Admin\Users', 'id', 'uid');
     }
@@ -67,6 +68,7 @@ class Orders extends Model
         return $this->hasOne('\App\Model\Admin\Expresses', 'oid', 'id');
         
     }
+
 
     public function del($id)
     {

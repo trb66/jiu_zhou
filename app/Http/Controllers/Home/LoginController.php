@@ -84,14 +84,14 @@ class LoginController extends Controller
     public function registeryzm(Request $request)
     {
         $phone = $request->input('phone'); // 手机号
-        dump($phone);       
+              
         $code = rand(100000, 999999); // 验证码
 
         include public_path('Static/Lib/ronglian/Demo/SendTemplateSMS.php'); // 引入文件
 
         // 值1手机号， 值2验证码
         $res = sendTemplateSMS($phone,[$code],1);
-        dump($res);
+
         cache([$phone => $code],Carbon::now()->addSeconds(120)); // 将验证码缓存起来
         return [
             'code' => 1,

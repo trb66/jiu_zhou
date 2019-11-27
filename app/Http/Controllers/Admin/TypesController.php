@@ -10,16 +10,30 @@ use App\Model\Admin\Types;
 class TypesController extends Controller
 {
     //分类列表
-     public function index()
+
+     public function index(Request $request)
      {   
-         
+         $id = $request->input('id');
+         $cid = $request->input('cid');
+         // dump($cid);
+
         //遍历types分类表
         $page = 15;
-        $ty = new types;
-        $res = $ty->types($page);
+        if( $cid != null) {
+            $type = types::get();
+            $res = types::where('id', $cid)->orWhere('pid', $cid)->paginate($page); 
+        }elseif($id != null) {
+            $type = types::get();
+            $res = types::where('id', $id)->orWhere('pid', $id)->paginate($page);
+        }else {
+            
+         $res = types::orderBy(DB::raw('concat(path,id)'))->paginate($page);
+         $type = types::get();
+        }
+
 
         //发送给前台
-        return view("Admin/types.types", ['types' => $res]);
+        return view("Admin/types.types", ['types' => $res, 'type' => $type, 'id' => $id, 'cid' => $cid ]);
      }
       
 
@@ -67,17 +81,19 @@ class TypesController extends Controller
         $pathId = $path.$id.',';
         //判断其下面是否有子级
         $trues = DB::table('types')->where('path', $pathId)->first();
-        // dump($pathId);
-        // dump($trues);
-        if(empty($id)) {
-            return response()->json([
-                'msg' => '删除失败'
-            ], 500);
-        } elseif($trues) {
+
+        //判断其下面有无商品
+        $goods = DB::table('goods')->where('cid', $id)->get()->toArray();
+     
+        if($trues) {
             return response()->json([
                 'msg' => '请先删除该子级'
             ], 500);
-        } else {
+        } elseif($goods) {
+            return response()->json([
+                'msg' => '不能删除有商品的分类'
+            ], 500);
+        } else {   
             $a = new types;  // new types 模成类
             $a->del($id);    //把id分配给del模层
             return response()->json([

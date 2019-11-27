@@ -8,6 +8,7 @@ use App\Model\Admin\Admin;
 use App\Model\Admin\User_has_roles;
 use App\Model\Admin\Role_has_permissions;
 use App\Model\Admin\Permissions;
+
     
     
 class IsPower
@@ -54,5 +55,6 @@ class IsPower
             return $next($request);
             // echo '<script>alert("没有权限");location.href="/admin";</script>';
         }
+
     }
 }

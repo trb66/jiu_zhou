@@ -47,12 +47,20 @@ class Goods extends Model
     //删除数据
     public function del($id)
     {
-        
-        return $delUser = $this->where('id', $id)->delete();
+
+         $delUser = $this->where('id', $id);
+         $good = $delUser->first()->toArray();
+         $price = DB::table('spec_goods_prices')->where('goods_id', $id);
+         $tru = $price->get()->toArray();
+        if($good) {
+         $price->delete(); 
+         return $delUser->delete();
+        }
+                               
     }
 
-  public function baokuan_img()
-   {
-    return $this->hasOne('App\Model\Home\Imgs','goods_id','id');
-   }
+    public function goods_img()
+    {
+        return $this->hasOne('App\Model\Admin\Imgs', 'goods_id', 'id');
+    }
 }

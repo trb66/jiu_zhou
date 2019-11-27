@@ -14,7 +14,9 @@
     <script src="/Home/js/bootstrap.min.js" charset="UTF-8"></script>
     <script src="/Home/js/swiper.min.js" charset="UTF-8"></script>
     <script src="/Home/js/global.js" charset="UTF-8"></script>
-    <!-- <script src="/Home/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script> -->
+
+    <script src="/Home/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
+
     @yield('css')
 
 </head>
@@ -31,6 +33,7 @@
 
                 @if(session('UserisLogin'))
                     <a><span class="cr">欢迎您，{{session('UserInfo.username')}}</span></a>
+
                     <a href="/home/logout"><span class="cr">立即退出</span></a>
                 @else
                     <a href="/home/login"><span class="cr">登录</span></a>
@@ -66,6 +69,13 @@
                     <a href="">家居</a>
                 </p>
             </div>
+
+            <div class="cart-box">
+                <a href="/home/udai_shopcart" class="cart-but">
+                    <i class="iconfont icon-shopcart cr fz16"></i> 购物车 0 件
+                </a>
+            </div>
+
          @show 
         </div>
     </div>
@@ -1001,11 +1011,13 @@
         });
     </script>
     <!-- 右侧菜单 -->
+
 @section('shopcart')
     <div class="right-nav">
         <ul class="r-with-gotop">
             <li class="r-toolbar-item">
                 <a href="/home/user_welcome" class="r-item-hd">
+
                     <i class="iconfont icon-user"></i>
                     <div class="r-tip__box"><span class="r-tip-text">用户中心</span></div>
                 </a>
@@ -1041,6 +1053,7 @@
         </ul>
     </div>
 @show
+
     <!-- 底部信息 -->
     @section('bottom')
     <div class="footer">

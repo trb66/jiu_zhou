@@ -97,4 +97,25 @@ class GoodsPricesController extends Controller
                 }   
             }
         }
+
+
+        public function del(Request $request)
+        { 
+              $id = $request->all('id');
+              dump($id);
+              $res = DB::table('specs')->where($id);
+              $spec = $res->first();
+              if($spec) {
+                dump(123);
+                 $res->delete();
+                 DB::table('spec_items')->where('spec_id', $id)->delete();
+
+              }else {
+                return response()->json([
+                   'code' => '1',
+                   'msg' => '服务器繁忙',
+                ], 500);
+              }
+
+        }
 }

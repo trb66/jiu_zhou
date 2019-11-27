@@ -124,6 +124,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login', 'admin.power'
 
     Route::get('goods/goodsAdd', 'Admin\GoodsController@goodsAdd'); //显示添加商品列表
 
+
     Route::post('goods/addSub', 'Admin\GoodsController@addSub'); //提交商品数据
 
     Route::get('goods/edit', 'Admin\GoodsController@edit'); //编辑商品
@@ -132,8 +133,38 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login', 'admin.power'
 
     Route::post('goods/del', 'Admin\GoodsController@del'); //删除商品
 
+    Route::post('goods/seek', 'Admin\GoodsController@seek'); //搜索商品
+
+    Route::post('goods/status', 'Admin\GoodsController@status'); //修改状态
+
     //商品图片
     Route::get('imgs', 'Admin\ImgsController@index'); //显示商品图片
+
+    Route::get('imgs/add', 'Admin\ImgsController@add'); //添加图片
+
+    Route::post('imgs/addSub', 'Admin\ImgsController@addSub'); //上传图片
+
+    Route::post('imgs/del', 'Admin\ImgsController@del'); //删除商品图片
+
+    //规格
+    Route::get('specsItems', 'Admin\SpecsItemsController@index'); //显示模型规格
+
+    Route::get('specsItems/add', 'Admin\SpecsItemsController@add'); //添加模型
+    
+    Route::post('specsItems/addSub', 'Admin\SpecsItemsController@addSub'); //添加模型
+
+
+    //商品添加规格
+    Route::get('goodsPrices', 'Admin\GoodsPricesController@index'); //显示商品添加页面
+
+    Route::post('goodsPrices/selIte', 'Admin\GoodsPricesController@selIte'); //传spec_id查items数据
+
+    Route::post('goodsPrices/add', 'Admin\GoodsPricesController@add'); //添加prices数据
+
+    Route::post('goodsPrices/del', 'Admin\GoodsPricesController@del'); //删除规格名和规格值
+
+    Route::post('specsItems/del', 'Admin\SpecsItemsController@del'); //s删除spec_goods_prices表数据
+    
 
     Route::get('imgs/add', 'Admin\ImgsController@add'); //添加图片
 
@@ -178,6 +209,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login', 'admin.power'
 
       Route::get('/order/lookorder','Admin\OrderController@look');//订单详情
 
+
       Route::get('/order/print','Admin\OrderController@print');//打印
          
       Route::get('/order/alter','Admin\OrderController@alter');//显示订单修改页面
@@ -208,6 +240,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login', 'admin.power'
 /************************轮播图模块************************************/
     //显示轮播图首页
     Route::get('/lunbo','Admin\LunboController@index');
+
     Route::post('/lunbo','Admin\LunboController@search');
     //轮播图添加功能
     Route::post('/add','Admin\LunboController@add');
@@ -273,6 +306,7 @@ Route::group(['prefix' => 'home'], function() {
     Route::post('/login', 'Home\LoginController@login'); // 处理登陆
 
     Route::get('/logout', 'Home\LoginController@logout'); // 退出登陆
+
 
     Route::post('/registeryzm', 'Home\LoginController@registeryzm'); // 前台注册
 
@@ -348,22 +382,6 @@ Route::group(['prefix' => 'home'], function() {
 
     /**
     *   +-------------------------------------------------------
-    *   刘贵泽 
-    *   +-------------------------------------------------------
-    */
-    Route::get('/udai_shopcart', 'Home\ShopcartController@index'); //显示购物车页面  
-
-
-
-    /** 结束
-    *   +-------------------------------------------------------
-    */
-
-
-
-
-    /**
-    *   +-------------------------------------------------------
     *   周双峰 
     *   +-------------------------------------------------------
     */  
@@ -420,6 +438,47 @@ Route::group(['prefix' => 'home'], function() {
 
 
 
+
+    /**
+    *   +-------------------------------------------------------
+    *   刘贵泽 
+    *   +-------------------------------------------------------
+    */
+    //购物车功能
+    Route::get('/udai_shopcart', 'Home\ShopcartController@index')->middleware('user.login'); //显示购物车页面  
+
+    Route::post('/shopDel', 'Home\ShopcartController@shopDel'); //删除购物车里面的商品
+    
+    Route::post('/commod', 'Home\ShopcartController@commod'); //商品数量的增删
+
+    Route::post('/qdel', 'Home\ShopcartController@qdel'); //复选框删除商品
+
+    Route::post('/payadd', 'Home\ShopcartPayController@index');//提交选中的订单
+
+    //提交订单
+    Route::get('/shopcar_pay', 'Home\ShopcartPayController@shopcarPay')->middleware('user.login'); //提交完订单显示出来
+
+    Route::post('/addrs_mod', 'Home\ShopcartPayController@addrsMod'); //修改默认收货地址
+
+    Route::post('/addrs_sta', 'Home\ShopcartPayController@addrsSta'); //修改默认收货地址
+
+    Route::post('pay', 'Home\ShopcartPayController@pay'); //提交订单
+    
+
+
+    Route::post('/deladdress', 'Home\UserController@deladdress'); // 删除地址
+
+    Route::post('/defaultaddr', 'Home\UserController@defaultaddr'); // 设为默认地址
+
+    Route::get('/editaddress', 'Home\UserController@editaddr')->middleware('user.login'); // 修改地址
+
+    Route::post('/editaddress', 'Home\UserController@ceditaddr'); // 修改地址
+
+    Route::get('/collect', 'Home\UserController@showcollect')->middleware('user.login'); // 收藏
+
+    /** 结束
+    *   +-------------------------------------------------------
+    */
 
 
 });

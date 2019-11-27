@@ -14,6 +14,7 @@ use App\Model\Home\Users_infos;
 use App\Model\Home\Spec_goods_prices;
 use App\Model\Home\Order_details;
 
+
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,6 +26,7 @@ class Item_showController extends Controller
         //接收传过来的id
         $id = $request->input('id');
 
+
         $res = new Goods();
         $res_img = new Imgs();
         $res_type = new Types();
@@ -33,6 +35,7 @@ class Item_showController extends Controller
         $res_spec = new Specs(); 
         $res_spec_goods_price = new Spec_goods_prices(); 
        
+
         //查出这个商品的所以信息
         $goods = $res->item_show($id);
   
@@ -51,11 +54,13 @@ class Item_showController extends Controller
        
         foreach ($spec as $k => $v) {
 
+
             $spec_item = DB::table('spec_items')->where('spec_id',$v->id)->get();
 
             $spec_item_new = []; 
 
             foreach ($spec_item as $key => $value) {
+
                 $spec_item_new[] = $value->time;
             }
             $v->time = $spec_item_new;
@@ -67,10 +72,12 @@ class Item_showController extends Controller
        
         //查出爆款的商品
         $baokuan = $res->item_baokuan($typeid,$id);
+
         $goodid = [];
         foreach ($baokuan as $k => $v) {
             $goodid[$k] = $v->id;
         }
+
         //爆款的图片
         $imgs = $res_img->item_img($img_id);
         
@@ -253,8 +260,6 @@ class Item_showController extends Controller
          
         }
  
-
    }
-
 
 }

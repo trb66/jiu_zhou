@@ -53,6 +53,7 @@
                     <dt>帐户信息</dt>
                     <a href="/home/userinfo"><dd class="active">个人资料</dd></a>
                     <a href="/home/useraddress"><dd>收货地址</dd></a>
+
                     <a href="/home/editpwd"><dd>修改登录密码</dd></a>
                 </dl>
                 <dl class="user-center__nav">
@@ -66,6 +67,7 @@
                     <a href="/home/article1"><dd>售后服务</dd></a>
                     <a href="/home/article2"><dd>用户协议</dd></a>
                     <a href="/home/article3"><dd>常见问题</dd></a>
+
                 </dl>
             </div>
             <div class="pull-right">
@@ -82,6 +84,7 @@
         <ul class="r-with-gotop">
             <li class="r-toolbar-item">
                 <a href="\home\user_welcome" class="r-item-hd">
+
                     <i class="iconfont icon-user" data-badge="0"></i>
                     <div class="r-tip__box"><span class="r-tip-text">用户中心</span></div>
                 </a>
