@@ -95,6 +95,7 @@
              <form>
                 <input type="hidden" value="{{$id['uid']}}" name="uid" id="uid">
                 <input type="hidden" value="{{$id['gid']}}" name="gid" id="gid">
+                <input type="hidden" value="{{$id['oid']}}" name="oid" id="oid">
 
                 <textarea class="form-control" rows="3" placeholder="请输入回复内容" name="content" id="reply-text"></textarea>
                 <button type="button" class="btn btn-primary pull-right " onclick="return reply(this)" data-id="{{$id['id']}}" style="margin-top: 10px;">回复</button>
@@ -114,6 +115,7 @@
      var id = $(text).data('id');
      var text = $('#reply-text').val();
      var uid = $('#uid').val();
+     var oid = $('#oid').val();
      var gid = $('#gid').val();
     
 
@@ -126,6 +128,7 @@
                 data: {
                    id:id,
                    uid:uid,
+                   oid:oid,
                    gid:gid,
                    text:text,
                 },

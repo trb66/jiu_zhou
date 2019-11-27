@@ -24,7 +24,7 @@
 			<div class="pull-left">
 				<ol class="breadcrumb">
 					<li><a href="/">首页</a></li>
-					<li><a href="/home/goods_list/{{ $type['id'] }}">{{$type['name']}}</a></li>
+					<li><a href="/home/goods_list/{{ $type['id'] }}" class="typeid" data-typeid="{{ $type['id'] }}">{{$type['name']}}</a></li>
 					<li class="active">{{$good['name']}}</li>
 				</ol>
 				<div class="item-pic__box" id="magnifier">
@@ -85,7 +85,8 @@
 					<div class="item-key">
 						<div class="item-sku">
 						   @foreach ($spec as $v)
-							<dl class="item-prop clearfix gui" data-spec_id="{{$v['id']}}">
+                             
+							<dl class="item-prop clearfix gui" data-spec_id="{{$v['id']}}" data-goods_id="{{$good['id']}}">
 								<dt class="item-metatit">{{$v['name']}}：</dt>
 								<dd>
 								   <ul data-property="" data-name='{{ $v["name"] }}' class="clearfix test">
@@ -146,8 +147,8 @@
 							</div>
 						</div>
 						<div class="item-action clearfix bgf5">
-							<a href="javascript:;" rel="nofollow" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">立即购买</a>
-							<a  onclick="return addcar(this)" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket">
+							<a href="javascript:;" rel="nofollow" onclick="return gobuy(this)" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">立即购买</a>
+							<a  href="javascript:;" onclick="return addcar(this)" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket">
 								<i class="iconfont icon-shopcart"></i>加入购物车
 							</a>
 						</div>
@@ -215,8 +216,8 @@
 						<div class="evaluate-tabs bgf5">
 							<ul class="nav-tabs nav-pills clearfix" role="tablist">
 								<li role="presentation" class="active"><a href="#all" role="tab" data-toggle="tab" aria-controls="all" aria-expanded="true">全部评价 <span class="badge">{{$count}}</span></a></li>
-								<li role="presentation"><a href="#good" role="tab" data-toggle="tab" aria-controls="good">好评 <span class="badge">1000</span></a></li>
-								<li role="presentation"><a href="#normal" role="tab" data-toggle="tab" aria-controls="normal">中评 <span class="badge">314</span></a></li>
+								<li role="presentation"><a href="#good" role="tab" data-toggle="tab" aria-controls="good">好评 <span class="badge">0</span></a></li>
+								<li role="presentation"><a href="#normal" role="tab" data-toggle="tab" aria-controls="normal">中评 <span class="badge">0</span></a></li>
 								<li role="presentation"><a href="#bad" role="tab" data-toggle="tab" aria-controls="bad">差评 <span class="badge">0</span></a></li>
 							</ul>
 						</div>
@@ -224,12 +225,14 @@
 							<div class="tab-content">
 								<!--  -->
 								<div role="tabpanel" class="tab-pane fade in active" id="all" aria-labelledby="all-tab">
+						
                                   @foreach($comments as $c)
 									@if($c['type'] == 0)
 									<div class="eval-box">
 										<div class="eval-author">
 											<div class="port">
-												<img src="" alt="欢迎来到九州商城" class="cover b-r50">
+						
+												<img src="/storage/{{$c->item_userinfo->photo}}" alt="欢迎来到九州商城" class="cover b-r50">
 											</div>
 											<div class="name">{{$c->item_user->username}}</div>
 										</div>
@@ -240,7 +243,7 @@
 
 											</div>
 											 <div class="eval-time" style="margin-top:35px">
-												{{$c['created_at']}} 颜色分类：深棕色 尺码：均码 
+												{{$c['created_at']}} {{$c->item_orderx['item_gui']['key_name']}}
 											</div>
 										@foreach($comments as $v)
 											@if($v['type'] == 1 && $c['id'] == $v['pid'])
@@ -254,7 +257,7 @@
 								    @endif				
 											
 									@endforeach
-
+                         
 								<!-- 分页 -->
 								</div>
 								<!--  -->
@@ -370,9 +373,12 @@
 @endsection
 
 @section('js')
- <script>
+<script>
+var typeid = $('.typeid').data('typeid')
 $(function(){
   $(".gui li").click(function(){
+	 var goods_id = $('.gui').data('goods_id')
+	 console.dir(goods_id)
 	 $(this).parent().children().children().css('border', '').css('color','')
    
      $(this).children().css('border', '1px solid #b31e22').css('color','#b31e22');
@@ -401,21 +407,32 @@ $(function(){
             type: 'get',
             url: '/home/item_show/spec_all',
                 data: {
-                	
+                    goods_id:goods_id,
                     names: names,
                 },
             success:function(res) {
-            var spec_id = res.good.id;
-            var price = res.good.price;
-            var store_count = res.good.store_count;
 
-            $('.jiage').html(price);
-            $('.jiages').html(price / 0.8);
-            $('#Stock').html(store_count);
-             
-            if (store_count == 0) {
-            	alter('该规格的商品已售罄 ，商家正在匆忙补货中！！！');
-            }
+             if (res.good != null) {
+
+				var spec_id = res.good.id;
+				var price = res.good.price;
+				var store_count = res.good.store_count;
+
+				$('.jiage').html(price);
+				$('.jiages').html(price / 0.8);
+				$('#Stock').html(store_count);
+				 
+				if (store_count == 0) {
+					alter('该规格的商品已售罄 ，商家正在匆忙补货中！！！');
+				} 
+
+             } else {
+                  var r=confirm('该规格的商品已售罄 ，去看看其他商品吧')
+	               if (r) {
+	              	   location.href = '/home/goods_list/'+typeid;
+	                }
+
+             }
 
             },
             error:function(err) {
@@ -427,38 +444,164 @@ $(function(){
 
   })
 })
-function addcar(car) {
-  var commod = $('#num').val()
+  function addcar(car) {
+    var commod = $('#num').val()
+    var goods_id = $('.gui').data('goods_id')
 
+	var s = $('.test');
+   	var a = {};
 
-        $.ajaxSetup({
-                headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
-            });
+   	s.each(function(v, val) {
+   		var bb = $(val).data('name');
+   		$(val).children().each(function() {
+   			if ($(this).children('a').attr('style') == 'border: 1px solid rgb(179, 30, 34); color: rgb(179, 30, 34);') {
+   				a[bb] = $(this).children('a').children('span').html();
+   			}
+   		});
+   	})
+   	var names = '';
+   	var x = 0;
+   	for(k in a) {
+   		x++;
+   		names += k+':'+a[k]+' ';
+   	}
+	    $.ajaxSetup({
+	        headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+	        });
 		$.ajax({
-		        type: 'post',
-		        url: '/home/item_show/addcar',
-		        data: {
-		        	commod:commod,
-		        	
-		
-		        },
-		        success:function(res) {
+			   type: 'post',
+			   url: '/home/item_show/addcar',
+			   data: {
+			   	commod:commod,
+			   	names:names,
+                goods_id:goods_id,
 
-		        },
-		        error:function(err) {
+			},
+	        success:function(res) {
+	          if(res.code == 0){
+	           var r=confirm(res.msg)
+	               if (r) {
+	              	   location.href = '/home/udai_shopcart';
 
-		        }
+	                }
+              } else if(res.code == 1){ 
+                  alert(res.msg)
+              } else if (res.msg == 2) {
+              	   alert(res.msg)
+              } else {
+              	alert(res.msg)
 
-		    })
+              }
 
-   	} 
+	  
+	        },
+	        error:function(err) {
+              if(err.responseJSON.code == 1){
+              	 location.href = '/home/login';
+              }
+	        }
+
+		})
+} 
 
  function collect(coll) {
  	var gid = $(coll).data('id');
- 	console.dir(gid);
+     console.dir(gid)
+
+      $.ajaxSetup({
+	        headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+	        });
+		$.ajax({
+			   type: 'post',
+			   url: '/home/item_show/item_collect',
+			   data: {
+			   gid:gid,
+			},
+	        success:function(res) {
+	           if(res.code == 0){
+                  alert(res.msg)
+                  $('#collect').css('color','orange')
+ 
+	           } else if (res.msg == 1) {
+                  alert(res.msg)
+	           } else {
+                  alert(res.msg)
+                  $('#collect').css('color','orange')
+
+	           }
+	    
+	        },
+	       error:function(err) {
+              if(err.responseJSON.code == 1){
+              	 location.href = '/home/login';
+              }
+	        }
+
+		}) 
+ }
+
+ function gobuy(wo) {
+    var commod = $('#num').val()
+    var goods_id = $('.gui').data('goods_id')
+    var typeid = $('.typeid').data('typeid')
+
+	var s = $('.test');
+   	var a = {};
+
+   	s.each(function(v, val) {
+   		var bb = $(val).data('name');
+   		$(val).children().each(function() {
+   			if ($(this).children('a').attr('style') == 'border: 1px solid rgb(179, 30, 34); color: rgb(179, 30, 34);') {
+   				a[bb] = $(this).children('a').children('span').html();
+   			}
+   		});
+   	})
+   	var names = '';
+   	var x = 0;
+   	for(k in a) {
+   		x++;
+   		names += k+':'+a[k]+' ';
+   	}
+   	$.ajaxSetup({
+	        headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+	        });
+		$.ajax({
+			   type: 'post',
+			   url: '/home/item_show/item_gobuy',
+			   data: {
+			   commod:commod,
+			   names:names,
+               goods_id:goods_id,
 
 
-    
+			},
+	        success:function(res) {
+	          if(res.code == 0){
+
+	              location.href = '/home/';
+
+              } else if(res.code == 1){ 
+                  alert(res.msg)
+              } else if(res.code == 2){
+              	   alert(res.msg)
+              } else {
+              	   var r=confirm(res.msg)
+	               if (r) {
+	              	   location.href = '/home/goods_list/'+typeid;
+	                }
+              }
+
+	  
+	        },
+	        error:function(err) {
+              if(err.responseJSON.code == 1){
+              	 location.href = '/home/login';
+              }
+	        }
+
+		}) 
+  
+ 
  }
  </script>
 @endsection

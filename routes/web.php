@@ -286,6 +286,8 @@ Route::group(['prefix' => 'home'], function() {
 
     Route::post('/respwd', 'Home\LoginController@respwd'); // 重置密码
 
+    Route::get('/user_welcome', 'Home\UserController@welcome'); // 欢迎页
+
     Route::get('/userinfo', 'Home\UserController@index')->middleware('user.login'); // 个人中心
 
     Route::post('/addphoto', 'Home\UserController@addPhoto'); // 添加头像
@@ -332,6 +334,13 @@ Route::group(['prefix' => 'home'], function() {
 
     Route::get('/showcomment', 'Home\UserController@showComment')->middleware('user.login'); // 添加评价
 
+    Route::get('/article1', 'Home\UserController@afterSale')->middleware('user.login'); // 售后
+
+    Route::get('/article2', 'Home\UserController@userAgreement')->middleware('user.login'); // 用户协议
+
+    Route::get('/article3', 'Home\UserController@userQuestion')->middleware('user.login'); // 用户协议
+
+
     /** 结束
     *   +-------------------------------------------------------
     */
@@ -361,9 +370,14 @@ Route::group(['prefix' => 'home'], function() {
     *   +-------------------------------------------------------
     */  
     Route::get('/item_show', 'Home\Item_showController@show');
-    Route::get('/item_show/spec_all', 'Home\Item_showController@spec_all');
-    Route::post('/item_show/addcar', 'Home\Item_showController@addcar');
 
+    Route::get('/item_show/spec_all', 'Home\Item_showController@spec_all'); //选择规格
+
+    Route::post('/item_show/addcar', 'Home\Item_showController@addcar'); //加入购物车
+
+    Route::post('/item_show/item_collect', 'Home\Item_showController@item_collect'); //收藏
+    
+    Route::post('/item_show/item_gobuy', 'Home\Item_showController@item_gobuy'); //立即购买
  
 
 

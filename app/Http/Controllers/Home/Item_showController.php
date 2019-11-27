@@ -10,7 +10,9 @@ use App\Model\Home\Types;
 use App\Model\Home\Specs;
 use App\Model\Home\Comments;
 use App\Model\Home\Users;
+use App\Model\Home\Users_infos;
 use App\Model\Home\Spec_goods_prices;
+use App\Model\Home\Order_details;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Model;
@@ -46,8 +48,7 @@ class Item_showController extends Controller
         
         //查规格
         $spec = $res_spec->item_spec($cid);
-       
-        foreach ($spec as $k => $v) {
+    	foreach ($spec as $k => $v) {
 
             $spec_item = DB::table('spec_items')->where('spec_id',$v->id)->get();
 
@@ -57,7 +58,8 @@ class Item_showController extends Controller
                 $spec_item_new[] = $value->time;
             }
             $v->time = $spec_item_new;
-        }
+    	}
+        
         // dump($spec);
         //查库存
          $store_count = $res_spec_goods_price->item_ku($id); 
@@ -101,29 +103,179 @@ class Item_showController extends Controller
     public function spec_all(Request $request) 
     {
       $names = $request->input('names');
-     
-      $good = DB::table('spec_goods_prices')->where('key_name',$names)->first();
-      $ku = $good->store_count;
+
+      $goods_id = $request->input('goods_id');
+      
+       $good = DB::table('spec_goods_prices')->where('goods_id',$goods_id)->where('key_name',$names)->first();
+       if (!empty($good)) {
+
+       $ku = $good->store_count;
+       }
+       $ku = 0;
       return ['good' =>$good,'ku'=>$ku];
     }  
   
     
     // 加入购物车
     public function addcar(Request $request)
-    {
-        $commod = $request->input('commod');
-        // $key_name = $request->input('names');
-        
-        $uid = session('UserInfo.id');
-        // $good = DB::table('spec_goods_prices')->where('key_name',$names)->first();
-        
+    {  
+        if (session('UserInfo') != null) {
+            
+            $uid = session('UserInfo.id');
+            $key_name = $request->input('names');
+            $commod = $request->input('commod');
+            $goods_id = $request->input('goods_id');
+       
+            if ($key_name != '' ) {
 
+	            $good = DB::table('spec_goods_prices')->where('key_name',$key_name)->where('goods_id',$goods_id)->first();   
+            	if(!empty($good)){
+		            $data = [
+		                  'uid' => $uid,
+		                  'spec_id' =>$good->id,
+		                  'commod' => $commod,
+		                  'selected'=> '0',
+		                 ];
+	            		$addcar = DB::table('shop_cars')->insert($data);
+	            		if ($addcar) {
+			              return response()->json([
+			                'code' => 0,
+			                'msg' => '已成功加入购物车，是否进入购物车',
+			            ],200);
+			            }
+			              return response()->json([
+			                'code' => 1,
+			                'msg' => '网络繁忙加入购物车失败，请检查网络是否通畅',
+			            ],200); 
+		             }else{
+		             	return response()->json([
+			                'code' => 3,
+			                'msg' => '该商品已售罄',
+			            ],200); 
+		             }
+            }
+             return response()->json([
+	                'code' => 2,
+	                'msg' => '请选择规格',
+	            ],200); 
+
+
+        } else {
+           return response()->json([
+                'code' => 1,
+                'msg' => '请登录',
+            ], 500);
+         
+        }
+        
     }
-
 
    //收藏
    public function item_collect(Request $request)
-   {
+   { 
+   	       
+      if (session('UserInfo') != null) {
+
+    	$gid = $request->input('gid');
+        $uid = session('UserInfo.id');
+
+        //查询该商品是否已收藏
+        $arcollect = DB::table('collects')->where('uid',$uid)->where('goods_id',$gid)->first();
+     
+        if ($arcollect) {
+           return response()->json([
+	                'code' => 2,
+	                'msg' => '您已收藏过这个商品啦',
+	        ],200);
+        } else {
+
+	        $data = [
+	           'uid' => $uid,  
+	           'goods_id' => $gid,
+	        ];
+
+	        $collect = DB::table('collects')->insert($data);
+
+	         if ($collect) {
+	            return response()->json([
+		                'code' => 0,
+		                'msg' => '收藏成功',
+		            ],200);
+	         }
+	          return response()->json([
+		                'code' => 1,
+		                'msg' => '网络繁忙，请检查网络是否通畅再重试',
+		            ],200);
+        }
+
+      } else {
+           return response()->json([
+                'code' => 1,
+                'msg' => '请登录',
+            ], 500);
+         
+      }
      
    }
+   //立即购买
+   public function item_gobuy(Request $request) 
+   {
+      if (session('UserInfo') != null) {
+            
+            $uid = session('UserInfo.id');
+            $commod = $request->input('commod');
+            $key_name = $request->input('names');
+            $goods_id = $request->input('goods_id');
+
+        
+            if ($key_name != '' ) {
+
+	            $good = DB::table('spec_goods_prices')->where('key_name',$key_name)->where('goods_id',$goods_id)->first();   
+
+                if (!empty($good)) {
+
+			            $data = [
+			                  'uid' => $uid,
+			                  'spec_id' =>$good->id,
+			                  'commod' => $commod,
+			                  'selected'=> '1',
+			                 ];
+			            $addcar = DB::table('shop_cars')->insert($data);
+			            
+			            if ($addcar) {
+			              return response()->json([
+			                'code' => 0,
+			                'msg' => '正在努力跳转...........',
+			            ],200);
+			            }
+			              return response()->json([
+			                'code' => 1,
+			                'msg' => '网络繁忙，请检查网络是否通畅',
+			            ],200); 
+                }else{
+		             	return response()->json([
+			                'code' => 3,
+			                'msg' => '该商品已售罄,去看看其他商品吧',
+			            ],200); 
+		        }
+
+            } 
+             return response()->json([
+	                'code' => 2,
+	                'msg' => '请选择规格',
+	            ],200); 
+
+
+        } else {
+           return response()->json([
+                'code' => 1,
+                'msg' => '请登录',
+            ], 500);
+         
+        }
+ 
+
+   }
+
+
 }

@@ -14,7 +14,7 @@
     <script src="/Home/js/bootstrap.min.js" charset="UTF-8"></script>
     <script src="/Home/js/swiper.min.js" charset="UTF-8"></script>
     <script src="/Home/js/global.js" charset="UTF-8"></script>
-    <script src="/Home/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
+    <!-- <script src="/Home/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script> -->
     @yield('css')
 
 </head>
@@ -28,7 +28,9 @@
                 <a href="/home/userinfo">帮助中心</a>
             </div>
             <div class="pull-right">
+
                 @if(session('UserisLogin'))
+                    <a><span class="cr">欢迎您，{{session('UserInfo.username')}}</span></a>
                     <a href="/home/logout"><span class="cr">立即退出</span></a>
                 @else
                     <a href="/home/login"><span class="cr">登录</span></a>
@@ -995,7 +997,7 @@
     <div class="right-nav">
         <ul class="r-with-gotop">
             <li class="r-toolbar-item">
-                <a href="/home/userinfo" class="r-item-hd">
+                <a href="/home/user_welcome" class="r-item-hd">
                     <i class="iconfont icon-user"></i>
                     <div class="r-tip__box"><span class="r-tip-text">用户中心</span></div>
                 </a>

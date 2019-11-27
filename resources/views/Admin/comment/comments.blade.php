@@ -51,7 +51,7 @@
                                                 <td>{{$c->created_at}}</td>
                                                 <td>
                                                     <div class="tpl-table-black-operation">
-                                                        <a href="/admin/comments/reply/?id={{$c->id}}&uid={{$c->uid}}&gid={{$c->gid}}">
+                                                        <a href="/admin/comments/reply/?id={{$c->id}}&uid={{$c->uid}}&gid={{$c->gid}}&oid={{$c->oid}}">
                                                             <i class="am-icon-pencil"></i> 回复
                                                         </a>
                                                         

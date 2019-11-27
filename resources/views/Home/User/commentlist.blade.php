@@ -144,20 +144,20 @@
                     comments: comments,
                 },
                 success: function(res) {
-                    // $('#hhh').css('display', 'none');
-                    // $('#tips').css('display', 'block');
-                    // var time = 3;
-                    // var timer;
-                    // timer = window.setInterval(function(){
-                    //     $('#sec').html(time--);
-                    //     if (time < 0) {
-                    //         window.location.href = '/home/userorder';
-                    //         clearInterval(timer);
-                    //     }
-                    // }, 1000);
+                    $('#hhh').css('display', 'none');
+                    $('#tips').css('display', 'block');
+                    var time = 3;
+                    var timer;
+                    timer = window.setInterval(function(){
+                        $('#sec').html(time--);
+                        if (time < 0) {
+                            window.location.href = '/home/userorder';
+                            clearInterval(timer);
+                        }
+                    }, 1000);
                 },
                 error: function(err) {
-                    console.dir(err);
+                    alert('服务器异常');
                 }
             }); 
         }
