@@ -66,11 +66,13 @@
         <div class="floor-title">
             <i class="iconfont icon-shoes fz16"></i>{{ $v['name'] }}
             @foreach($v['son'] as $vv)
-                @foreach($vv['sun'] as $vvv)
-            <div class="case-list fz0 pull-right">
-                <a href="/home/goods_list/{{ $vvv['id'] }}">{{ $vvv['name'] }}</a>
-            </div>
-                @endforeach
+                @if(!empty($vv['sun']))
+                    @foreach($vv['sun'] as $vvv)
+                <div class="case-list fz0 pull-right">
+                    <a href="/home/goods_list/{{ $vvv['id'] }}">{{ $vvv['name'] }}</a>
+                </div>
+                    @endforeach
+                @endif
             @endforeach
         </div>
         <div class="con-box">
