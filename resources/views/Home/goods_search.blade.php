@@ -10,7 +10,7 @@
 @section('ss')
 
 <form action="/home/goods/search" method="get" class="input-group">
-    <input value="" name="name" placeholder="Ta们都在搜九州网" type="text">
+    <input value="<?= $_GET['name'] ?$_GET['name']:'' ?>" name="name" placeholder="Ta们都在搜九州网" type="text">
     <span class="input-group-btn">
         <button type="submit">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -42,8 +42,6 @@
                 </div>
             @endforeach
             </div>
-            <!-- 分页 -->
-            {{ $list->links() }}
         </div>
     </section>
 </div>
