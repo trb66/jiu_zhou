@@ -24,9 +24,21 @@
                     <b>E-Mail：</b>{{$order->uinfo->email}} <br>
                 </td>
                 <td style="width: 50%;">
-                    <b>订单号：</b>{{$order->express_num->express}}<br> 
+                    <b>订单号：</b>
+                    @if(is_null($order->express_num))
+                        暂无~
+                    @else
+                       {{$order->express_num->express}}
+                    @endif
+                    <br> 
                     <b></b><br>                    
-                    <b>配送方式：</b>{{$order->express_num->express_name}}<br><br>
+                    <b>配送方式：</b>
+                    @if(is_null($order->express_num))
+                        暂无~
+                    @else
+                       {{$order->express_num->express_name}}
+                    @endif
+                    <br><br>
                     <b></b><br>                                 
                     <b>下单日期：</b> {{$order['created_at']}}<br>  
                     <b>用户备注：</b>{{$order['message']}}<br>

@@ -112,9 +112,9 @@
                     <td class="am-text-middle">
                         <img src="/storage/{{$v->order_img['pic']}}" width="70" height="60" class="tpl-table-line-img" alt="">
                     </td>
-                    <td class="am-text-middle">{{$v['num']}}</td>
                     <td class="am-text-middle">{{$v->order_spec->key_name}}</td>
                     <td>{{$v['price']}}</td>
+                    <td class="am-text-middle">{{$v['num']}}</td>
                     <td class="am-text-middle">{{$v['price']*$v['num']}}</td>
                 </tr>
             @endforeach
@@ -129,7 +129,7 @@
  </div>
   </form>
       <div class="subject" style="width:52%;margin:10px 0 0 0;">
-           @if($order['status'] == '1' || $order['status'] == '2')
+           @if($order['status'] == '1')
             <a href="/admin/order/alter/?id={{$order['id']}}" style="float:right;margin-right:10px" class="ncap-btn-big ncap-btn-green"><i class="fa fa-pencil-square-o"></i>修改订单</a>
            @endif
             <a href="/admin/order/print/?id={{$order['id']}}" target="_blank" style="float:right;margin-right:10px" class="ncap-btn-big ncap-btn-green"><i class="fa fa-print"></i>打印订单</a>

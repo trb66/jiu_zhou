@@ -9,12 +9,36 @@ class Orders extends Model
 
     public function show($sta,$text)
     {      
+       
 
-       if ($sta == '69' || $sta == 'null') return $this->paginate(4);
-       // if($sta != '69' || $text == 'null' ) return $this->where('status',$sta)->paginate(3)->appends(['status'=> $sta]);
-  
+       if ($sta == '69' || $sta == null) {
+          
+          return $this->paginate(3);
 
-       return $this->paginate(4);
+       }
+
+       if ($sta == '69' && $text == '') {
+
+         return $this->paginate(3);
+       }
+
+       if ($sta == '69' && $text != '') {
+
+         return $this->where('username','like','%'.$text.'%')->paginate();
+
+       }
+
+       if ($sta != '69' && $text == '') {
+         return $this->where('status',$sta)->paginate();
+ 
+       }
+
+      if ($sta != '69' && $text != '') {
+         return $this->where('status',$sta)->where('username','like','%'.$text.'%')->paginate();
+ 
+       }
+
+      
     }
  
     public function nickname()

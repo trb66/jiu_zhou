@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Admin;
+namespace App\Model\Home;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comments extends Model
+class Users_infos extends Model
 {
     //
 }

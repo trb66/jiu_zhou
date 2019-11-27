@@ -20,5 +20,12 @@ class Comments extends Model
     	return $this->hasOne('App\Model\Home\Users','id','uid');
     }
 
-    
+     public function item_userinfo()
+    {
+      return $this->hasOne('App\Model\Home\Users_infos','uid','uid');
+    }
+     public function item_orderx()
+    {
+      return $this->hasOne('App\Model\Home\Orders_details','oid','oid');
+    }
 }

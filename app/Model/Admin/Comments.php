@@ -44,9 +44,8 @@ class Comments extends Model
 
     public function reply($id)
     {
- 
-      return $this->where('id', $id)
-                  ->orwhere('pid',$id)
+      return $this->where('id', $id['id'])
+                  ->orwhere('pid',$id['id'])
                   ->orderBy('created_at')
                   ->get();
 
@@ -57,6 +56,7 @@ class Comments extends Model
        $all = [
           'uid' => $data['uid'],
           'gid'=>$data['gid'],
+          'oid' => $data['oid'],
           'text' => $data['text'],
           'type' => '1',
           'pid' => $data['id'],
