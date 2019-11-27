@@ -24,7 +24,7 @@
 			<div class="pull-left">
 				<ol class="breadcrumb">
 					<li><a href="/">首页</a></li>
-					<li><a href="/home/goods_list/{{ $type['id'] }}">{{$type['name']}}</a></li>
+					<li><a href="/home/goods_list/{{ $type['id'] }}" class="typeid" data-typeid="{{ $type['id'] }}">{{$type['name']}}</a></li>
 					<li class="active">{{$good['name']}}</li>
 				</ol>
 				<div class="item-pic__box" id="magnifier">
@@ -85,7 +85,8 @@
 					<div class="item-key">
 						<div class="item-sku">
 						   @foreach ($spec as $v)
-							<dl class="item-prop clearfix gui" data-spec_id="{{$v['id']}}">
+                             
+							<dl class="item-prop clearfix gui" data-spec_id="{{$v['id']}}" data-goods_id="{{$good['id']}}">
 								<dt class="item-metatit">{{$v['name']}}：</dt>
 								<dd>
 								   <ul data-property="" data-name='{{ $v["name"] }}' class="clearfix test">
@@ -215,8 +216,8 @@
 						<div class="evaluate-tabs bgf5">
 							<ul class="nav-tabs nav-pills clearfix" role="tablist">
 								<li role="presentation" class="active"><a href="#all" role="tab" data-toggle="tab" aria-controls="all" aria-expanded="true">全部评价 <span class="badge">{{$count}}</span></a></li>
-								<li role="presentation"><a href="#good" role="tab" data-toggle="tab" aria-controls="good">好评 <span class="badge">1000</span></a></li>
-								<li role="presentation"><a href="#normal" role="tab" data-toggle="tab" aria-controls="normal">中评 <span class="badge">314</span></a></li>
+								<li role="presentation"><a href="#good" role="tab" data-toggle="tab" aria-controls="good">好评 <span class="badge">0</span></a></li>
+								<li role="presentation"><a href="#normal" role="tab" data-toggle="tab" aria-controls="normal">中评 <span class="badge">0</span></a></li>
 								<li role="presentation"><a href="#bad" role="tab" data-toggle="tab" aria-controls="bad">差评 <span class="badge">0</span></a></li>
 							</ul>
 						</div>
@@ -373,8 +374,11 @@
 
 @section('js')
 <script>
+var typeid = $('.typeid').data('typeid')
 $(function(){
   $(".gui li").click(function(){
+	 var goods_id = $('.gui').data('goods_id')
+	 console.dir(goods_id)
 	 $(this).parent().children().children().css('border', '').css('color','')
    
      $(this).children().css('border', '1px solid #b31e22').css('color','#b31e22');
@@ -403,21 +407,32 @@ $(function(){
             type: 'get',
             url: '/home/item_show/spec_all',
                 data: {
-                	
+                    goods_id:goods_id,
                     names: names,
                 },
             success:function(res) {
-            var spec_id = res.good.id;
-            var price = res.good.price;
-            var store_count = res.good.store_count;
 
-            $('.jiage').html(price);
-            $('.jiages').html(price / 0.8);
-            $('#Stock').html(store_count);
-             
-            if (store_count == 0) {
-            	alter('该规格的商品已售罄 ，商家正在匆忙补货中！！！');
-            }
+             if (res.good != null) {
+
+				var spec_id = res.good.id;
+				var price = res.good.price;
+				var store_count = res.good.store_count;
+
+				$('.jiage').html(price);
+				$('.jiages').html(price / 0.8);
+				$('#Stock').html(store_count);
+				 
+				if (store_count == 0) {
+					alter('该规格的商品已售罄 ，商家正在匆忙补货中！！！');
+				} 
+
+             } else {
+                  var r=confirm('该规格的商品已售罄 ，去看看其他商品吧')
+	               if (r) {
+	              	   location.href = '/home/goods_list/'+typeid;
+	                }
+
+             }
 
             },
             error:function(err) {
@@ -431,6 +446,7 @@ $(function(){
 })
   function addcar(car) {
     var commod = $('#num').val()
+    var goods_id = $('.gui').data('goods_id')
 
 	var s = $('.test');
    	var a = {};
@@ -457,7 +473,9 @@ $(function(){
 			   url: '/home/item_show/addcar',
 			   data: {
 			   	commod:commod,
-			   	names:names
+			   	names:names,
+                goods_id:goods_id,
+
 			},
 	        success:function(res) {
 	          if(res.code == 0){
@@ -468,8 +486,11 @@ $(function(){
 	                }
               } else if(res.code == 1){ 
                   alert(res.msg)
-              } else {
+              } else if (res.msg == 2) {
               	   alert(res.msg)
+              } else {
+              	alert(res.msg)
+
               }
 
 	  
@@ -521,7 +542,9 @@ $(function(){
 
  function gobuy(wo) {
     var commod = $('#num').val()
-    
+    var goods_id = $('.gui').data('goods_id')
+    var typeid = $('.typeid').data('typeid')
+
 	var s = $('.test');
    	var a = {};
 
@@ -547,7 +570,9 @@ $(function(){
 			   url: '/home/item_show/item_gobuy',
 			   data: {
 			   commod:commod,
-			   names:names
+			   names:names,
+               goods_id:goods_id,
+
 
 			},
 	        success:function(res) {
@@ -557,8 +582,13 @@ $(function(){
 
               } else if(res.code == 1){ 
                   alert(res.msg)
-              } else {
+              } else if(res.code == 2){
               	   alert(res.msg)
+              } else {
+              	   var r=confirm(res.msg)
+	               if (r) {
+	              	   location.href = '/home/goods_list/'+typeid;
+	                }
               }
 
 	  
