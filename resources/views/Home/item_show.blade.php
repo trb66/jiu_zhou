@@ -28,7 +28,8 @@
 				</ol>
 				<div class="item-pic__box" id="magnifier">
 					<div class="small-box">
-						<img class="cover" src="/storage/{{$pre[count($pre) - 1]->pic}}" alt="{{$good['name']}}">
+
+						<img class="cover" src="/storage/{{$pre->first() ? $pre[count($pre) - 1]->pic : '' }}" alt="{{$good['name']}}">
 						<span class="hover"></span>
 					</div>
 					<div class="thumbnail-box">

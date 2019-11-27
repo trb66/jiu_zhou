@@ -31,7 +31,7 @@ class Goods extends Model
         if ($res->first()) {
             foreach ($res as $k => $v) {
                 $img = DB::table('imgs')->where('goods_id','=',$v['id'])->first();
-                
+
                 $img_path = $img->pic;
               
                 $res[$k]['pic'] = $img_path;
