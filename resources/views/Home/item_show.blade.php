@@ -146,7 +146,7 @@
 								</script>
 							</div>
 						</div>
-						<div class="item-action clearfix bgf5">
+						<div class="item-action clearfix bgf5 tihuan">
 							<a href="javascript:;" rel="nofollow" onclick="return gobuy(this)" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">立即购买</a>
 							<a  href="javascript:;" onclick="return addcar(this)" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket">
 								<i class="iconfont icon-shopcart"></i>加入购物车
@@ -430,6 +430,8 @@ $(function(){
                   var r=confirm('该规格的商品已售罄 ，去看看其他商品吧')
 	               if (r) {
 	              	   location.href = '/home/goods_list/'+typeid;
+	                } else {
+                       $('.tihuan').html('<div class=""><a style="cursor:not-allowed;" href="javascript:;" rel="nofollow" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">立即购买</a><a  href="javascript:;" style="cursor:not-allowed" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket"><i class="iconfont icon-shopcart"></i>加入购物车</a></div>')
 	                }
 
              }

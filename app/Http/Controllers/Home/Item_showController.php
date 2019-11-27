@@ -127,16 +127,28 @@ class Item_showController extends Controller
             $goods_id = $request->input('goods_id');
        
             if ($key_name != '' ) {
-
 	            $good = DB::table('spec_goods_prices')->where('key_name',$key_name)->where('goods_id',$goods_id)->first();   
+                
             	if(!empty($good)){
-		            $data = [
+		             $data = [
 		                  'uid' => $uid,
 		                  'spec_id' =>$good->id,
 		                  'commod' => $commod,
 		                  'selected'=> '0',
 		                 ];
-	            		$addcar = DB::table('shop_cars')->insert($data);
+
+                        $lookcar = DB::table('shop_cars')->where('uid',$uid)->where('spec_id',$good->id)->first();
+
+                          
+                        if ($lookcar != null) {
+                           $commod += $lookcar->commod ;
+                           $addcar = DB::table('shop_cars')->where('uid',$uid)->where('spec_id',$good->id)->where('selected','=','0')->update(['commod'=>$commod]);
+                         
+                        } else {
+
+	            		  $addcar = DB::table('shop_cars')->insert($data);
+                        }
+
 	            		if ($addcar) {
 			              return response()->json([
 			                'code' => 0,
@@ -150,7 +162,7 @@ class Item_showController extends Controller
 		             }else{
 		             	return response()->json([
 			                'code' => 3,
-			                'msg' => '该商品已售罄',
+			                'msg' => '请选择完整规格',
 			            ],200); 
 		             }
             }
@@ -231,7 +243,6 @@ class Item_showController extends Controller
             if ($key_name != '' ) {
 
 	            $good = DB::table('spec_goods_prices')->where('key_name',$key_name)->where('goods_id',$goods_id)->first();   
-
                 if (!empty($good)) {
 
 			            $data = [
