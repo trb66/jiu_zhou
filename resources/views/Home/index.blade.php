@@ -55,14 +55,6 @@
                     </span>
                 </form>
                 @show
-                <p class="help-block text-nowrap">
-                    <a href="">连衣裙</a>
-                    <a href="">裤</a>
-                    <a href="">衬衫</a>
-                    <a href="">T恤</a>
-                    <a href="">女包</a>
-                    <a href="">家居</a>
-                </p>
             </div>
          @show 
         </div>
