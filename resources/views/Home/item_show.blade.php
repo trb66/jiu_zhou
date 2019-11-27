@@ -103,7 +103,7 @@
 							</dl>
 							@endforeach                       
 						</div>
-
+					   
 						<div class="item-amount clearfix bgf5">
 							<div class="item-metatit">数量：</div>
 							<div class="amount-box">
@@ -143,9 +143,23 @@
 											}
 										});
 									});
+
+                                    $('#num').blur(function() {
+										var stock = parseInt($('#Stock').html());
+									    var num = parseInt($('.amount-input').val());
+                                    
+                                      if (num > stock) {
+                                         $('.amount-input').val(stock)
+                                      }
+                                      
+                                     
+                       
+                                      
+                                    })
 								</script>
 							</div>
 						</div>
+						<!--  -->
 						<div class="item-action clearfix bgf5 tihuan">
 							<a href="javascript:;" rel="nofollow" onclick="return gobuy(this)" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">立即购买</a>
 							<a  href="javascript:;" onclick="return addcar(this)" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket">
@@ -341,14 +355,14 @@
 						
 						</div>
 					</div>
-					<script>
-						$(document).ready(function(){
-							var recommends = new Swiper('.recommends-swiper', {
-								spaceBetween : 40,
-								autoplay : 5000,
-							});
-						});
-					</script>
+							<script>
+								$(document).ready(function(){
+									var recommends = new Swiper('.recommends-swiper', {
+										spaceBetween : 40,
+										autoplay : 5000,
+									});
+								});
+							</script>
 				</div>
 			</div>
 		
@@ -372,13 +386,53 @@
    </script>
 @endsection
 
+@section('shopcart')
+<div class="right-nav">
+        <ul class="r-with-gotop">
+            <li class="r-toolbar-item">
+                <a href="/home/user_welcome" class="r-item-hd">
+                    <i class="iconfont icon-user"></i>
+                    <div class="r-tip__box"><span class="r-tip-text">用户中心</span></div>
+                </a>
+            </li>
+            <li class="r-toolbar-item">
+                <a href="/home/udai_shopcart" class="r-item-hd">
+                    <i class="iconfont icon-cart" data-badge="{{$num}}"></i>
+                    <div class="r-tip__box"><span class="r-tip-text">购物车</span></div>
+                </a>
+            </li>
+            <li class="r-toolbar-item">
+                <a href="" class="r-item-hd">
+                    <i class="iconfont icon-aixin"></i>
+                    <div class="r-tip__box"><span class="r-tip-text">我的收藏</span></div>
+                </a>
+            </li>
+            <li class="r-toolbar-item">
+                <a href="" class="r-item-hd">
+                    <i class="iconfont icon-liaotian"></i>
+                    <div class="r-tip__box"><span class="r-tip-text">联系客服</span></div>
+                </a>
+            </li>
+            <li class="r-toolbar-item">
+                <a href="issues.html" class="r-item-hd">
+                    <i class="iconfont icon-liuyan"></i>
+                    <div class="r-tip__box"><span class="r-tip-text">留言反馈</span></div>
+                </a>
+            </li>
+            <li class="r-toolbar-item to-top">
+                <i class="iconfont icon-top"></i>
+                <div class="r-tip__box"><span class="r-tip-text">返回顶部</span></div>
+            </li>
+        </ul>
+    </div>
+@endsection
+
 @section('js')
 <script>
 var typeid = $('.typeid').data('typeid')
 $(function(){
   $(".gui li").click(function(){
 	 var goods_id = $('.gui').data('goods_id')
-	 console.dir(goods_id)
 	 $(this).parent().children().children().css('border', '').css('color','')
    
      $(this).children().css('border', '1px solid #b31e22').css('color','#b31e22');
@@ -402,7 +456,8 @@ $(function(){
    		names += k+':'+a[k]+' ';
    	}
    	if(s.length == x) {
-    
+       
+        $('.amount-input').val(1)
         $.ajax({
             type: 'get',
             url: '/home/item_show/spec_all',
@@ -434,7 +489,7 @@ $(function(){
                        $('.tihuan').html('<div class=""><a style="cursor:not-allowed;" href="javascript:;" rel="nofollow" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">立即购买</a><a  href="javascript:;" style="cursor:not-allowed" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket"><i class="iconfont icon-shopcart"></i>加入购物车</a></div>')
 	                }
 
-             }
+                }
 
             },
             error:function(err) {

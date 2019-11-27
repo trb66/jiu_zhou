@@ -87,6 +87,11 @@ class Item_showController extends Controller
         $comments = $comment[0];
 
         $count = $comment[1];
+
+        //查询购物车数量
+        $id = session('UserInfo')['id'];
+        $shopcart = DB::table('shop_cars')->where('uid','=',$id)->count();
+      
         return view('Home.item_show',[
                            'good'=> $goods,
                            'type'=>$type,
@@ -97,6 +102,8 @@ class Item_showController extends Controller
                            'count'=>$count,
                            'spec'=> $spec,
                            'ku' => $store_count,
+                           'num' => $shopcart,
+                           
                      
         ]);
     }

@@ -14,7 +14,7 @@
     <script src="/Home/js/bootstrap.min.js" charset="UTF-8"></script>
     <script src="/Home/js/swiper.min.js" charset="UTF-8"></script>
     <script src="/Home/js/global.js" charset="UTF-8"></script>
-    <!-- <script src="/Home/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script> -->
+    <script src="/Home/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
     @yield('css')
 
 </head>
