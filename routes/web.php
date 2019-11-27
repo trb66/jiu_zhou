@@ -17,7 +17,9 @@ Route::get('/', 'Home\IndexController@index');
 * 后台路由组
 */
 Route::group(['prefix' => 'admin', 'middleware' => ['admin.login', 'admin.power']], function() {
-    Route::get('/', 'Admin\IndexController@index'); // 后台首页
+    Route::get('/', function(){
+        return view('Admin/welcome');
+    }); // 后台首页
     /**
     *   +-------------------------------------------------------
     *   唐荣博 

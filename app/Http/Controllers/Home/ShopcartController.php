@@ -38,7 +38,11 @@ class ShopcartController extends Controller
 
            }
 
-           return view('/Home/shopcart', ['res' => $res, 'spec' => $spec, 'goods' => $goods, 'imgs' =>  $imgs]);   
+           //查询购物车数量
+           $id = session('UserInfo')['id'];
+           $shopcart = DB::table('shop_cars')->where('uid','=',$id)->where('selected','=','0')->count();
+
+           return view('/Home/shopcart', ['res' => $res, 'spec' => $spec, 'goods' => $goods, 'imgs' =>  $imgs,'numm' => $shopcart]);   
         
           
         

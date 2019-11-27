@@ -41,17 +41,16 @@
                         
                     </div>
                     <div class="add_addr"><a href="/home/useraddress">添加新地址</a></div>
-                    <div class="shop-title">确认订单</div>
                     <div class="shop-order__detail">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th width="120"></th>
                                     <th width="300">商品信息</th>
-                                    <th width="150">单价</th>
+                                    <th width="170">单价</th>
                                     <th width="200">数量</th>
-                                    <th width="200">运费</th>
-                                    <th width="80">总价</th>
+                                    <th width="100"></th>
+                                    <th width="170">总价</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,7 +64,7 @@
                                     </td>
                                     <td>¥{{$v->prices->price}}</td>
                                     <td>{{$v->commod}}</td>
-                                    <td>¥0.0</td>
+                                    <td></td>
                                     <td class="price">¥{{$v->prices->price * $v->commod}}</td>
                                 </tr>
                               @endforeach
@@ -73,31 +72,12 @@
                         </table>
                     </div>
                     <div class="shop-cart__info clearfix">
-                        <div class="pull-left text-left">
-                            <div class="info-line text-nowrap">交易类型：<span class="c6">担保交易</span></div>
-                            <div class="info-line text-nowrap">交易号：<span class="c6">1001001830267490496</span></div>
-                        </div>
+                     
                         <div class="pull-right text-right">
-                            <div class="form-group">
-                                <label for="coupon" class="control-label">优惠券使用：</label>
-                                <select id="coupon" >
-                                    <option value="-1" selected>- 请选择可使用的优惠券 -</option>
-                                    <option value="1">【抱歉您没有合适的优惠卷】</option>
-                                </select>
-                            </div>
-                            <script>
-                                $('#coupon').bind('change',function() {
-                                    console.log($(this).val());
-                                })
-                            </script>
-                            <div class="info-line">优惠活动：<span class="c6">无</span></div>
-                            <div class="info-line">运费：<span class="c6">¥0.00</span></div>
-                            <div class="info-line"><span class="favour-value">已优惠 ¥0</span>合计：<b class="fz18 cr">¥0</b></div>
-                            <div class="info-line fz12 c9">（可获 <span class="c6">20</span> 积分）</div>
+                        
+                            <div class="info-line">合计：<b class="fz18 cr crr">¥0</b></div>
                         </div>
                     </div>
-                    <div class="shop-title">确认订单</div>
-                 
                     <div class="user-form-group shopcart-submit">
                         <button type="submit" class="btn">继续支付</button>
                     </div>
@@ -113,23 +93,25 @@
             </div>
         </section>
     </div>
-    <!-- 右侧菜单 -->
-    <div class="right-nav">
+@endsection
+@section('shopcart')
+<div class="right-nav">
         <ul class="r-with-gotop">
             <li class="r-toolbar-item">
-                <a href="udai_welcome.html" class="r-item-hd">
-                    <i class="iconfont icon-user" data-badge="0"></i>
+                <a href="/home/user_welcome" class="r-item-hd">
+
+                    <i class="iconfont icon-user"></i>
                     <div class="r-tip__box"><span class="r-tip-text">用户中心</span></div>
                 </a>
             </li>
             <li class="r-toolbar-item">
-                <a href="udai_shopcart.html" class="r-item-hd">
-                    <i class="iconfont icon-cart"></i>
+                <a href="/home/udai_shopcart" class="r-item-hd">
+                    <i class="iconfont icon-cart" data-badge="{{$numm}}"></i>
                     <div class="r-tip__box"><span class="r-tip-text">购物车</span></div>
                 </a>
             </li>
             <li class="r-toolbar-item">
-                <a href="udai_collection.html" class="r-item-hd">
+                <a href="" class="r-item-hd">
                     <i class="iconfont icon-aixin"></i>
                     <div class="r-tip__box"><span class="r-tip-text">我的收藏</span></div>
                 </a>
@@ -151,11 +133,8 @@
                 <div class="r-tip__box"><span class="r-tip-text">返回顶部</span></div>
             </li>
         </ul>
-        <script>
-          
-        </script>
     </div>
-
+ 
 @endsection
 
 @section('js')
@@ -171,7 +150,7 @@
         
        sum += Number($(price[i]).text().substring(1))
    }  
-   $('.cr').html(sum);
+   $('.crr').html(sum);
 $('.default').click(function() {
     if($(this).data('acquiescent') == 0) {
         var id = $(this).data('id')

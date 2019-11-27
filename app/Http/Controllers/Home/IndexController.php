@@ -26,23 +26,16 @@ class IndexController extends Controller
         $types = new Types;
         $str = $types->select();
 
-        //查出用户的购物车
+        //查出用户的购物车里有多少个商品
         $id = session('UserInfo')['id'];
-        $shopcart = DB::table('shop_cars')->where('uid','=',$id)->get();
-        //计算用户的购物车总共有多少个商品
-        $num = 0;
-        foreach ($shopcart as $v) {
-            $shu = intval($v->commod);
-            $num += $shu;
-        }
+        $shopcart = DB::table('shop_cars')->where('uid','=',$id)->where('selected','=','0')->count();
         
 
         return view('Home/main',[
             'res' => $res,
             'arr' => $arr,
             'str' => $str,
-            'num' => $num
-
+            'num' => $shopcart
         ]);
     }
 

@@ -37,8 +37,7 @@ class Orders extends Model
          return $this->where('status',$sta)->where('username','like','%'.$text.'%')->paginate();
  
        }
-
-      
+  
     }
  
     public function nickname()

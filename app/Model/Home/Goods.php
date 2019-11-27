@@ -42,9 +42,10 @@ class Goods extends Model
         return $res;
     }
     //goods_list的搜索
-    public function search($name)
+    public function search()
     {
-        $res = $this->where('name','like','%'. $name .'%')->where('status','=',0)->paginate(8);
+        $name = $_GET['name'];
+        $res = $this->where('name','like','%'. $name .'%')->where('status','=',0)->get();
         if($res->first()){
             foreach ($res as $k => $v) {
                 $img = DB::table('imgs')->where('goods_id','=',$v->id)->get();

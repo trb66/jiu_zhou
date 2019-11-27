@@ -20,19 +20,22 @@ class GoodsController extends Controller
 
         //查出当前3级分类
         $type = Types::where('id','=',$id)->first();
-        // dd($type);
+
+        $id = session('UserInfo')['id'];
+        $shopcart = DB::table('shop_cars')->where('uid','=',$id)->count();
+
         return view('Home/goods_list',[
             'list' => $list,
             'count' => $count,
             'type' => $type,
-
+            'num' => $shopcart
         ]);
     }
     //搜索
     public function search()
     {
         $model = new Goods;
-        $list = $model->search($_GET['name']);
+        $list = $model->search();
 
         return view('Home/goods_search',[
             'list' => $list

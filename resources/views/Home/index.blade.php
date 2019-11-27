@@ -14,9 +14,7 @@
     <script src="/Home/js/bootstrap.min.js" charset="UTF-8"></script>
     <script src="/Home/js/swiper.min.js" charset="UTF-8"></script>
     <script src="/Home/js/global.js" charset="UTF-8"></script>
-
     <script src="/Home/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
-
     @yield('css')
 
 </head>
@@ -60,20 +58,6 @@
                     </span>
                 </form>
                 @show
-                <p class="help-block text-nowrap">
-                    <a href="">连衣裙</a>
-                    <a href="">裤</a>
-                    <a href="">衬衫</a>
-                    <a href="">T恤</a>
-                    <a href="">女包</a>
-                    <a href="">家居</a>
-                </p>
-            </div>
-
-            <div class="cart-box">
-                <a href="/home/udai_shopcart" class="cart-but">
-                    <i class="iconfont icon-shopcart cr fz16"></i> 购物车 0 件
-                </a>
             </div>
 
          @show 

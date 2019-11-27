@@ -30,8 +30,10 @@ class LunboController extends Controller
     {
         $this->validate($request,[
             'name' => 'required',
+            'pic' => 'required'
         ],[
-            'name.required' => '轮播名不能为空'
+            'name.required' => '轮播名不能为空',
+            'pic.required' => '图片不能为空'
         ]);
 
         $model = new Slideshows();
@@ -63,8 +65,10 @@ class LunboController extends Controller
     {
         $this->validate($request,[
             'name' => 'required',
+            'pic' => 'required'
         ],[
-            'name.required' => '轮播名不能为空'
+            'name.required' => '轮播名不能为空',
+            'pic.required' => '图片不能为空'
         ]);
 
         $model = new Slideshows();

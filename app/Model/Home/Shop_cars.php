@@ -14,8 +14,6 @@ class Shop_cars extends Model
 
        return $cars = $this->where('uid', $uid)->where('selected', 0)->get();
 
-       // dump($cars);
-
     }
 
 
