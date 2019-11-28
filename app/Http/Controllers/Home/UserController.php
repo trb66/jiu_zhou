@@ -8,7 +8,7 @@ use App\Model\Admin\Users;
 use App\Model\Admin\Users_infos;
 use App\Model\Admin\Addrs;
 use App\Model\Admin\Collects;
-use App\Model\Admin\Goods;
+use App\Model\Home\Goods;
 use App\Model\Admin\Imgs;
 use App\Model\Admin\Comments;
 use App\Model\Admin\Orders;

@@ -93,7 +93,7 @@
                                             <!--不同状态订单-->
                                             <div class="order-status3">
                                                 <div class="order-title">
-                                                    <div class="dd-num">订单编号：<a href="javascript:;">{{ $v->id }}</a></div>
+                                                    <div class="dd-num">订单编号：<a href="javascript:;">{{ $v->orders }}</a></div>
                                                     <span>成交时间：{{ $v->created_at }}</span>
                                                 </div>
                                                 <div class="order-content">
@@ -190,7 +190,7 @@
                                                             </li>
                                                             <li class="td td-change">
                                                                 @if($v->status == 0)
-                                                                    <div class="am-btn am-btn-danger anniu">
+                                                                    <div class="am-btn am-btn-danger anniu pay" data-id="{{$v->id}}">
                                                                         一键支付
                                                                     </div>
                                                                 @elseif($v->status == 1)
@@ -262,7 +262,7 @@
                                             <!--不同状态订单-->
                                             <div class="order-status3">
                                                 <div class="order-title">
-                                                    <div class="dd-num">订单编号：<a href="javascript:;">{{ $v->id }}</a></div>
+                                                    <div class="dd-num">订单编号：<a href="javascript:;">{{ $v->orders }}</a></div>
                                                     <span>成交时间：{{ $v->created_at }}</span>
                                                 </div>
                                                 <div class="order-content">
@@ -379,7 +379,7 @@
                                             <!--不同状态订单-->
                                             <div class="order-status3">
                                                 <div class="order-title">
-                                                    <div class="dd-num">订单编号：<a href="javascript:;">{{ $v->id }}</a></div>
+                                                    <div class="dd-num">订单编号：<a href="javascript:;">{{ $v->orders }}</a></div>
                                                     <span>成交时间：{{ $v->created_at }}</span>
                                                 </div>
                                                 <div class="order-content">
@@ -495,7 +495,7 @@
                                             <!--不同状态订单-->
                                             <div class="order-status3">
                                                 <div class="order-title">
-                                                    <div class="dd-num">订单编号：<a href="javascript:;">{{ $v->id }}</a></div>
+                                                    <div class="dd-num">订单编号：<a href="javascript:;">{{ $v->orders }}</a></div>
                                                     <span>成交时间：{{ $v->created_at }}</span>
                                                 </div>
                                                 <div class="order-content">
@@ -612,7 +612,7 @@
                                             <!--不同状态订单-->
                                             <div class="order-status3">
                                                 <div class="order-title">
-                                                    <div class="dd-num">订单编号：<a href="javascript:;">{{ $v->id }}</a></div>
+                                                    <div class="dd-num">订单编号：<a href="javascript:;">{{ $v->orders }}</a></div>
                                                     <span>成交时间：{{ $v->created_at }}</span>
                                                 </div>
                                                 <div class="order-content">
@@ -780,6 +780,11 @@
             }
 
         }
+ $('.pay').click(function(){
+    var id = $(this).data('id')
+    location.href = '/home/aaa?id='+id; //支付
 
+
+})
     </script>
 @endsection
