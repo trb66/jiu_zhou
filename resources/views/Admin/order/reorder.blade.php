@@ -21,7 +21,8 @@
             </div>
         </div>
         <div class="widget-body am-fr">
-
+        <div class="am-alert show" style="display:none;background-color: red"></div>
+            
             <form class="am-form tpl-form-border-form tpl-form-border-br">
                 <input type="hidden" name="id" value="{{$order['id']}}">
                 <div class="am-form-group">
@@ -103,24 +104,26 @@
           }
        
      })
-     
-
-       $('#addrinfo').focus(function(){
-      
-        $('#addr').html('<b>请输入详细地址</b>');
-          
-     })
-
-     $('#addrinfo').blur(function() {
+      $('#addrinfo').blur(function() {
         
-         var addrinfo =  $('#addrinfo').val();
-          if(addrinfo == '') {
-                $('#addr').empty();
-                $('#addr').append('<div class="alert alert-danger" role="alert">详细地址不能留空</div>');
-                return false;   
-            }
+         let addrinfo =  $('#addrinfo').val();
+         let ress = /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
+          
+          if ($('#addrinfo').val() == '') {
+            $('#addr').html('<b style="color:red">详细地址不能为空！</b>');
+            
+          } else {
+             if (ress.test(addrinfo)) {
+               $('#addrinfo').css('border','1px solid green');
+               $('#addr').html('<b></b>');
+             } else {
+               $('#addr').html('<b style="color:red">地址格式不正确</b>'); 
+             }
+          }
        
      })
+
+       
 
      $('.edit').click(function(){
         var id = $('input[name=id]').val();
@@ -146,11 +149,13 @@
             data: {
                 id:id,
                 phone:phone,
+                addrinfo:addrinfo,
                 address:address,
+
            
             },
             success: function(res) {
-          
+              
    
              location.href = '/admin/order';   
        
@@ -158,6 +163,15 @@
                     
             },
             error: function (err) {
+
+                 if(err){
+                       let errs = err.responseJSON.errors
+                        for( e in errs) {
+                            $('.show').css('display','block');
+                            $('<p>'+ errs[e][0] +'</p>').appendTo('.show');
+                        }
+                   }
+
                 if (err.responseJSON.code == 1) {
 
                 alert(err.responseJSON.msg);

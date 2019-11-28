@@ -62,15 +62,41 @@ class OrderController extends Controller
       
     //发货
     public function fahuo(Request $request)
-    { 
+    {  
+
+       $this->validate($request,[
+
+              'log' => [
+              'required',
+              'regex:/^[\x{4E00}-\x{9FA5}]{4,6}$/u'
+          ],
+
+               'lognum' => [
+              'required',
+              'regex:/^[0-9]{9,15}$/u'
+               
+
+          ],
+
+        ],[
+                'required' => ':attribute 不能为空',
+                'log.regex' => '物流公司名称必须是4~6个字符之内',
+                'lognum.regex' => '订单号必须为9~15的数字',
+
+       ],[
+                'log' => '物流公司',
+                'lognum' => '订单号',
+        
+
+        ]);
 
       $id = $request->input('id');
       $log = $request->input('log');
       $lognum = $request->input('lognum');
-    	
+      
 
        $data = [
-       	 'oid'=> $id,
+         'oid'=> $id,
          'express_name' => $log,
          'express' => $lognum,
        ];
@@ -120,8 +146,39 @@ class OrderController extends Controller
 
     return view('Admin/order.reorder',['order'=>$order,'status'=>$status]);
    }
+
+
    public function edit(Request $request)
-   {   
+   {  
+
+      $this->validate($request,[
+
+              'phone' => [
+                'required',
+                'regex:/^1[3456789]\d{9}$/',
+          ],
+
+              'addrinfo' => [
+              'required',
+              'regex:/^[\x{4E00}-\x{9FA5}A-Za-z0-9_]+$/u',
+                             
+
+          ],
+
+        ],[
+                'required' => ':attribute 不能为空',
+                'phone.regex' => '手机号格式不正确',
+                'addrinfo.regex' => '地址详情格式不正确',
+
+        ],[
+                'phone' => '手机号',
+                'addrinfo' => '地址详情',
+        
+
+        ]);
+
+
+
      $id = $request->input('id');
       
     $data = [

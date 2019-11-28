@@ -63,7 +63,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                   	@foreach($orders as $o)                                      
+                    @foreach($orders as $o)                                      
                         <tr class="gradeX">
                             <td>{{$o['id']}}</td>
                             <td>{{$o['username']}}</td>
@@ -97,8 +97,10 @@
                                     </a>
                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
                                           <div class="modal-dialog" role="document">
+
                                             <div class="modal-content">
                                               <div class="modal-header">
+                                                <div class="am-alert show" style="display:none;background-color: red"></div>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 <h4 class="modal-title" id="exampleModalLabel">填写物流信息</h4>
                                               </div>
@@ -107,10 +109,13 @@
                                                   <div class="form-group">
                                                     <label for="recipient-name" class="control-label">物流公司:</label>
                                                     <input type="text" class="form-control" id="recipient-name">
+                                                    <span id="reminder"></span>
+
                                                   </div>
                                                   <div class="form-group">
                                                     <label for="message-text" class="control-label">订单号:</label>
-                                                    <input type="text" class="form-control" id="message-text"></textarea>
+                                                    <input type="text" class="form-control" id="message-text">
+                                                    <span id="reminders"></span>
                                                   </div>
                                                 </form>
                                               </div>
@@ -192,16 +197,50 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   var modal = $(this)
   
 })
+$('#message-text').blur(function(){
 
-    function fahuo(sta) {
+   let lognum =  $('#message-text').val();
+   let res = /^[0-9]{9,15}$/;
+          
+      if ($('#message-text').val() == '') {
+          $('#reminders').html('<b style="color:red">订单号不能为空！</b>');
+            
+        } else {
+           if (res.test(lognum)) {
+               $('#message-text').css('border','1px solid green');
+               $('#reminders').html('<b></b>');
+             } else {
+               $('#reminders').html('<b style="color:red">订单号格式不正确</b>'); 
+                return false;   
+
+             }
+          }
+
+})
+$('#recipient-name').blur(function(){
+
+   let lognum =  $('#recipient-name').val();
+   let res = /^[\u4e00-\u9fa5]{4,6}$/;
+          
+      if ($('#recipient-name').val() == '') {
+          $('#reminder').html('<b style="color:red">物流公司不能为空！</b>');
+            
+        } else {
+           if (res.test(lognum)) {
+               $('#recipient-name').css('border','1px solid green');
+               $('#reminder').html('<b></b>');
+             } else {
+               $('#reminder').html('<b style="color:red">物流公司格式不正确</b>');
+                return false;   
+
+             }
+          }
+
+})
+   function fahuo(sta) {
      var id = $(sta).data('id')
      var log = $('#recipient-name').val()
      var lognum = $('#message-text').val()
-
-     if (log == '' || lognum == '')
-     {
-       alert('请填写正规的物流信息')
-     }
      $.ajaxSetup({
             headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
             });
@@ -218,7 +257,13 @@ $('#exampleModal').on('show.bs.modal', function (event) {
                
             },
             error: function (err) {
-                      
+               if(err){
+                   let errs = err.responseJSON.errors
+                    for( e in errs) {
+                        $('.show').css('display','block');
+                        $('<p>'+ errs[e][0] +'</p>').appendTo('.show');
+                    }
+               }     
             
             }
         })
